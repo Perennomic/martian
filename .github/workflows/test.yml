@@ -1,8 +1,6 @@
-name:
-  Test
+name: Test
 
-on:
-  push
+on: push
 
 permissions:
   contents: read
@@ -14,78 +12,78 @@ jobs:
       matrix:
         py: ["3.8"]
         pylint: ["==2.9.6"]
-        go: [ "1.23" ]
+        go: ["1.24"]
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.py }}
-    - name: Install pylint
-      run: pip install --user pylint${{ matrix.pylint }}
-    - name: pylint
-      run: |
-        pylint adapters/python/martian_shell.py
-        pylint adapters/python/martian.py
-        pylint test/martian_test.py
-    - uses: actions/setup-go@v5
-      with:
-        go-version: ${{ matrix.go }}
-    - uses: actions/setup-node@v4
-      with:
-        node-version: "18"
-        cache: "npm"
-        cache-dependency-path: |
-          web/martian/yarn.lock
-          tools/syntax/vscode/yarn.lock
-    - name: make all
-      run: make all tarball
-    - name: darwin build
-      run: GOOS=darwin go build ./cmd/...
-    - name: Integration tests
-      run: make longtests
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.py }}
+      - name: Install pylint
+        run: pip install --user pylint${{ matrix.pylint }}
+      - name: pylint
+        run: |
+          pylint adapters/python/martian_shell.py
+          pylint adapters/python/martian.py
+          pylint test/martian_test.py
+      - uses: actions/setup-go@v6
+        with:
+          go-version: ${{ matrix.go }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+          cache-dependency-path: |
+            web/martian/yarn.lock
+            tools/syntax/vscode/yarn.lock
+      - name: make all
+        run: make all tarball
+      - name: darwin build
+        run: GOOS=darwin go build ./cmd/...
+      - name: Integration tests
+        run: make longtests
 
   bazel:
     runs-on: ubuntu-latest
     env:
       USE_BAZEL_VERSION: 7.5.0
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
-      with:
-        python-version: "3.10"
-    - uses: actions/setup-go@v5
-      id: setup_go
-      with:
-        go-version: "1.24"
-    - name: Show bazel variables
-      run: |
-        bazel info
-        echo "bazel_repository_cache=$(bazel info repository_cache)" >> $GITHUB_ENV
-        echo "bazel_output_base=$(bazel info output_base)" >> $GITHUB_ENV
-    - name: Cache bazel build of external repositories
-      uses: actions/cache@v4
-      with:
-        path: |
-          ${{ env.bazel_output_base }}/external
-        key: bazel-build-cache-${{steps.setup_go.outputs.go-version}}-${{hashFiles('deps.bzl', 'WORKSPACE')}}
-        restore-keys: |
-          bazel-build-cache-${{steps.setup_go.outputs.go-version}}
-    - name: Cache bazel external repositories
-      uses: actions/cache@v4
-      with:
-        path: |
-          ${{ env.bazel_repository_cache }}
-        key: bazel-repo-cache-${{hashFiles('deps.bzl', 'WORKSPACE', 'web/martian/yarn.lock')}}
-        restore-keys: |
-          bazel-repo-cache-
-    - name: test
-      run: |
-        bazel test --nobuild_tests_only \
-                   --verbose_failures \
-                   --discard_analysis_cache \
-                   --notrack_incremental_state \
-                   --nokeep_state_after_build \
-                   --enable_workspace \
-                   //...
-    - name: Show build timing summary
-      run: bazel analyze-profile ${{ env.bazel_output_base }}/command.profile.gz
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - uses: actions/setup-go@v6
+        id: setup_go
+        with:
+          go-version: "1.24"
+      - name: Show bazel variables
+        run: |
+          bazel info
+          echo "bazel_repository_cache=$(bazel info repository_cache)" >> $GITHUB_ENV
+          echo "bazel_output_base=$(bazel info output_base)" >> $GITHUB_ENV
+      - name: Cache bazel build of external repositories
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ env.bazel_output_base }}/external
+          key: bazel-build-cache-${{steps.setup_go.outputs.go-version}}-${{hashFiles('deps.bzl', 'WORKSPACE')}}
+          restore-keys: |
+            bazel-build-cache-${{steps.setup_go.outputs.go-version}}
+      - name: Cache bazel external repositories
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ env.bazel_repository_cache }}
+          key: bazel-repo-cache-${{hashFiles('deps.bzl', 'WORKSPACE', 'web/martian/yarn.lock')}}
+          restore-keys: |
+            bazel-repo-cache-
+      - name: test
+        run: |
+          bazel test --nobuild_tests_only \
+                     --verbose_failures \
+                     --discard_analysis_cache \
+                     --notrack_incremental_state \
+                     --nokeep_state_after_build \
+                     --enable_workspace \
+                     //...
+      - name: Show build timing summary
+        run: bazel analyze-profile ${{ env.bazel_output_base }}/command.profile.gz

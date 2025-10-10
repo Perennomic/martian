@@ -1,5 +1,4 @@
-name:
-  Release
+name: Release
 
 on:
   release:
@@ -8,47 +7,47 @@ on:
 permissions:
   attestations: write
   contents: write
-  id-token: write  # required for attestation
+  id-token: write # required for attestation
 
 jobs:
   build:
     # Do not use latest, because we don't want to link against too new a glibc.
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-go@v5
-      with:
-        go-version: ">=1.23"
-    - uses: actions/setup-node@v4
-      with:
-        node-version: "lts/*"
-        cache: "npm"
-        cache-dependency-path: |
-          web/martian/yarn.lock
-    - name: build
-      run: make tarball
-    - name: compute tarball prefix
-      run: |
-        echo TARBALL_PREFIX=martian-${{ github.event.release.tag_name }}-$(uname -is | tr "A-Z " "a-z-").tar >> $GITHUB_ENV
-    - name: Attest Build Provenance
-      uses: actions/attest-build-provenance@v2
-      with:
-        subject-path: "${{ env.TARBALL_PREFIX }}.*"
-    - name: upload xz
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ./${{ env.TARBALL_PREFIX }}.xz
-        asset_name: ${{ env.TARBALL_PREFIX }}.xz
-        asset_content_type: application/x-gtar
-    - name: upload gzip
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ./${{ env.TARBALL_PREFIX }}.gz
-        asset_name: ${{ env.TARBALL_PREFIX }}.gz
-        asset_content_type: application/x-gtar
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version: ">=1.24"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: "npm"
+          cache-dependency-path: |
+            web/martian/yarn.lock
+      - name: build
+        run: make tarball
+      - name: compute tarball prefix
+        run: |
+          echo TARBALL_PREFIX=martian-${{ github.event.release.tag_name }}-$(uname -is | tr "A-Z " "a-z-").tar >> $GITHUB_ENV
+      - name: Attest Build Provenance
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: "${{ env.TARBALL_PREFIX }}.*"
+      - name: upload xz
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./${{ env.TARBALL_PREFIX }}.xz
+          asset_name: ${{ env.TARBALL_PREFIX }}.xz
+          asset_content_type: application/x-gtar
+      - name: upload gzip
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./${{ env.TARBALL_PREFIX }}.gz
+          asset_name: ${{ env.TARBALL_PREFIX }}.gz
+          asset_content_type: application/x-gtar
