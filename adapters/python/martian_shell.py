@@ -2,7 +2,7 @@
 #
 # Copyright (c) 2014 10X Genomics, Inc. All rights reserved.
 #
-
+# pylint: disable=consider-using-f-string,unspecified-encoding
 """Martian stage code wrapper.
 
 This module contains infrastructure to load python stage code, possibly
@@ -32,7 +32,6 @@ except ImportError:
     pass
 
 import martian
-
 
 def _ensure_binary(string):
     # type: (...) -> bytes

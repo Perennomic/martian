@@ -101,7 +101,7 @@ Traceback (most recent call last):
     self._run(lambda: self._module.main(args, outs))
   File "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/stage/__init__.py", line 47, in main
     martian.throw("resource temporarily unavailable")
-  File "/mnt/home/chris.macklin/martian-public/adapters/python/martian.py", line 322, in throw
+  File "/Users/testuser/martian/adapters/python/martian.py", line 322, in throw
     raise StageException(message)
 martian.StageException: resource temporarily unavailable
 
@@ -135,7 +135,7 @@ Traceback (most recent call last):
     self._run(lambda: self._module.main(args, outs))
   File "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/stage/__init__.py", line 47, in main
     martian.throw("resource temporarily unavailable")
-  File "/mnt/home/chris.macklin/martian-public/adapters/python/martian.py", line 322, in throw
+  File "/Users/testuser/martian/adapters/python/martian.py", line 322, in throw
     raise StageException(message)
 martian.StageException: resource temporarily unavailable
 
@@ -172,7 +172,7 @@ Traceback (most recent call last):
     self._run(lambda: self._module.main(args, outs))
   File "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/stage/__init__.py", line 47, in main
     martian.throw("resource temporarily unavailable")
-  File "/mnt/home/chris.macklin/martian-public/adapters/python/martian.py", line 322, in throw
+  File "/Users/testuser/martian/adapters/python/martian.py", line 322, in throw
     raise StageException(message)
 martian.StageException: resource temporarily unavailable
 

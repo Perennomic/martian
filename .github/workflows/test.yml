@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        py: ["3.8"]
-        pylint: ["==2.9.6"]
+        py: ["3.10"]
+        pylint: ["==3.3.9"]
         go: ["1.24"]
     steps:
       - uses: actions/checkout@v5

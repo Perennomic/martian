@@ -4,7 +4,7 @@
 #
 
 # This pylint disagrees with black's formatting.
-# pylint: disable=bad-option-value, bad-continuation
+# pylint: disable=bad-option-value, bad-continuation, consider-using-f-string, broad-exception-raised
 
 
 """Script to run a test script and compare the output to an expected result.
@@ -164,7 +164,6 @@ def check_exists_file(output, expect, filename, reverse=False):
             report_missing("file", output, expect, filename, reverse)
             return False
     return True
-
 
 def check_exists(output, expect, filename, reverse=False):
     """Checks that a given file, directory, or link in the expected directory
@@ -597,7 +596,15 @@ def main(argv):
         "Running %s in %s.\n"
         % (" ".join(config["command"]), config["work_dir"])
     )
-    return_code = subprocess.call(config["command"], cwd=config["work_dir"])
+
+    # Make sure child Python processes use the same interpreter as this script.
+    env = os.environ.copy()
+    python_dir = os.path.dirname(sys.executable)
+    path = env["PATH"]
+    env["PATH"] = f"{python_dir}{os.pathsep}{path}"
+
+
+    return_code = subprocess.call(config["command"], cwd=config["work_dir"], env=env)
     if "expected_return" in config:
         if return_code != config["expected_return"]:
             sys.stderr.write("Command returned %d\n" % return_code)

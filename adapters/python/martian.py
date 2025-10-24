@@ -168,7 +168,7 @@ else:
     child_preexec_set_pdeathsig = None  # pylint: disable=invalid-name
 
 
-# pylint: disable=invalid-name,too-many-arguments
+# pylint: disable=invalid-name,too-many-arguments,too-many-positional-arguments
 def Popen(
     args,
     bufsize=0,
