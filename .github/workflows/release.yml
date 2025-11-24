@@ -14,7 +14,7 @@ jobs:
     # Do not use latest, because we don't want to link against too new a glibc.
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: actions/setup-go@v6
         with:
           go-version: ">=1.24"
