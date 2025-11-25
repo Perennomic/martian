@@ -55,7 +55,7 @@ func loggedEnvs(s string) bool {
 }
 
 // List of environment variable prefixes which might be useful in debugging.
-// These are accepted for variables of the form "KEY_*"
+// These are accepted for variables of the form "KEY_*".
 func loggedEnvPrefix(s string) bool {
 	switch s {
 	case "BASH",

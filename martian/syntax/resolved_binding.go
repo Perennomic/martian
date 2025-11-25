@@ -5,7 +5,7 @@
 package syntax
 
 import (
-	"fmt"
+	"errors"
 	"sort"
 	"strings"
 )
@@ -107,7 +107,7 @@ func resolveExp(exp Exp, tname TypeId, self, siblings map[string]*ResolvedBindin
 	lookup *TypeLookup) (*ResolvedBinding, error) {
 	t := lookup.Get(tname)
 	if t == nil {
-		return nil, fmt.Errorf("unknown type " + tname.String())
+		return nil, errors.New("unknown type " + tname.String())
 	}
 	rexp, err := exp.resolveRefs(self, siblings, lookup)
 	if err != nil {

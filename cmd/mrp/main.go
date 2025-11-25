@@ -34,22 +34,22 @@ import (
 // We need to be able to recreate pipestances and share the new pipestance
 // object between the runloop and the UI.
 type pipestanceHolder struct {
-	pipestance       *core.Pipestance
+	lastRegister     time.Time
+	lastLogCheck     time.Time
 	factory          core.PipestanceFactory
 	info             *api.PipestanceInfo
-	maxRetries       int
-	remainingRetries int
+	pipestance       *core.Pipestance
+	server           *http.Server
 	authKey          string
-	enableUI         bool
-	showedFailed     bool
-	lastRegister     time.Time
+	remainingRetries int
+	retryWait        time.Duration
+	maxRetries       int
 	cleanupLock      sync.Mutex
 	lock             sync.Mutex
+	showedFailed     bool
 	readOnly         bool
 	https            bool
-	retryWait        time.Duration
-	server           *http.Server
-	lastLogCheck     time.Time
+	enableUI         bool
 }
 
 func (self *pipestanceHolder) getPipestance() *core.Pipestance {

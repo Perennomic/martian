@@ -17,6 +17,7 @@ import (
 	"path/filepath"
 
 	"github.com/martian-lang/docopt.go"
+
 	"github.com/martian-lang/martian/martian/core"
 	"github.com/martian-lang/martian/martian/util"
 )

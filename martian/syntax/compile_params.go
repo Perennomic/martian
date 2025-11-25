@@ -381,13 +381,14 @@ func (bindings *BindStms) compileWildcard(binding *BindStm,
 		t := global.TypeTable.Get(tid)
 		if t == nil {
 			return global.err(ref,
-				"TypeError: unknown type for wildcard binding: "+tid.Tname)
+				"TypeError: unknown type for wildcard binding: %s",
+				tid.Tname)
 		}
 		s, ok := t.(*StructType)
 		if !ok {
 			return global.err(ref,
-				"TypeError: wildcard binding must be a reference to a struct, but was a "+
-					tid.Tname)
+				"TypeError: wildcard binding must be a reference to a struct, but was a %s",
+				tid.Tname)
 		}
 		fakeBindings := make([]BindStm, len(s.Members))
 		for i, m := range s.Members {
@@ -464,9 +465,9 @@ func (binding *BindStm) compileParam(global *Ast, pipeline *Pipeline, param Para
 	binding.Tname = param.GetTname()
 	t := global.TypeTable.Get(binding.Tname)
 	if t == nil {
-		return global.err(binding, fmt.Sprintf(
+		return global.err(binding,
 			"BindingError: invalid type %q for parameter %q",
-			binding.Tname, binding.Id))
+			binding.Tname, binding.Id)
 	}
 	if err := t.IsValidExpression(binding.Exp, pipeline, global); err != nil {
 		if !binding.rewriteToDefaultOutput(global, pipeline, t) {

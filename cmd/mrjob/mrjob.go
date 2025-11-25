@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/google/shlex"
+
 	"github.com/martian-lang/martian/martian/core"
 	"github.com/martian-lang/martian/martian/util"
 )
@@ -33,18 +34,18 @@ const MemorySampleInterval = time.Second * 5
 const MonitorMemorySampleInterval = time.Second * 1
 
 type runner struct {
+	start       time.Time
 	job         *exec.Cmd
 	log         *os.File
 	errorReader *os.File
-	highMem     core.ObservedMemory
 	ioStats     *core.IoStatsBuilder
 	metadata    *core.Metadata
-	runType     string
 	jobInfo     *core.JobInfo
-	monitoring  bool
-	start       time.Time
 	isDone      chan struct{}
 	perfDone    <-chan struct{}
+	runType     string
+	highMem     core.ObservedMemory
+	monitoring  bool
 }
 
 func main() {

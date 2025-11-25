@@ -33,9 +33,9 @@ func GetFilesListing(psdir string) (*FilesListing, error) {
 	} else {
 		files := make([]string, 0, len(allfiles))
 		for _, f := range allfiles {
-			if len(f) > len(core.MetadataFilePrefix) && strings.HasPrefix(f, core.MetadataFilePrefix) {
-				if mdf := core.MetadataFileName(strings.TrimPrefix(f, core.MetadataFilePrefix)); fileOnWhitelist(mdf) {
-					files = append(files, string(mdf))
+			if mdf, found := strings.CutPrefix(f, core.MetadataFilePrefix); found {
+				if fileOnWhitelist(core.MetadataFileName(mdf)) {
+					files = append(files, mdf)
 				}
 			}
 		}

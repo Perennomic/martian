@@ -26,7 +26,7 @@ func (callables *Callables) compile(global *Ast) error {
 				node.Loc.writeTo(&msg, "      ")
 				msg.WriteRune('\n')
 			}
-			errs = append(errs, global.err(callable, msg.String()))
+			errs = append(errs, global.err(callable, "%s", msg.String()))
 		} else {
 			callables.Table[callable.GetId()] = callable
 		}

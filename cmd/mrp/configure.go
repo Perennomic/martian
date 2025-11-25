@@ -24,25 +24,26 @@ import (
 )
 
 type mrpConfiguration struct {
-	psid           string
+	cert           *tls.Config
 	invocationPath string
 	pipestancePath string
-	tags           []string
-	readOnly       bool
-	retries        int
-	retryWait      time.Duration
-	enableUI       bool
-	config         core.RuntimeOptions
-	mroPaths       []string
-	mroVersion     string
-	uiport         string
 	authKey        string
+	uiport         string
+	mroVersion     string
+	psid           string
+	mroPaths       []string
+	tags           []string
+	config         core.RuntimeOptions
+	retryWait      time.Duration
+	retries        int
+	enableUI       bool
 	requireAuth    bool
 	noExit         bool
-	cert           *tls.Config
+	readOnly       bool
 }
 
-func parseMroFlags(opts map[string]interface{}, doc string, martianOptions []string, martianArguments []string) {
+func parseMroFlags(opts map[string]interface{}, doc string,
+	martianOptions []string, martianArguments []string) {
 	// Parse doc string for accepted arguments
 	// All accepted arguments start with `--` and contain only lowercase
 	// letters and dashes.
@@ -366,7 +367,6 @@ Options:
 		if err != nil {
 			util.PrintError(err, "startup", "Failed to parse overrides file")
 			os.Exit(1)
-
 		}
 	}
 

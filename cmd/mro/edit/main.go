@@ -10,7 +10,7 @@ package edit
 import (
 	"flag"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"path/filepath"
 	"sort"
@@ -21,7 +21,7 @@ import (
 	"github.com/martian-lang/martian/martian/util"
 )
 
-// stringListValue wraps a refactoring.StringSet to implement flag.Value
+// stringListValue wraps a refactoring.StringSet to implement flag.Value.
 type stringListValue struct {
 	set *refactoring.StringSet
 }
@@ -151,7 +151,7 @@ func Main(argv []string) int {
 
 	if edit != nil {
 		for i, fname := range flags.Args() {
-			editFile(fileBytes[i], fname, mroPaths, edit, rewrite, &parser)
+			editFile(fileBytes[i], fname, edit, rewrite, &parser)
 		}
 	}
 
@@ -228,10 +228,10 @@ func loadFiles(names, mroPaths []string, parser *syntax.Parser) ([][]byte, []*sy
 		var ast *syntax.Ast
 		var err error
 		if fname == "-" {
-			fileBytes[i], err = ioutil.ReadAll(os.Stdin)
+			fileBytes[i], err = io.ReadAll(os.Stdin)
 			fname = "standard input"
 		} else {
-			fileBytes[i], err = ioutil.ReadFile(fname)
+			fileBytes[i], err = os.ReadFile(fname)
 		}
 
 		if err != nil {
@@ -328,7 +328,7 @@ func validateParamRename(params refactoring.StringSet, flags *flag.FlagSet) []re
 	return result
 }
 
-func editFile(data []byte, filename string, mroPaths []string,
+func editFile(data []byte, filename string,
 	edit refactoring.Edit, rewrite bool, parser *syntax.Parser) {
 	ast, err := parser.UncheckedParse(data, filename)
 	if err != nil {
@@ -350,7 +350,7 @@ func editFile(data []byte, filename string, mroPaths []string,
 		if dir == "" {
 			dir = "."
 		}
-		f, err := ioutil.TempFile(dir, base)
+		f, err := os.CreateTemp(dir, base)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error opening temporary file for %s: %s\n",
 				filename, err.Error())

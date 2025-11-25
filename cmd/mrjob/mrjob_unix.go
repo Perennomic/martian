@@ -1,7 +1,6 @@
 // Copyright (c) 2017 10X Genomics, Inc. All rights reserved.
 
 //go:build !windows
-// +build !windows
 
 package main
 
@@ -15,8 +14,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/martian-lang/martian/martian/util"
 	"golang.org/x/sys/unix"
+
+	"github.com/martian-lang/martian/martian/util"
 )
 
 // Force the given file to sync.

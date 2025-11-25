@@ -23,6 +23,7 @@ import (
 	"strings"
 
 	"github.com/martian-lang/docopt.go"
+
 	"github.com/martian-lang/martian/martian/syntax"
 	"github.com/martian-lang/martian/martian/util"
 )

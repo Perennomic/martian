@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/dustin/go-humanize"
+
 	"github.com/martian-lang/martian/martian/core"
 	"github.com/martian-lang/martian/martian/util"
 )
@@ -82,11 +83,12 @@ func loopBody(pipestanceBox *pipestanceHolder,
 
 	// Check for completion states.
 	state := pipestance.GetState(ctx)
-	if state == core.Complete || state == core.DisabledState {
+	switch state {
+	case core.Complete, core.DisabledState:
 		pipestanceBox.UpdateState(state.Prefixed(core.CleanupPrefix))
 		cleanupCompleted(pipestance, pipestanceBox, vdrMode, noExit, ctx)
 		return false
-	} else if state == core.Failed {
+	case core.Failed:
 		if pipestanceBox.showedFailed {
 			pipestanceBox.UpdateState(state)
 		} else {
@@ -97,7 +99,7 @@ func loopBody(pipestanceBox *pipestanceHolder,
 			cleanupFailed(pipestance, pipestanceBox, noExit, ctx)
 		}
 		return false
-	} else {
+	default:
 		pipestanceBox.UpdateState(state)
 		// If we went from failed to something else, allow the failure message to
 		// be shown once if we fail again.

@@ -40,11 +40,12 @@ package adapter // import "github.com/martian-lang/martian/martian/adapter"
 
 import (
 	"fmt"
-	"github.com/martian-lang/martian/martian/core"
-	"github.com/martian-lang/martian/martian/util"
 	"os"
 	"path"
 	"runtime"
+
+	"github.com/martian-lang/martian/martian/core"
+	"github.com/martian-lang/martian/martian/util"
 )
 
 type stageAssertion struct {

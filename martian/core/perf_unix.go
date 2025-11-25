@@ -17,8 +17,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/martian-lang/martian/martian/util"
 	"golang.org/x/sys/unix"
+
+	"github.com/martian-lang/martian/martian/util"
 )
 
 func getRusage(who int) *Rusage {

@@ -65,18 +65,14 @@ func findWebRoot() string {
 }
 
 type mrpWebServer struct {
-	listener net.Listener
-
-	// True if authentication is required for read-only commands.
-	// Authentication is always required for write commands.
-	readAuth bool
-
+	startTime     time.Time
+	listener      net.Listener
 	rt            *core.Runtime
 	pipestanceBox *pipestanceHolder
 	webRoot       string
 	graphPage     []byte
-	startTime     time.Time
 	mutex         sync.Mutex
+	readAuth      bool
 }
 
 func (self *mrpWebServer) Start() {
@@ -340,7 +336,7 @@ func (self *mrpWebServer) getState(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-// Get pipestance performance data: disable API endpoint for release
+// Get pipestance performance data: disable API endpoint for release.
 func (self *mrpWebServer) getPerf(w http.ResponseWriter, req *http.Request) {
 	if self.readAuth && !self.verifyAuth(w, req) {
 		return

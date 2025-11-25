@@ -1,0 +1,75 @@
+# This file contains configuration values to use in the github action.
+# For local development you may or may not want somewhat different
+# options.
+
+version: "2"
+
+# options for analysis running
+run:
+  tests: true
+  modules-download-mode: readonly
+  allow-parallel-runners: true
+
+# all available settings of specific linters
+linters:
+  exclusions:
+    presets:
+      - std-error-handling
+  settings:
+    errcheck:
+      check-type-assertions: false
+      check-blank: false
+      exclude-functions:
+        - io.Copy(*bytes.Buffer)
+        - io.Copy(os.Stderr)
+        - (bytes.Buffer).Write
+        - (bytes.Buffer).WriteByte
+        - (bytes.Buffer).WriteRune
+        - (bytes.Buffer).WriteString
+        - fmt.Fprintln(os.Stderr)
+
+    govet:
+      enable-all: true
+      disable:
+        - shadow
+
+    lll:
+      line-length: 110
+      tab-width: 4
+    misspell:
+      locale: US
+      ignore-rules:
+        - lustre
+        - marsoc
+        - pipestance
+    unused:
+      exported-fields-are-used: true
+
+    staticcheck:
+      checks:
+        - "-ST1005" # error strings should not be capitalized
+        - "-ST1012" # error var should have name of the form ErrFoo
+  enable:
+    - godot
+    - lll
+    - prealloc
+    - misspell
+    - unconvert
+    - unparam
+    - unused
+    - whitespace
+  disable:
+    - errcheck
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  settings:
+    gofmt:
+      # simplify code: gofmt with `-s` option
+      simplify: true
+
+    goimports:
+      local-prefixes:
+      - github.com/martian-lang/martian

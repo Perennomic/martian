@@ -74,10 +74,7 @@ Options:
 	if value := os.Getenv("MROPATH"); len(value) > 0 {
 		mroPaths = util.ParseMroPath(value)
 	}
-	checkSrcPath := true
-	if opts["--no-check-src"].(bool) {
-		checkSrcPath = false
-	}
+	checkSrcPath := !opts["--no-check-src"].(bool)
 
 	// Setup strictness
 	syntax.SetEnforcementLevel(syntax.EnforceLog)

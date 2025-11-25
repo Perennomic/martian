@@ -64,7 +64,7 @@ func (st *StructType) compile(global *Ast) error {
 				node.Loc.writeTo(&msg, "      ")
 				msg.WriteRune('\n')
 			}
-			errs = append(errs, global.err(member, msg.String()))
+			errs = append(errs, global.err(member, "%s", msg.String()))
 		} else {
 			st.Table[member.Id] = member
 		}
@@ -96,13 +96,13 @@ func (member *StructMember) CacheIsFile(t Type) {
 
 func (member *StructMember) compile(st *StructType, global *Ast) error {
 	if member.Tname.Tname == st.Id {
-		return global.err(member, fmt.Sprintf(
+		return global.err(member,
 			"TypeError: field %q of struct type %q cannot be of type %q",
-			member.Id, st.Id, st.Id))
+			member.Id, st.Id, st.Id)
 	} else if t := global.TypeTable.Get(member.Tname); t == nil {
-		return global.err(member, fmt.Sprintf(
+		return global.err(member,
 			"TypeError: unknown type %q for parameter %q",
-			member.Tname.String(), member.Id))
+			member.Tname.String(), member.Id)
 	} else {
 		member.CacheIsFile(t)
 		switch member.isFile {
