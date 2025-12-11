@@ -1,7 +1,7 @@
 {
     "name": "ID.disable_pipeline_test.SUM_SQUARE_PIPELINE.REPORT.fork1.chnk0",
     "pid": 44050,
-    "host": "bespin1.fuzzplex.com",
+    "host": "localhost",
     "type": "local",
     "cwd": "/user/martian/test/split_test_go/disable_pipeline_test/SUM_SQUARE_PIPELINE/REPORT/fork1/chnk0-uaba31cb303/files",
     "python": {

@@ -40,6 +40,7 @@ const (
 	JobModeFile    MetadataFileName = "jobmode"
 	Lock           MetadataFileName = "lock"
 	LogFile        MetadataFileName = "log"
+	MemViolation   MetadataFileName = "mem_violation"
 	MetadataZip    MetadataFileName = "metadata.zip"
 	MroSourceFile  MetadataFileName = "mrosource"
 	OutsFile       MetadataFileName = "outs"
@@ -76,7 +77,7 @@ func (self MetadataFileName) FileName() string {
 func (self MetadataFileName) MimeType() string {
 	switch self {
 	case ArgsFile, OutsFile,
-		JobInfoFile,
+		JobInfoFile, MemViolation,
 		StageDefsFile, ChunkDefsFile, ChunkOutsFile,
 		VdrKill, PartialVdr, FinalState,
 		TagsFile, VersionsFile, Perf:

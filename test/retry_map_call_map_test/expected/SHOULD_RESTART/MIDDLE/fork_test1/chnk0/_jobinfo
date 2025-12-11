@@ -99,7 +99,7 @@
         "martian": "\u003cversion not embedded\u003e",
         "pipelines": "v4.0.11-29-g954ba393-dirty"
     },
-    "host": "bespin1.fuzzplex.com",
+    "host": "localhost",
     "pid": 779144,
     "threads": 1,
     "memGB": 1,

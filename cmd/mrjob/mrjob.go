@@ -213,6 +213,9 @@ func (self *runner) done() {
 		} else {
 			self.metadata.UpdateJournal(core.JobInfoFile)
 		}
+		if exceeded, maxRss := self.exceededMemReservation(); exceeded {
+			self.writeMemViolation(maxRss)
+		}
 	}
 }
 
@@ -289,12 +292,11 @@ func (self *runner) Complete() {
 			}
 		}
 		if target != core.Errors {
-			kb := int(math.Ceil(self.jobInfo.MemGB * 1024 * 1024))
-			if self.jobInfo.RusageInfo.Children.MaxRss > kb {
+			if exceededMemReservation, maxRss := self.exceededMemReservation(); exceededMemReservation {
 				target = core.Errors
 				if writeError := self.metadata.WriteRaw(target, fmt.Sprintf(
 					"Stage exceeded its memory quota (using %.1f, allowed %g)",
-					float64(self.jobInfo.RusageInfo.Children.MaxRss)/(1024*1024),
+					float64(maxRss)/(1024*1024*1024),
 					self.jobInfo.MemGB)); writeError != nil {
 					util.PrintError(writeError, "monitor",
 						"Could not write errors file.")
@@ -556,7 +558,7 @@ func (self *runner) WaitLoop() {
 		defer self.errorReader.Close()
 		// Make sure we record at least one memory high-water mark, even
 		// for short stages.
-		self.getChildMemGB()
+		self.updateChildMemGB()
 		lastHeartbeat := time.Now()
 		// Do the first memory sample after just 500ms, to capture information
 		// about very short stages.
@@ -604,10 +606,10 @@ func (self *runner) WaitLoop() {
 	}
 }
 
-func (self *runner) getChildMemGB() (rss, vmem float64) {
+func (self *runner) updateChildMemGB() {
 	proc := self.job.Process
 	if proc == nil {
-		return 0, 0
+		return
 	}
 	io := make(map[int]*core.IoAmount)
 	mem, err := core.GetProcessTreeMemory(proc.Pid, true, io)
@@ -625,8 +627,6 @@ func (self *runner) getChildMemGB() (rss, vmem float64) {
 	} else {
 		self.ioStats.Update(io, time.Now())
 	}
-	return float64(mem.Rss) / (1024 * 1024 * 1024),
-		float64(mem.Vmem) / (1024 * 1024 * 1024)
 }
 
 func (self *runner) logProcessTree() {
@@ -638,8 +638,13 @@ func (self *runner) logProcessTree() {
 }
 
 func (self *runner) monitor(lastHeartbeat *time.Time) error {
-	if rss, vmem := self.getChildMemGB(); rss > float64(self.jobInfo.MemGB) {
+	self.updateChildMemGB()
+	vmemGB := float64(self.highMem.Vmem) / (1024 * 1024 * 1024)
+	if exceeded, rssBytes := self.exceededMemReservation(); exceeded {
+		rssGB := float64(rssBytes) / (1024 * 1024 * 1024)
 		self.logProcessTree()
+		self.writeMemViolation(rssBytes)
+
 		if self.monitoring {
 			if proc := self.job.Process; proc != nil {
 				tree, _ := core.GetProcessTreeMemoryList(proc.Pid)
@@ -649,25 +654,26 @@ func (self *runner) monitor(lastHeartbeat *time.Time) error {
 				}
 			}
 			self.job.Process.Kill()
+
 			return fmt.Errorf(
 				"Stage exceeded its memory quota (using %.1f, allowed %gG)",
-				rss, self.jobInfo.MemGB)
+				rssGB, self.jobInfo.MemGB)
 		} else {
 			util.LogInfo("monitor",
 				"Stage exceeded its memory quota (using %.1f, allowed %gG)",
-				rss, self.jobInfo.MemGB)
+				rssGB, self.jobInfo.MemGB)
 		}
-	} else if self.jobInfo.VMemGB > 0 && vmem > float64(self.jobInfo.VMemGB) {
+	} else if self.jobInfo.VMemGB > 0 && vmemGB > self.jobInfo.VMemGB {
 		self.logProcessTree()
 		if self.monitoring {
 			self.job.Process.Kill()
 			return fmt.Errorf(
 				"Stage exceeded its address space quota (using %.1f, allowed %gG)",
-				vmem, self.jobInfo.VMemGB)
+				vmemGB, self.jobInfo.VMemGB)
 		} else {
 			util.LogInfo("monitor",
 				"Stage exceeded its address space quota (using %.1f, allowed %gG)",
-				vmem, self.jobInfo.VMemGB)
+				vmemGB, self.jobInfo.VMemGB)
 		}
 	}
 	if time.Since(*lastHeartbeat) > HeartbeatInterval {
@@ -684,4 +690,35 @@ func (self *runner) monitor(lastHeartbeat *time.Time) error {
 		}
 	}
 	return nil
+}
+
+// Returns true if we exceeded the memory reservation.
+// Returns the max observed RSS in bytes in second position.
+func (self *runner) exceededMemReservation() (bool, int64) {
+	maxRss := self.highMem.Rss
+	if self.jobInfo.RusageInfo != nil {
+		maxRusage := int64(self.jobInfo.RusageInfo.Children.MaxRss) * 1024
+		if maxRusage > maxRss {
+			maxRss = maxRusage
+		}
+	}
+	// jobmanager rounds up to the nearest MB
+	res := int64(math.Ceil(self.jobInfo.MemGB*1024) * 1024 * 1024)
+	return (maxRss > res), maxRss
+}
+
+func (self *runner) writeMemViolation(maxRss int64) {
+	var memResGB float64
+	if self.jobInfo != nil {
+		memResGB = self.jobInfo.MemGB
+	}
+	contents := core.MemViolationContents{
+		MemReservationGB: memResGB,
+		MaxRssBytes:      maxRss,
+	}
+	if err := self.metadata.WriteAtomic(core.MemViolation, contents); err != nil {
+		util.LogError(err, "monitor", "Unable to write %s file.", core.MemViolation)
+		return
+	}
+	_ = self.metadata.UpdateJournal(core.MemViolation)
 }

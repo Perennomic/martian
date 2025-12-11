@@ -1,7 +1,7 @@
 {
     "name": "ID.pipeline_test.AWESOME.ADD_KEY4.fork0.chnk0",
     "pid": 9162,
-    "host": "bespin1.fuzzplex.com",
+    "host": "localhost",
     "type": "local",
     "cwd": "/user/test/files_test/pipeline_test/AWESOME/ADD_KEY4/fork0/files",
     "python": {

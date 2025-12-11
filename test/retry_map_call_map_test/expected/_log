@@ -4,7 +4,7 @@ Martian Runtime - <version not embedded>
 2024-01-08 18:43:48 [pid    ] 778991
 2024-01-08 18:43:48 [environ] SSH_AGENT_PID=553831
 2024-01-08 18:43:48 [environ] SSH_SESSION_WEBPROXY_ADDR=<proxyhost>:3080
-2024-01-08 18:43:48 [environ] HOSTNAME=bespin1.fuzzplex.com
+2024-01-08 18:43:48 [environ] HOSTNAME=localhost
 2024-01-08 18:43:48 [environ] SHELL=/bin/bash
 2024-01-08 18:43:48 [environ] TERM=xterm-256color
 2024-01-08 18:43:48 [environ] JAVA_RUNFILES=/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles

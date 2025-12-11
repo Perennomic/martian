@@ -354,7 +354,6 @@ def compare_vdrkill(output, expect, filename):
         return False
     return True
 
-
 _TIMESTAMP_REGEX = re.compile(
     "[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{1,2}:[0-9]{2}:[0-9]{2}"
 )
@@ -485,6 +484,8 @@ _SPECIAL_FILES = {
     "_args": compare_json,
     "_stage_defs": compare_json,
     "_vdrkill.partial": compare_json,
+    "_mem_violation": _compare_true,
+    "_mem_violations": _compare_true,
 }
 
 

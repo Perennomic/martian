@@ -2,7 +2,7 @@ Martian Runtime - 'v3.2.2-5-gaf2f2842-dirty'
 2019-05-23 13:58:38 [build  ] Built with Go version go1.12.5
 2019-05-23 13:58:38 [cmdline] mrp call.mro pipeline_test
 2019-05-23 13:58:38 [pid    ] 39849
-2019-05-23 13:58:38 [environ] HOSTNAME=bespin1.fuzzplex.com
+2019-05-23 13:58:38 [environ] HOSTNAME=localhost
 2019-05-23 13:58:38 [environ] TERM=xterm
 2019-05-23 13:58:38 [environ] SHELL=/bin/bash
 2019-05-23 13:58:38 [environ] EC2_AMITOOL_HOME=/opt/aws/amitools/ec2

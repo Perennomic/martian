@@ -1,0 +1,107 @@
+{
+    "name": "ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION.fork0.chnk0",
+    "type": "local",
+    "cwd": "/tmp/bazel-working-directory/_main/bazel-out/k8-fastbuild/bin/test/monitor_test/monitor_test.runfiles/_main/test/monitor_test/pipeline_test/EXCEED_RESERVATION/EXCEED_RESERVATION/fork0/chnk0-u0019eb7e11/files",
+    "python": {
+        "binpath": "/bin/python3",
+        "version": "3.7.16 (default, Aug 30 2023, 20:37:53) \n[GCC 7.3.1 20180712 (Red Hat 7.3.1-15)]"
+    },
+    "rusage": {
+        "self": {
+            "ru_maxrss": 12656,
+            "ru_ixrss": 0,
+            "ru_idrss": 0,
+            "ru_minflt": 503,
+            "ru_majflt": 0,
+            "ru_nswap": 0,
+            "ru_utime": 0.004967,
+            "ru_stime": 0,
+            "ru_inblock": 0,
+            "ru_oublock": 0,
+            "ru_msgsnd": 0,
+            "ru_msgrcv": 0,
+            "ru_nsignals": 0,
+            "ru_nivcsw": 0
+        },
+        "children": {
+            "ru_maxrss": 1260232,
+            "ru_ixrss": 0,
+            "ru_idrss": 0,
+            "ru_minflt": 314964,
+            "ru_majflt": 0,
+            "ru_nswap": 0,
+            "ru_utime": 0.838327,
+            "ru_stime": 0.598091,
+            "ru_inblock": 0,
+            "ru_oublock": 0,
+            "ru_msgsnd": 0,
+            "ru_msgrcv": 0,
+            "ru_nsignals": 0,
+            "ru_nivcsw": 7
+        }
+    },
+    "used_bytes": {
+        "rss": 574189568,
+        "shared": 12439552,
+        "vmem": 2450026496,
+        "text": 1253376,
+        "stack": 668311552,
+        "proc_count": 1
+    },
+    "io": {
+        "total": {
+            "read": {
+                "sysc": 233,
+                "bytes": 0
+            },
+            "write": {
+                "sysc": 18,
+                "bytes": 0
+            }
+        },
+        "max": {
+            "read": {
+                "sysc": 3266.3442421972477,
+                "bytes": 0
+            },
+            "write": {
+                "sysc": 35.92164540805065,
+                "bytes": 0
+            }
+        },
+        "dev": {
+            "read": {
+                "sysc": 169.71428947400804,
+                "bytes": 0
+            },
+            "write": {
+                "sysc": 2.166973433025024,
+                "bytes": 0
+            }
+        }
+    },
+    "wallclock": {
+        "start": "2024-03-08T21:07:29.304414438Z",
+        "end": "2024-03-08T21:07:30.752197586Z",
+        "duration_seconds": 1.447783157
+    },
+    "profile_mode": "disable",
+    "stackvars_flag": "disable",
+    "monitor_flag": "monitor",
+    "invocation": {
+        "call": "EXCEED_RESERVATION",
+        "args": {
+            "msg": "you're gonna die"
+        },
+        "mro_file": "pipeline.mro"
+    },
+    "version": {
+        "martian": "\u003cversion not embedded\u003e",
+        "pipelines": "noversion"
+    },
+    "host": "localhost",
+    "pid": 34,
+    "threads": 1,
+    "memGB": 0.0107421875,
+    "vmemGB": 4
+}

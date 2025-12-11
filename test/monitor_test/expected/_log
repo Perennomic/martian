@@ -1,0 +1,81 @@
+Martian Runtime - <version not embedded>
+2024-03-08 21:07:29 [build  ] Built with Go version go1.21.5 X:nocoverageredesign
+2024-03-08 21:07:29 [cmdline] mrp pipeline.mro pipeline_test
+2024-03-08 21:07:29 [pid    ] 25
+2024-03-08 21:07:29 [environ] JAVA_RUNFILES=/tmp/bazel-working-directory/_main/bazel-out/k8-fastbuild/bin/test/monitor_test/monitor_test.runfiles
+2024-03-08 21:07:29 [environ] TMPDIR=/tmp
+2024-03-08 21:07:29 [environ] USER=user.name
+2024-03-08 21:07:29 [environ] PATH=../../bin:/tmp/bazel-working-directory/_main/bazel-out/k8-fastbuild/bin/test/monitor_test/monitor_test.runfiles/_main/bazel-out/k8-fastbuild/bin/bin:.:/mnt/build/toolchains/versions/3.1.11/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/local/sbin:/usr/sbin:/bin:/mnt/hydra/hydra/bin:/mnt/home/user.name/.local/bin:/mnt/home/user.name/bin:/mnt/bazelbuild/user/user.name/cargo/bin:/mnt/hydra/hydra/bin:/mnt/home/user.name/.local/bin:/mnt/home/user.name/bin:/mnt/bazelbuild/user/user.name/cargo/bin
+2024-03-08 21:07:29 [environ] PYTHONSAFEPATH=1
+2024-03-08 21:07:29 [environ] PWD=/tmp/bazel-working-directory/_main/bazel-out/k8-fastbuild/bin/test/monitor_test/monitor_test.runfiles/_main/test/monitor_test
+2024-03-08 21:07:29 [environ] SHLVL=2
+2024-03-08 21:07:29 [environ] PYTHONPATH=/tmp/bazel-working-directory/_main/bazel-out/k8-fastbuild/bin/test/monitor_test/monitor_test.runfiles:/tmp/bazel-working-directory/_main/bazel-out/k8-fastbuild/bin/test/monitor_test/monitor_test.runfiles/:/tmp/bazel-working-directory/_main/bazel-out/k8-fastbuild/bin/test/monitor_test/monitor_test.runfiles/_main:/tmp/bazel-working-directory/_main/bazel-out/k8-fastbuild/bin/test/monitor_test/monitor_test.runfiles/bazel_tools
+2024-03-08 21:07:29 [environ] LC_CTYPE=C.UTF-8
+2024-03-08 21:07:29 [environ] PYTHON_RUNFILES=/tmp/bazel-working-directory/_main/bazel-out/k8-fastbuild/bin/test/monitor_test/monitor_test.runfiles
+2024-03-08 21:07:29 [environ] BASH_FUNC_rlocation()=() {  if is_absolute "$1"; then
+ echo "$1";
+ else
+ if [[ -e "$TEST_SRCDIR/$1" ]]; then
+ echo "$TEST_SRCDIR/$1";
+ else
+ if [[ -e "$RUNFILES_MANIFEST_FILE" ]]; then
+ echo "$(grep "^$1 " "$RUNFILES_MANIFEST_FILE" | sed 's/[^ ]* //')";
+ fi;
+ fi;
+ fi
+}
+2024-03-08 21:07:29 [environ] BASH_FUNC_is_absolute()=() {  [[ "$1" = /* ]] || [[ "$1" =~ ^[a-zA-Z]:[/\\].* ]]
+}
+2024-03-08 21:07:29 [environ] _=../../bin/mrp
+2024-03-08 21:07:29 [environ] MROFLAGS=--disable-ui --monitor
+2024-03-08 21:07:29 [environ] MROPATH=/tmp/bazel-working-directory/_main/bazel-out/k8-fastbuild/bin/test/monitor_test/monitor_test.runfiles/_main/test/monitor_test
+2024-03-08 21:07:29 [version] MRO Version=noversion
+2024-03-08 21:07:29 [options] --jobmode=local
+2024-03-08 21:07:29 [options] --vdrmode=rolling
+2024-03-08 21:07:29 [options] --profile=disable
+2024-03-08 21:07:29 [options] --disable-ui
+2024-03-08 21:07:29 [options] --stackvars=false
+2024-03-08 21:07:29 [options] --zip=false
+2024-03-08 21:07:29 [options] --limit-loadavg=false
+2024-03-08 21:07:29 [options] --noexit=false
+2024-03-08 21:07:29 [options] --nopreflight=false
+2024-03-08 21:07:29 [jobmngr] Job config = /tmp/bazel-working-directory/_main/bazel-out/k8-fastbuild/bin/test/monitor_test/monitor_test.runfiles/_main/jobmanagers/config.json
+2024-03-08 21:07:29 [jobmngr] Using 96 logical cores available on system.
+2024-03-08 21:07:29 [jobmngr] Using 672 GB, 90% of system memory.
+2024-03-08 21:07:29 [jobmngr] WARNING: configured to use 672GB of local memory, but only 541.6GB is currently available.
+2024-03-08 21:07:29 [sysinfo] linux amd64
+2024-03-08 21:07:29 [sysinfo] Linux kernel release version: 5.10.210-201.852.amzn2.x86_64
+2024-03-08 21:07:29 [sysinfo] glibc version: 2.26
+2024-03-08 21:07:29 [filesys] Pipestance path /tmp/bazel-working-directory/_main/bazel-out/k8-fastbuild/bin/test/monitor_test/monitor_test.runfiles/_main/test/monitor_test/pipeline_test
+2024-03-08 21:07:29 [filesys] Pipestance filesystem type tmpfs
+2024-03-08 21:07:29 [filesys] 137 GB and 98,008,012 inodes available.
+2024-03-08 21:07:29 [filesys] Pipestance filesystem tmpfs mount options: ro,noatime,nodiratime,rw,seclabel,size=134217728k
+2024-03-08 21:07:29 [filesys] Pipestance directory permissions drwxr-xr-x owned by uid 5211 gid 5900
+2024-03-08 21:07:29 [filesys] Bin path /tmp/bazel-working-directory/_main/bazel-out/k8-fastbuild/bin/test/monitor_test/monitor_test.runfiles/_main/bin
+2024-03-08 21:07:29 [filesys] Bin filesystem type tmpfs
+2024-03-08 21:07:29 [filesys] Bin filesystem tmpfs mount options: ro,noatime,nodiratime,rw,seclabel,size=134217728k
+2024-03-08 21:07:29 [filesys] Executable file permissions -r-xr-xr-x owned by uid 5211 gid 5900
+2024-03-08 21:07:29 [user   ] User user.name uid 5211 / gid 5900
+2024-03-08 21:07:29 [webserv] UI disabled.
+Running preflight checks (please wait)...
+2024-03-08 21:07:29 [jobmngr] 130.4GB less memory than expected was free
+2024-03-08 21:07:29 [jobmngr] cgroup rss usage is 143.0GB, vs. limit of 8589934592.0
+2024-03-08 21:07:29 [runtime] (ready)           ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION
+2024-03-08 21:07:29 [runtime] (run:local)       ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION.fork0.chnk0.main
+2024-03-08 21:07:30 [runtime] (failed)          ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION
+
+[error] Pipestance failed. Error log at:
+pipeline_test/EXCEED_RESERVATION/EXCEED_RESERVATION/fork0/chnk0-u0019eb7e11/_errors
+
+Log message:
+Stage exceeded its memory quota (using 1.2, allowed 1)
+
+2024-03-08 21:07:30 Shutting down.
+2024-03-08 21:07:30 [jobmngr] Highest memory usage observed: {
+  "rss": 11419648,
+  "shared": 8089600,
+  "vmem": 1818914816,
+  "text": 4911104,
+  "stack": 107769856,
+  "proc_count": 11
+}

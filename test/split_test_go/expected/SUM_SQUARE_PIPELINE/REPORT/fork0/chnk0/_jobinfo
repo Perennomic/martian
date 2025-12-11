@@ -13,7 +13,7 @@
         "end": "2017-07-12 17:30:19", 
         "duration_seconds": 0.02837204933166504
     }, 
-    "host": "bespin1.fuzzplex.com", 
+    "host": "localhost", 
     "version": {
         "martian": "'078d9cd-dirty'", 
         "pipelines": "2ff8789-dirty"

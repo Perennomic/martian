@@ -252,12 +252,39 @@ type NodePerfInfo struct {
 	Type      syntax.CallGraphNodeType `json:"type"`
 }
 
-func max(a, b int) int {
-	if a > b {
-		return a
-	} else {
+// MemViolationContents is written by a stage that exceeds a memory reservation.
+type MemViolationContents struct {
+	MemReservationGB float64 `json:"mem_reservation_gb"`
+	MaxRssBytes      int64   `json:"max_rss_bytes"`
+}
+
+// Merge two memory violations together.
+//
+// This is necessary to make sure that we preserve the original reservation
+// in case we have re-started a job with an automatically-increased reservation.
+func (prev MemViolationContents) Merge(new MemViolationContents) MemViolationContents {
+	return MemViolationContents{
+		MemReservationGB: nonZeroMin(prev.MemReservationGB, new.MemReservationGB),
+		MaxRssBytes:      max(prev.MaxRssBytes, new.MaxRssBytes),
+	}
+}
+
+// MemViolationReport is a summary of job-level mem violations maintained by a fork.
+//
+// The keys to this map should be one of:
+// - `split` for the split.
+// - `join` for the join.
+// - `0` an integer for a chunk index.
+type MemViolationReport map[string]MemViolationContents
+
+func nonZeroMin(a, b float64) float64 {
+	if a == 0 {
 		return b
 	}
+	if b == 0 {
+		return a
+	}
+	return math.Min(a, b)
 }
 
 func reduceJobInfo(jobInfo *JobInfo, outputPaths []string, numThreads float64) *PerfInfo {

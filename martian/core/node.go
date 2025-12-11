@@ -1080,9 +1080,9 @@ func (self *Node) serializePerf(ctx context.Context) (*NodePerfInfo, []*VdrEvent
 	}, storageEvents
 }
 
-//=============================================================================
+// =============================================================================
 // Job Runners
-//=============================================================================
+// =============================================================================
 
 func (self *Node) getJobReqs(jobDef *JobResources, stageType string) JobResources {
 	var res JobResources

@@ -16,6 +16,7 @@ import (
 	"os"
 	"path"
 	"runtime/trace"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -258,6 +259,16 @@ func (self *Chunk) updateState(state MetadataFileName, uniquifier string) {
 			util.LogError(err, "progres",
 				"Error reading progress file for %s",
 				self.fqname)
+		}
+	}
+	if state == MemViolation {
+		var memViolation MemViolationContents
+		if err := self.metadata.ReadInto(state, &memViolation); err != nil {
+			util.LogError(err, "mem_violation",
+				"Error reading memory violation file for %s",
+				self.fqname)
+		} else {
+			self.fork.updateMemViolationReport(strconv.Itoa(self.index), memViolation)
 		}
 	}
 	if beginState == Running || beginState == Queued {
@@ -924,16 +935,38 @@ func (self *Fork) updateState(state, uniquifier string) {
 		}
 	}
 	if strings.HasPrefix(state, SplitPrefix) {
+		fileName := MetadataFileName(strings.TrimPrefix(state, SplitPrefix))
 		self.split_metadata.cache(
-			MetadataFileName(strings.TrimPrefix(state, SplitPrefix)),
+			fileName,
 			uniquifier)
+		if fileName == MemViolation {
+			var memViolation MemViolationContents
+			if err := self.split_metadata.ReadInto(fileName, &memViolation); err != nil {
+				util.LogError(err, "mem_violation",
+					"Error reading memory violation file for %s split",
+					self.fqname)
+			} else {
+				self.updateMemViolationReport(STAGE_TYPE_SPLIT, memViolation)
+			}
+		}
 		if st, _ := self.split_metadata.getState(); st != Running && st != Queued {
 			self.node.top.rt.JobManager.endJob(self.split_metadata)
 		}
 	} else if strings.HasPrefix(state, JoinPrefix) {
+		fileName := MetadataFileName(strings.TrimPrefix(state, JoinPrefix))
 		self.join_metadata.cache(
-			MetadataFileName(strings.TrimPrefix(state, JoinPrefix)),
+			fileName,
 			uniquifier)
+		if fileName == MemViolation {
+			var memViolation MemViolationContents
+			if err := self.split_metadata.ReadInto(fileName, &memViolation); err != nil {
+				util.LogError(err, "mem_violation",
+					"Error reading memory violation file for %s split",
+					self.fqname)
+			} else {
+				self.updateMemViolationReport(STAGE_TYPE_JOIN, memViolation)
+			}
+		}
 		if st, _ := self.join_metadata.getState(); st != Running && st != Queued {
 			self.node.top.rt.JobManager.endJob(self.join_metadata)
 		}
@@ -1428,6 +1461,34 @@ func (self *Fork) printUpdateIfNeeded() {
 func (self *Fork) cachePerf(ctx context.Context) {
 	perfInfo, vdrKillReport := self.serializePerf(ctx)
 	self.perfCache = &ForkPerfCache{perfInfo, vdrKillReport}
+}
+
+// getMemViolationReport loads the current memory violation report from disk.
+// If none has been written already, return an empty map. Errors are logged, and
+// an empty map is returned if any occur.
+func (self *Fork) getMemViolationReport() MemViolationReport {
+	if !self.metadata.exists(MemViolation) {
+		return make(MemViolationReport)
+	}
+	var memViolationReport MemViolationReport
+	if err := self.metadata.ReadInto(MemViolation, &memViolationReport); err != nil {
+		util.LogError(err, "runtime", "Error reading memory violation report for %s", self.fqname)
+		return make(MemViolationReport)
+	}
+	return memViolationReport
+}
+
+// updateMemViolationReport adds the provided violation to the current report.
+// If we already have a record for the specified key, merge the data.
+// The updated report is written back to disk.
+// Error conditions are logged.
+func (self *Fork) updateMemViolationReport(key string, v MemViolationContents) {
+	currentReport := self.getMemViolationReport()
+	currentReport[key] = currentReport[key].Merge(v)
+	if err := self.metadata.WriteAtomic(MemViolation, currentReport); err != nil {
+		util.LogError(err, "runtime",
+			"Error updating memory violation report for %s", self.fqname)
+	}
 }
 
 func (self *Fork) getVdrKillReport() (*VDRKillReport, bool) {

@@ -3,7 +3,7 @@ Martian Runtime - 'v3.1.0-17-g67e1d623-dirty'
 2018-11-01 10:57:20 [cmdline] mrp pipeline.mro pipeline_test
 2018-11-01 10:57:20 [pid    ] 103648
 2018-11-01 10:57:20 [environ] SSH_AGENT_PID=118019
-2018-11-01 10:57:20 [environ] HOSTNAME=bespin1.fuzzplex.com
+2018-11-01 10:57:20 [environ] HOSTNAME=localhost
 2018-11-01 10:57:20 [environ] TERM=xterm-256color
 2018-11-01 10:57:20 [environ] SHELL=/bin/bash
 2018-11-01 10:57:20 [environ] EC2_AMITOOL_HOME=/opt/aws/amitools/ec2
