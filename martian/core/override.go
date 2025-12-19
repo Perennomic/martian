@@ -154,9 +154,9 @@ func (pse *PipestanceOverrides) GetForceVolatile(node string, def bool) bool {
 	return def
 }
 
-// GetResources applies any resource overrides for the given node/phase to
+// ApplyResourceOverrides applies any resource overrides for the given node/phase to
 // the given resource object.
-func (pse *PipestanceOverrides) GetResources(node string, phase string, res *JobResources) {
+func (pse *PipestanceOverrides) ApplyResourceOverrides(node string, phase string, res *JobResources) {
 	if pse == nil {
 		return
 	}

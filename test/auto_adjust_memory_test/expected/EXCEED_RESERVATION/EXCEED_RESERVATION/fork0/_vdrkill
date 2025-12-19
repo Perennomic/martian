@@ -1,0 +1,13 @@
+{
+    "timestamp": "2025-12-18T22:57:52.967741447Z",
+    "paths": null,
+    "errors": null,
+    "events": [
+        {
+            "Timestamp": "2025-12-18T22:57:52.774735817Z",
+            "DeltaBytes": 3082
+        }
+    ],
+    "count": 0,
+    "size": 0
+}

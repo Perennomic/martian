@@ -91,8 +91,7 @@ func (self *RemoteJobManager) GetSettings() *JobManagerSettings {
 	return self.config.jobSettings
 }
 
-func (self *RemoteJobManager) GetSystemReqs(resRequest *JobResources) JobResources {
-	res := *resRequest
+func (self *RemoteJobManager) GetSystemReqs(res JobResources) JobResources {
 	// Sanity check the thread count.
 	if res.Threads == 0 {
 		res.Threads = float64(self.config.jobSettings.ThreadsPerJob)
@@ -186,7 +185,7 @@ func (self *RemoteJobManager) jobScript(
 	metadata *Metadata,
 	resRequest *JobResources,
 	fqname, shellName string) string {
-	res := self.GetSystemReqs(resRequest)
+	res := self.GetSystemReqs(*resRequest)
 
 	// figure out per-thread memory requirements for the template.
 	// ceil to make sure that we're not starving a job.

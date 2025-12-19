@@ -153,10 +153,13 @@ type RuntimeOptions struct {
 	Zip             bool
 	SkipPreflight   bool
 	Monitor         bool
-	Debug           bool
-	StressTest      bool
-	LimitLoadavg    bool
-	NeverLocal      bool
+	// Automatically increase memory reservations and retry stages that exceed
+	// reservations.
+	AutoMemBump  bool
+	Debug        bool
+	StressTest   bool
+	LimitLoadavg bool
+	NeverLocal   bool
 }
 
 const localMode = "local"
@@ -218,6 +221,9 @@ func (config *RuntimeOptions) ToFlags() []string {
 	}
 	if config.Monitor {
 		flags = append(flags, "--monitor")
+	}
+	if config.AutoMemBump {
+		flags = append(flags, "--automembump")
 	}
 	if config.Debug {
 		flags = append(flags, "--debug")

@@ -372,8 +372,7 @@ func (self *LocalJobManager) HandleSignal(sig os.Signal) {
 	}
 }
 
-func (self *LocalJobManager) GetSystemReqs(request *JobResources) JobResources {
-	result := *request
+func (self *LocalJobManager) GetSystemReqs(result JobResources) JobResources {
 	// Sanity check and cap to self.maxCores.
 	var centiCores int
 	if result.Threads < 0 {
@@ -507,7 +506,7 @@ func (self *LocalJobManager) Enqueue(shellCmd string, argv []string,
 		r := trace.StartRegion(context.Background(), "queueLocal")
 		defer r.End()
 
-		res := self.GetSystemReqs(resRequest)
+		res := self.GetSystemReqs(*resRequest)
 
 		// Exec the shell directly.
 		cmd := exec.Command(shellCmd, argv...)

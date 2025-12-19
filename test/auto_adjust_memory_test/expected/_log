@@ -1,0 +1,172 @@
+Martian Runtime - v4.0.13-42-g04a74c72-dirty
+2025-12-18 22:57:52 [build  ] Built with Go version go1.24.5
+2025-12-18 22:57:52 [cmdline] mrp --monitor --auto-adjust-memory ../monitor_test/pipeline.mro pipeline_test
+2025-12-18 22:57:52 [pid    ] 941633
+2025-12-18 22:57:52 [environ] SHELL=/bin/bash
+2025-12-18 22:57:52 [environ] SSH_AUTH_SOCK=/tmp/teleport-240221602/agent.sock
+2025-12-18 22:57:52 [environ] SSH_AGENT_PID=124608
+2025-12-18 22:57:52 [environ] PWD=/mnt/home/user.name/martian-public/test/auto_adjust_memory_test
+2025-12-18 22:57:52 [environ] XDG_SESSION_TYPE=unspecified
+2025-12-18 22:57:52 [environ] HYDRA_ROOT=/mnt/hydra/hydra/spool
+2025-12-18 22:57:52 [environ] HOME=/mnt/home/user.name
+2025-12-18 22:57:52 [environ] LANG=C.UTF-8
+2025-12-18 22:57:52 [environ] SSH_SESSION_ID=d0e90c07-3d77-414b-ab65-b32e5bfa8436
+2025-12-18 22:57:52 [environ] LC_TERMINAL=iTerm2
+2025-12-18 22:57:52 [environ] SSH_TELEPORT_HOST_UUID=183dee72-33ec-402c-b88b-b7341976eda0
+2025-12-18 22:57:52 [environ] LD=/mnt/build/toolchains/versions/3.2.7/bin/ld
+2025-12-18 22:57:52 [environ] SSH_CONNECTION=73.169.176.141 50433 10.113.13.199 39904
+2025-12-18 22:57:52 [environ] XDG_SESSION_CLASS=background
+2025-12-18 22:57:52 [environ] TERM=tmux-256color
+2025-12-18 22:57:52 [environ] CUDA_TOOLKIT_PATH=/mnt/build/toolchains/versions/3.2.7/tools/cuda
+2025-12-18 22:57:52 [environ] USER=user.name
+2025-12-18 22:57:52 [environ] SSH_TELEPORT_CLUSTER_NAME=tenxgenomics.teleport.sh
+2025-12-18 22:57:52 [environ] LC_TERMINAL_VERSION=3.6.5
+2025-12-18 22:57:52 [environ] SHLVL=3
+2025-12-18 22:57:52 [environ] XDG_SESSION_ID=44171
+2025-12-18 22:57:52 [environ] SSH_TELEPORT_USER=user.name@10xgenomics.com
+2025-12-18 22:57:52 [environ] XDG_RUNTIME_DIR=/run/user/5211
+2025-12-18 22:57:52 [environ] SSH_CLIENT=73.169.176.141 49852 39904
+2025-12-18 22:57:52 [environ] XDG_DATA_DIRS=/mnt/home/user.name/.nix-profile/share/:/nix/var/nix/profiles/system/share/:/nix/var/nix/profiles/default/share/:/usr/local/share/:/usr/share/
+2025-12-18 22:57:52 [environ] PATH=../../bin:/usr/bin:/mnt/build/toolchains/versions/3.2.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/mnt/hydra/hydra/bin:/mnt/home/user.name/.local/bin:/mnt/home/user.name/bin:/mnt/bazelbuild/user/user.name/cargo/bin
+2025-12-18 22:57:52 [environ] SSH_TTY=/dev/pts/239
+2025-12-18 22:57:52 [environ] _=../../bin/mrp
+2025-12-18 22:57:52 [environ] MROFLAGS=--disable-ui
+2025-12-18 22:57:52 [environ] MROPATH=/mnt/home/user.name/martian-public/test/auto_adjust_memory_test
+2025-12-18 22:57:52 [version] MRO Version=v4.0.13-42-g04a74c72-dirty
+2025-12-18 22:57:52 [options] --jobmode=local
+2025-12-18 22:57:52 [options] --vdrmode=rolling
+2025-12-18 22:57:52 [options] --profile=disable
+2025-12-18 22:57:52 [options] --disable-ui
+2025-12-18 22:57:52 [options] --stackvars=false
+2025-12-18 22:57:52 [options] --zip=false
+2025-12-18 22:57:52 [options] --limit-loadavg=false
+2025-12-18 22:57:52 [options] --noexit=false
+2025-12-18 22:57:52 [options] --nopreflight=false
+2025-12-18 22:57:52 [jobmngr] Job config = /mnt/home/user.name/martian-public/jobmanagers/config.json
+2025-12-18 22:57:52 [jobmngr] Using 96 logical cores available on system.
+2025-12-18 22:57:52 [jobmngr] Using 669 GB, 90% of system memory.
+2025-12-18 22:57:52 [jobmngr] WARNING: configured to use 669GB of local memory, but only 306.5GB is currently available.
+2025-12-18 22:57:52 [jobmngr] WARNING: detected a cgroup soft memory limit of 223.2GB. If the system runs low on memory, jobs may get killed.
+2025-12-18 22:57:52 [sysinfo] linux amd64
+2025-12-18 22:57:52 [sysinfo] Linux kernel release version: 6.1.0-39-cloud-amd64
+2025-12-18 22:57:52 [sysinfo] glibc version: 2.36
+2025-12-18 22:57:52 [filesys] Pipestance path /mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test
+2025-12-18 22:57:52 [filesys] Pipestance filesystem type nfs
+2025-12-18 22:57:52 [filesys] 3.9 TB and 658,163,883 inodes available.
+2025-12-18 22:57:52 [filesys] Pipestance filesystem nfs mount options: rw,nosuid,relatime,rw,vers=3,rsize=65536,wsize=65536,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.113.8.101,mountvers=3,mountport=635,mountproto=tcp,local_lock=none,addr=10.113.8.101
+2025-12-18 22:57:52 [filesys] Pipestance directory permissions drwxr-xr-x owned by uid 5211 gid 5900
+2025-12-18 22:57:52 [filesys] Bin path /mnt/home/user.name/martian-public/bin
+2025-12-18 22:57:52 [filesys] Bin filesystem type nfs
+2025-12-18 22:57:52 [filesys] Bin filesystem nfs mount options: rw,nosuid,relatime,rw,vers=3,rsize=65536,wsize=65536,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.113.8.101,mountvers=3,mountport=635,mountproto=tcp,local_lock=none,addr=10.113.8.101
+2025-12-18 22:57:52 [filesys] Executable file permissions -rwxr-xr-x owned by uid 5211 gid 5900
+2025-12-18 22:57:52 [user   ] User user.name uid 5211 / gid 5900
+2025-12-18 22:57:52 [webserv] UI disabled.
+Running preflight checks (please wait)...
+2025-12-18 22:57:52 [jobmngr] 362.5GB less memory than expected was free
+2025-12-18 22:57:52 [runtime] (ready)           ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION
+2025-12-18 22:57:52 [runtime] (run:local)       ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION.fork0.chnk0.main
+2025-12-18 22:57:52 [runtime] (failed)          ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION
+
+[error] Pipestance failed. Error log at:
+pipeline_test/EXCEED_RESERVATION/EXCEED_RESERVATION/fork0/chnk0-u5e414486f0/_errors
+
+Log message:
+Stage exceeded its memory quota (using 0.0, allowed 0.0107421875)
+
+2025-12-18 22:57:52 Shutting down.
+2025-12-18 22:57:52 [jobmngr] Highest memory usage observed: {
+  "rss": 13099008,
+  "shared": 9564160,
+  "vmem": 1882734592,
+  "text": 5582848,
+  "stack": 115269632,
+  "proc_count": 11
+}
+Martian Runtime - v4.0.13-42-g04a74c72-dirty
+2025-12-18 22:57:52 [build  ] Built with Go version go1.24.5
+2025-12-18 22:57:52 [cmdline] mrp --monitor --auto-adjust-memory ../monitor_test/pipeline.mro pipeline_test
+2025-12-18 22:57:52 [pid    ] 941663
+2025-12-18 22:57:52 [environ] SHELL=/bin/bash
+2025-12-18 22:57:52 [environ] SSH_AUTH_SOCK=/tmp/teleport-240221602/agent.sock
+2025-12-18 22:57:52 [environ] SSH_AGENT_PID=124608
+2025-12-18 22:57:52 [environ] PWD=/mnt/home/user.name/martian-public/test/auto_adjust_memory_test
+2025-12-18 22:57:52 [environ] XDG_SESSION_TYPE=unspecified
+2025-12-18 22:57:52 [environ] HYDRA_ROOT=/mnt/hydra/hydra/spool
+2025-12-18 22:57:52 [environ] HOME=/mnt/home/user.name
+2025-12-18 22:57:52 [environ] LANG=C.UTF-8
+2025-12-18 22:57:52 [environ] SSH_SESSION_ID=d0e90c07-3d77-414b-ab65-b32e5bfa8436
+2025-12-18 22:57:52 [environ] LC_TERMINAL=iTerm2
+2025-12-18 22:57:52 [environ] SSH_TELEPORT_HOST_UUID=183dee72-33ec-402c-b88b-b7341976eda0
+2025-12-18 22:57:52 [environ] LD=/mnt/build/toolchains/versions/3.2.7/bin/ld
+2025-12-18 22:57:52 [environ] SSH_CONNECTION=73.169.176.141 50433 10.113.13.199 39904
+2025-12-18 22:57:52 [environ] XDG_SESSION_CLASS=background
+2025-12-18 22:57:52 [environ] TERM=tmux-256color
+2025-12-18 22:57:52 [environ] CUDA_TOOLKIT_PATH=/mnt/build/toolchains/versions/3.2.7/tools/cuda
+2025-12-18 22:57:52 [environ] USER=user.name
+2025-12-18 22:57:52 [environ] SSH_TELEPORT_CLUSTER_NAME=tenxgenomics.teleport.sh
+2025-12-18 22:57:52 [environ] LC_TERMINAL_VERSION=3.6.5
+2025-12-18 22:57:52 [environ] SHLVL=3
+2025-12-18 22:57:52 [environ] XDG_SESSION_ID=44171
+2025-12-18 22:57:52 [environ] SSH_TELEPORT_USER=user.name@10xgenomics.com
+2025-12-18 22:57:52 [environ] XDG_RUNTIME_DIR=/run/user/5211
+2025-12-18 22:57:52 [environ] SSH_CLIENT=73.169.176.141 49852 39904
+2025-12-18 22:57:52 [environ] XDG_DATA_DIRS=/mnt/home/user.name/.nix-profile/share/:/nix/var/nix/profiles/system/share/:/nix/var/nix/profiles/default/share/:/usr/local/share/:/usr/share/
+2025-12-18 22:57:52 [environ] PATH=../../bin:/usr/bin:/mnt/build/toolchains/versions/3.2.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/mnt/hydra/hydra/bin:/mnt/home/user.name/.local/bin:/mnt/home/user.name/bin:/mnt/bazelbuild/user/user.name/cargo/bin
+2025-12-18 22:57:52 [environ] SSH_TTY=/dev/pts/239
+2025-12-18 22:57:52 [environ] _=./../../bin/mrp
+2025-12-18 22:57:52 [environ] MROFLAGS=--disable-ui
+2025-12-18 22:57:52 [environ] MROPATH=/mnt/home/user.name/martian-public/test/auto_adjust_memory_test
+2025-12-18 22:57:52 [version] MRO Version=v4.0.13-42-g04a74c72-dirty
+2025-12-18 22:57:52 [options] --jobmode=local
+2025-12-18 22:57:52 [options] --vdrmode=rolling
+2025-12-18 22:57:52 [options] --profile=disable
+2025-12-18 22:57:52 [options] --disable-ui
+2025-12-18 22:57:52 [options] --stackvars=false
+2025-12-18 22:57:52 [options] --zip=false
+2025-12-18 22:57:52 [options] --limit-loadavg=false
+2025-12-18 22:57:52 [options] --noexit=false
+2025-12-18 22:57:52 [options] --nopreflight=false
+2025-12-18 22:57:52 [jobmngr] Job config = /mnt/home/user.name/martian-public/jobmanagers/config.json
+2025-12-18 22:57:52 [jobmngr] Using 96 logical cores available on system.
+2025-12-18 22:57:52 [jobmngr] Using 669 GB, 90% of system memory.
+2025-12-18 22:57:52 [jobmngr] WARNING: configured to use 669GB of local memory, but only 306.4GB is currently available.
+2025-12-18 22:57:52 [jobmngr] WARNING: detected a cgroup soft memory limit of 223.2GB. If the system runs low on memory, jobs may get killed.
+2025-12-18 22:57:52 [runtime] Reattaching in local mode.
+2025-12-18 22:57:52 [sysinfo] linux amd64
+2025-12-18 22:57:52 [sysinfo] Linux kernel release version: 6.1.0-39-cloud-amd64
+2025-12-18 22:57:52 [sysinfo] glibc version: 2.36
+2025-12-18 22:57:52 [filesys] Pipestance path /mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test
+2025-12-18 22:57:52 [filesys] Pipestance filesystem type nfs
+2025-12-18 22:57:52 [filesys] 3.9 TB and 658,163,857 inodes available.
+2025-12-18 22:57:52 [filesys] Pipestance filesystem nfs mount options: rw,nosuid,relatime,rw,vers=3,rsize=65536,wsize=65536,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.113.8.101,mountvers=3,mountport=635,mountproto=tcp,local_lock=none,addr=10.113.8.101
+2025-12-18 22:57:52 [filesys] Pipestance directory permissions drwxr-xr-x owned by uid 5211 gid 5900
+2025-12-18 22:57:52 [filesys] Bin path /mnt/home/user.name/martian-public/bin
+2025-12-18 22:57:52 [filesys] Bin filesystem type nfs
+2025-12-18 22:57:52 [filesys] Bin filesystem nfs mount options: rw,nosuid,relatime,rw,vers=3,rsize=65536,wsize=65536,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.113.8.101,mountvers=3,mountport=635,mountproto=tcp,local_lock=none,addr=10.113.8.101
+2025-12-18 22:57:52 [filesys] Executable file permissions -rwxr-xr-x owned by uid 5211 gid 5900
+2025-12-18 22:57:52 [user   ] User user.name uid 5211 / gid 5900
+2025-12-18 22:57:52 [webserv] UI disabled.
+2025-12-18 22:57:52 [runtime] (reset-partial)   ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION.fork0.chnk0
+2025-12-18 22:57:52 [runtime] Found orphaned local stage: ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION
+2025-12-18 22:57:52 [jobmngr] 362.6GB less memory than expected was free
+2025-12-18 22:57:52 [runtime] (split_complete)  ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION
+2025-12-18 22:57:52 [runtime] (run:local)       ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION.fork0.chnk0.main
+2025-12-18 22:57:52 [jobmngr] 362.7GB less memory than expected was free
+2025-12-18 22:57:52 [runtime] (chunks_complete) ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION
+2025-12-18 22:57:53 [runtime] VDR killed 0 files, 0 B.
+
+Outputs:
+- msg: null
+
+2025-12-18 22:57:53 [perform] Serializing pipestance performance data.
+Pipestance completed successfully!
+
+2025-12-18 22:57:53 Shutting down.
+2025-12-18 22:57:53 [jobmngr] Highest memory usage observed: {
+  "rss": 13283328,
+  "shared": 9551872,
+  "vmem": 1807233024,
+  "text": 5582848,
+  "stack": 106745856,
+  "proc_count": 12
+}

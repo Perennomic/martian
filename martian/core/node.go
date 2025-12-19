@@ -1084,80 +1084,10 @@ func (self *Node) serializePerf(ctx context.Context) (*NodePerfInfo, []*VdrEvent
 // Job Runners
 // =============================================================================
 
-func (self *Node) getJobReqs(jobDef *JobResources, stageType string) JobResources {
-	var res JobResources
-
-	if self.resources != nil {
-		res = *self.resources
-	}
-
-	// Get values passed from the stage code
-	if jobDef != nil {
-		if jobDef.Threads != 0 {
-			res.Threads = jobDef.Threads
-		}
-		if jobDef.MemGB != 0 {
-			res.MemGB = jobDef.MemGB
-		}
-		if jobDef.VMemGB != 0 {
-			res.VMemGB = jobDef.VMemGB
-		}
-		if jobDef.Special != "" {
-			res.Special = jobDef.Special
-		}
-	}
-
-	// Override with job manager caps specified from commandline
-	self.top.rt.overrides.GetResources(self.GetFQName(), stageType, &res)
-
-	if self.local {
-		return self.top.rt.LocalJobManager.GetSystemReqs(&res)
-	} else {
-		return self.top.rt.JobManager.GetSystemReqs(&res)
-	}
-}
-
 func (self *Node) getProfileMode(stageType string) ProfileMode {
 	return self.top.rt.overrides.GetProfile(self.GetFQName(),
 		stageType,
 		self.top.rt.Config.ProfileMode)
-}
-
-func (self *Node) setJobReqs(jobDef *JobResources, stageType string) JobResources {
-	// Get values and possibly modify them
-	res := self.getJobReqs(jobDef, stageType)
-
-	// Write modified values back
-	if jobDef != nil {
-		*jobDef = res
-	}
-
-	return res
-}
-
-func (self *Node) setSplitJobReqs() JobResources {
-	return self.setJobReqs(nil, STAGE_TYPE_SPLIT)
-}
-
-func (self *Node) setChunkJobReqs(jobDef *JobResources) JobResources {
-	return self.setJobReqs(jobDef, STAGE_TYPE_CHUNK)
-}
-
-func (self *Node) setJoinJobReqs(jobDef *JobResources) JobResources {
-	return self.setJobReqs(jobDef, STAGE_TYPE_JOIN)
-}
-
-func (self *Node) runSplit(fqname string, metadata *Metadata) {
-	res := self.setSplitJobReqs()
-	self.runJob("split", fqname, STAGE_TYPE_SPLIT, metadata, &res)
-}
-
-func (self *Node) runJoin(fqname string, metadata *Metadata, res *JobResources) {
-	self.runJob("join", fqname, STAGE_TYPE_JOIN, metadata, res)
-}
-
-func (self *Node) runChunk(fqname string, metadata *Metadata, res *JobResources) {
-	self.runJob("main", fqname, STAGE_TYPE_CHUNK, metadata, res)
 }
 
 func (self *Node) runJob(shellName, fqname, stageType string,

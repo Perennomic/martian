@@ -151,6 +151,8 @@ Options:
                               disabled (default), cpu, mem, perf
     --stackvars         Print local variables in stage code stack trace.
     --monitor           Kill jobs that exceed requested memory resources.
+    --auto-adjust-memory    When restarting a stage that exceeded a memory
+                        reservation, automatically increase the reservation.
     --inspect           Inspect pipestance without resetting failed stages.
     --debug             Enable debug logging for local job manager.
     --stest             Substitute real stages with stress-testing stage.
@@ -400,6 +402,7 @@ Options:
 		}
 	}
 	config.Monitor = opts["--monitor"].(bool)
+	config.AutoMemBump = opts["--auto-adjust-memory"].(bool)
 	c.readOnly = opts["--inspect"].(bool)
 	config.Debug = opts["--debug"].(bool)
 	config.StressTest = opts["--stest"].(bool)

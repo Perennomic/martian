@@ -1,0 +1,107 @@
+{
+  "name": "ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION.fork0.chnk0",
+  "type": "local",
+  "cwd": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/EXCEED_RESERVATION/fork0/chnk0-u5e5f4486f0/files",
+  "python": {
+    "binpath": "/usr/bin/python3",
+    "version": "3.11.2 (main, Apr 28 2025, 14:11:48) [GCC 12.2.0]"
+  },
+  "rusage": {
+    "self": {
+      "ru_maxrss": 15352,
+      "ru_ixrss": 0,
+      "ru_idrss": 0,
+      "ru_minflt": 381,
+      "ru_majflt": 0,
+      "ru_nswap": 0,
+      "ru_utime": 0.00467,
+      "ru_stime": 0,
+      "ru_inblock": 0,
+      "ru_oublock": 48,
+      "ru_msgsnd": 0,
+      "ru_msgrcv": 0,
+      "ru_nsignals": 0,
+      "ru_nivcsw": 0
+    },
+    "children": {
+      "ru_maxrss": 18448,
+      "ru_ixrss": 0,
+      "ru_idrss": 0,
+      "ru_minflt": 3426,
+      "ru_majflt": 0,
+      "ru_nswap": 0,
+      "ru_utime": 0.038732,
+      "ru_stime": 0.016908,
+      "ru_inblock": 8,
+      "ru_oublock": 32,
+      "ru_msgsnd": 0,
+      "ru_msgrcv": 0,
+      "ru_nsignals": 0,
+      "ru_nivcsw": 3
+    }
+  },
+  "used_bytes": {
+    "rss": 15720448,
+    "shared": 4268032,
+    "vmem": 1636548608,
+    "text": 1429504,
+    "stack": 83103744,
+    "proc_count": 1
+  },
+  "io": {
+    "total": {
+      "read": {
+        "sysc": 6,
+        "bytes": 0
+      },
+      "write": {
+        "sysc": 0,
+        "bytes": 0
+      }
+    },
+    "max": {
+      "read": {
+        "sysc": 246.59225937034148,
+        "bytes": 0
+      },
+      "write": {
+        "sysc": 0,
+        "bytes": 0
+      }
+    },
+    "dev": {
+      "read": {
+        "sysc": 0.0000026973983046972182,
+        "bytes": 0
+      },
+      "write": {
+        "sysc": 0,
+        "bytes": 0
+      }
+    }
+  },
+  "wallclock": {
+    "start": "2025-12-18T22:57:52.774735817Z",
+    "end": "2025-12-18T22:57:52.878938638Z",
+    "duration_seconds": 0.104202813
+  },
+  "profile_mode": "disable",
+  "stackvars_flag": "disable",
+  "monitor_flag": "monitor",
+  "invocation": {
+    "call": "EXCEED_RESERVATION",
+    "args": {
+      "msg": "you're gonna die"
+    },
+    "mro_file": "../monitor_test/pipeline.mro"
+  },
+  "version": {
+    "martian": "v4.0.13-42-g04a74c72-dirty",
+    "pipelines": "v4.0.13-42-g04a74c72-dirty"
+  },
+  "host": "hostname",
+  "pid": 941678,
+  "threads": 1,
+  "memGB": 0.03515625,
+  "vmemGB": 3.029296875
+}

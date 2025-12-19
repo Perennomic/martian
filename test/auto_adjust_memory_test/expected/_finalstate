@@ -1,0 +1,171 @@
+[
+    {
+        "name": "EXCEED_RESERVATION",
+        "fqname": "ID.pipeline_test.EXCEED_RESERVATION",
+        "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION",
+        "state": "complete",
+        "metadata": {
+            "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "state": "complete",
+                "metadata": {
+                    "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/fork0",
+                    "names": [
+                        "complete",
+                        "invocation",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": "you're gonna die",
+                            "id": "msg",
+                            "type": "string",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION",
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "msg",
+                            "type": "string",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [
+            {
+                "from": "ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION",
+                "to": "ID.pipeline_test.EXCEED_RESERVATION"
+            }
+        ],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "EXCEED_RESERVATION",
+        "fqname": "ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION",
+        "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/EXCEED_RESERVATION",
+        "state": "complete",
+        "metadata": {
+            "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/EXCEED_RESERVATION",
+            "names": []
+        },
+        "stagecodeCmd": "/mnt/home/user.name/martian-public/test/monitor_test/exceed_reservation",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": {
+                    "__threads": 1,
+                    "__mem_gb": 0.0107421875,
+                    "__vmem_gb": 3.0107421875
+                },
+                "state": "complete",
+                "metadata": {
+                    "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/EXCEED_RESERVATION/fork0",
+                    "names": [
+                        "complete",
+                        "invocation",
+                        "mem_violation",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/EXCEED_RESERVATION/fork0/split",
+                    "names": [
+                        "args",
+                        "complete",
+                        "stage_defs"
+                    ]
+                },
+                "join_metadata": {
+                    "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/EXCEED_RESERVATION/fork0/join",
+                    "names": [
+                        "args",
+                        "chunk_defs",
+                        "complete",
+                        "outs"
+                    ]
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": "you're gonna die",
+                            "id": "msg",
+                            "type": "string",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION",
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "msg",
+                            "type": "string",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [
+                    {
+                        "chunkDef": {
+                            "__mem_gb": 0.0293,
+                            "__threads": 1,
+                            "__vmem_gb": 3.03
+                        },
+                        "metadata": {
+                            "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/EXCEED_RESERVATION/fork0/chnk0",
+                            "names": [
+                                "args",
+                                "complete",
+                                "jobinfo",
+                                "log",
+                                "outs",
+                                "stderr",
+                                "stdout"
+                            ]
+                        },
+                        "state": "complete",
+                        "index": 0
+                    }
+                ],
+                "index": 0
+            }
+        ],
+        "edges": [],
+        "stagecodeLang": "Python",
+        "type": "stage"
+    }
+]

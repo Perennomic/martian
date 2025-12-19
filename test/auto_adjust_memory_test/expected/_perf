@@ -1,0 +1,169 @@
+[
+    {
+        "name": "EXCEED_RESERVATION",
+        "fqname": "ID.pipeline_test.EXCEED_RESERVATION",
+        "highmem": {
+            "rss": 13283328,
+            "shared": 9551872,
+            "vmem": 1807233024,
+            "text": 5582848,
+            "stack": 106745856,
+            "proc_count": 12
+        },
+        "forks": [
+            {
+                "split_stats": null,
+                "join_stats": null,
+                "fork_stats": {
+                    "start": "2025-12-18T22:57:52.774735817Z",
+                    "end": "2025-12-18T22:57:52.878938638Z",
+                    "walltime": 0.104202821,
+                    "num_jobs": 1,
+                    "num_threads": 1,
+                    "duration": 0.104202813,
+                    "core_hours": 0.000028945225833333335,
+                    "maxrss": 18448,
+                    "maxvmem": 1598192,
+                    "maxrss_requested": 30720,
+                    "maxvmem_requested": 3176448,
+                    "in_blocks": 8,
+                    "out_blocks": 80,
+                    "total_blocks": 88,
+                    "in_blocks_rate": 76.77335927581916,
+                    "out_blocks_rate": 767.7335927581917,
+                    "total_blocks_rate": 844.5069520340107,
+                    "in_bytes": 0,
+                    "out_bytes": 0,
+                    "in_bytes_rate": 0,
+                    "out_bytes_rate": 0,
+                    "in_bytes_peak": 0,
+                    "out_bytes_peak": 0,
+                    "usertime": 0.043402,
+                    "systemtime": 0.016908,
+                    "total_files": 0,
+                    "total_bytes": 0,
+                    "output_files": 0,
+                    "output_bytes": 0,
+                    "vdr_files": 0,
+                    "vdr_bytes": 0,
+                    "in_bytes_dev": 0,
+                    "out_bytes_dev": 0
+                },
+                "stages": [
+                    {
+                        "name": "EXCEED_RESERVATION",
+                        "fqname": "ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION",
+                        "forki": 0
+                    }
+                ],
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "bytehist": [
+            {
+                "ts": "2025-12-18T22:57:52.774735817Z",
+                "desc": "ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION alloc",
+                "bytes": 3082
+            }
+        ],
+        "maxbytes": 3082,
+        "type": "pipeline"
+    },
+    {
+        "name": "EXCEED_RESERVATION",
+        "fqname": "ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION",
+        "forks": [
+            {
+                "split_stats": null,
+                "join_stats": null,
+                "fork_stats": {
+                    "start": "2025-12-18T22:57:52.774735817Z",
+                    "end": "2025-12-18T22:57:52.878938638Z",
+                    "walltime": 0.104202821,
+                    "num_jobs": 1,
+                    "num_threads": 1,
+                    "duration": 0.104202813,
+                    "core_hours": 0.000028945225833333335,
+                    "maxrss": 18448,
+                    "maxvmem": 1598192,
+                    "maxrss_requested": 30720,
+                    "maxvmem_requested": 3176448,
+                    "in_blocks": 8,
+                    "out_blocks": 80,
+                    "total_blocks": 88,
+                    "in_blocks_rate": 76.77335927581916,
+                    "out_blocks_rate": 767.7335927581917,
+                    "total_blocks_rate": 844.5069520340107,
+                    "in_bytes": 0,
+                    "out_bytes": 0,
+                    "in_bytes_rate": 0,
+                    "out_bytes_rate": 0,
+                    "in_bytes_peak": 0,
+                    "out_bytes_peak": 0,
+                    "usertime": 0.043402,
+                    "systemtime": 0.016908,
+                    "total_files": 0,
+                    "total_bytes": 0,
+                    "output_files": 0,
+                    "output_bytes": 0,
+                    "vdr_files": 0,
+                    "vdr_bytes": 0,
+                    "in_bytes_dev": 0,
+                    "out_bytes_dev": 0
+                },
+                "stages": [
+                    {
+                        "name": "EXCEED_RESERVATION",
+                        "fqname": "ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION",
+                        "forki": 0
+                    }
+                ],
+                "chunks": [
+                    {
+                        "chunk_stats": {
+                            "start": "2025-12-18T22:57:52.774735817Z",
+                            "end": "2025-12-18T22:57:52.878938638Z",
+                            "walltime": 0.104202821,
+                            "num_jobs": 1,
+                            "num_threads": 1,
+                            "duration": 0.104202813,
+                            "core_hours": 0.000028945225833333335,
+                            "maxrss": 18448,
+                            "maxvmem": 1598192,
+                            "maxrss_requested": 30720,
+                            "maxvmem_requested": 3176448,
+                            "in_blocks": 8,
+                            "out_blocks": 80,
+                            "total_blocks": 88,
+                            "in_blocks_rate": 76.77335927581916,
+                            "out_blocks_rate": 767.7335927581917,
+                            "total_blocks_rate": 844.5069520340107,
+                            "in_bytes": 0,
+                            "out_bytes": 0,
+                            "in_bytes_rate": 0,
+                            "out_bytes_rate": 0,
+                            "in_bytes_peak": 0,
+                            "out_bytes_peak": 0,
+                            "usertime": 0.043402,
+                            "systemtime": 0.016908,
+                            "total_files": 0,
+                            "total_bytes": 0,
+                            "output_files": 0,
+                            "output_bytes": 0,
+                            "vdr_files": 0,
+                            "vdr_bytes": 0,
+                            "in_bytes_dev": 0,
+                            "out_bytes_dev": 0
+                        },
+                        "index": 0
+                    }
+                ],
+                "index": 0
+            }
+        ],
+        "bytehist": null,
+        "maxbytes": 0,
+        "type": "stage"
+    }
+]

@@ -49,7 +49,7 @@ type JobManager interface {
 	//
 	// For remote job managers, this means maxjobs.
 	refreshResources(localMode bool) error
-	GetSystemReqs(*JobResources) JobResources
+	GetSystemReqs(JobResources) JobResources
 	GetMaxCores() int
 	GetMaxMemGB() int
 	GetSettings() *JobManagerSettings

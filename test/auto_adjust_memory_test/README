@@ -1,0 +1,5 @@
+Exercise the auto memory adjustment, ensuring that even if a stage exceeds
+its memory reservation, the stage is allowed to succeed upon retry and writes
+the memory violation metadata file.
+
+Re-uses the test stage from the monitor test.

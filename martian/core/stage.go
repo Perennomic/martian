@@ -278,7 +278,7 @@ func (self *Chunk) updateState(state MetadataFileName, uniquifier string) {
 	}
 }
 
-func (self *Chunk) step(bindings MarshalerMap) {
+func (self *Chunk) run(bindings MarshalerMap) {
 	if self.getState() != Ready {
 		return
 	}
@@ -293,7 +293,12 @@ func (self *Chunk) step(bindings MarshalerMap) {
 	if self.chunkDef.Resources == nil {
 		self.chunkDef.Resources = &JobResources{}
 	}
-	res := self.fork.node.setChunkJobReqs(self.chunkDef.Resources)
+
+	res, err := self.fork.setJobReqs(self.chunkDef.Resources, STAGE_TYPE_CHUNK, self.index)
+	if err != nil {
+		self.metadata.writeError("Could not get resources", err)
+		return
+	}
 
 	// Resolve input argument bindings and merge in the chunk defs.
 	resolvedBindings := self.chunkDef.Merge(bindings)
@@ -311,7 +316,7 @@ func (self *Chunk) step(bindings MarshalerMap) {
 
 	// Run the chunk.
 	self.fork.lastPrint = time.Now()
-	self.fork.node.runChunk(self.fqname, self.metadata, &res)
+	self.fork.runChunk(self.fqname, self.metadata, &res)
 }
 
 func (self *Chunk) serializeState() *ChunkInfo {
@@ -324,7 +329,7 @@ func (self *Chunk) serializeState() *ChunkInfo {
 }
 
 func (self *Chunk) serializePerf() *ChunkPerfInfo {
-	res := self.fork.node.getJobReqs(self.chunkDef.Resources, STAGE_TYPE_CHUNK)
+	res, _ := self.fork.getJobReqs(self.chunkDef.Resources, STAGE_TYPE_CHUNK, self.index)
 	stats := self.metadata.serializePerf(res.Threads)
 	return &ChunkPerfInfo{
 		Index:      self.index,
@@ -1056,7 +1061,12 @@ func (self *Fork) doSplit(getBindings func() MarshalerMap) MetadataState {
 		if !self.split_has_run {
 			self.split_has_run = true
 			self.lastPrint = time.Now()
-			self.node.runSplit(self.fqname, self.split_metadata)
+			res, err := self.getJobReqs(nil, STAGE_TYPE_SPLIT, 0)
+			if err != nil {
+				self.split_metadata.writeError("Could not get resources", err)
+				return Failed
+			}
+			self.runSplit(self.fqname, self.split_metadata, &res)
 		}
 	} else {
 		_ = self.split_metadata.Write(StageDefsFile, self.stageDefs)
@@ -1121,7 +1131,7 @@ Chunk count: %d`,
 			if len(self.chunks) > 0 {
 				bindings := getBindings()
 				for _, chunk := range self.chunks {
-					chunk.step(bindings)
+					chunk.run(bindings)
 				}
 			}
 		}
@@ -1151,7 +1161,12 @@ func (self *Fork) doJoin(state MetadataState, getBindings func() MarshalerMap) M
 	if self.stageDefs.JoinDef == nil {
 		self.stageDefs.JoinDef = &JobResources{}
 	}
-	res := self.node.setJoinJobReqs(self.stageDefs.JoinDef)
+
+	res, err := self.setJobReqs(self.stageDefs.JoinDef, STAGE_TYPE_JOIN, 0)
+	if err != nil {
+		self.join_metadata.writeError("Could not get resources", err)
+		return Failed
+	}
 	args, err := getBindings().ToLazyArgumentMap()
 	if err != nil {
 		panic(err)
@@ -1232,7 +1247,7 @@ func (self *Fork) doJoin(state MetadataState, getBindings func() MarshalerMap) M
 		if !self.join_has_run {
 			self.join_has_run = true
 			self.lastPrint = time.Now()
-			self.node.runJoin(self.fqname, self.join_metadata, &res)
+			self.runJoin(self.fqname, self.join_metadata, &res)
 		}
 	} else {
 		if b, err := self.chunks[0].metadata.readRawBytes(OutsFile); err == nil {
@@ -1463,19 +1478,177 @@ func (self *Fork) cachePerf(ctx context.Context) {
 	self.perfCache = &ForkPerfCache{perfInfo, vdrKillReport}
 }
 
-// getMemViolationReport loads the current memory violation report from disk.
-// If none has been written already, return an empty map. Errors are logged, and
-// an empty map is returned if any occur.
-func (self *Fork) getMemViolationReport() MemViolationReport {
+func (self *Fork) getJobReqs(
+	jobDef *JobResources,
+	stageType string,
+	chunkIndex int,
+) (JobResources, error) {
+	var res JobResources
+
+	if self.node.resources != nil {
+		res = *self.node.resources
+	}
+
+	// Get values passed from the stage code
+	if jobDef != nil {
+		if jobDef.Threads != 0 {
+			res.Threads = jobDef.Threads
+		}
+		if jobDef.MemGB != 0 {
+			res.MemGB = jobDef.MemGB
+		}
+		if jobDef.VMemGB != 0 {
+			res.VMemGB = jobDef.VMemGB
+		}
+		if jobDef.Special != "" {
+			res.Special = jobDef.Special
+		}
+	}
+
+	// Potentially bump things based on observed memory violations.
+	// TODO: we probably don't need to increase a reservation if it only went
+	// over into the grace limit, but since we're restarting anyway, we might
+	// as well keep the behavior uniform.
+	var observedMaxMemGB float64
+	if self.node.top.rt.Config.AutoMemBump {
+		if violation := self.getMemViolation(stageType, chunkIndex); violation != nil {
+			maxRssGb := float64(violation.MaxRssBytes) / (1024. * 1024. * 1024.)
+			// This should always be the case someone is manually hacking the stage defs.
+			if maxRssGb > math.Abs(res.MemGB) {
+				// On the first violation, this would (slightly) more than double
+				// the reservation (because the violation amount must necessarily
+				// be greater than the reservation amount). On subsequent violations,
+				// however, it's a lower scaling. If we assume the worst-case scenario
+				// of getting killed after exceeding the reservation by epsilon
+				// (the longer we go after exceeding the reservation, the less
+				// likely we are to require an additional attempt), the
+				// reservation amounts would be 1, 2, 3.25, 4.81, 6.77.
+				// Maintain the sign of the reservation.
+				res.MemGB = math.Copysign(
+					maxRssGb+0.75*math.Abs(res.MemGB)+0.25*violation.MemReservationGB,
+					res.MemGB)
+			}
+
+			observedMaxMemGB = math.Abs(res.MemGB)
+		}
+	}
+
+	// Override with job manager caps specified from commandline
+	self.node.top.rt.overrides.ApplyResourceOverrides(
+		self.node.GetFQName(), stageType, &res)
+
+	if self.node.local {
+		res = self.node.top.rt.LocalJobManager.GetSystemReqs(res)
+	} else {
+		res = self.node.top.rt.JobManager.GetSystemReqs(res)
+	}
+	if math.Abs(res.MemGB) < observedMaxMemGB {
+		return res, fmt.Errorf(
+			"unable to provide enough RAM for job to complete: need at least "+
+				"%.4f GB, but system is limited to %.4f",
+			observedMaxMemGB,
+			math.Abs(res.MemGB))
+	}
+	return res, nil
+}
+
+func (self *Fork) setJobReqs(
+	jobDef *JobResources,
+	stageType string,
+	chunkIndex int,
+) (JobResources, error) {
+	// Get values and possibly modify them
+	res, err := self.getJobReqs(jobDef, stageType, chunkIndex)
+	if err != nil {
+		return res, err
+	}
+
+	// Write modified values back
+	if jobDef != nil {
+		*jobDef = res
+	}
+
+	return res, nil
+}
+
+func (self *Fork) runSplit(fqname string, metadata *Metadata, res *JobResources) {
+	self.node.runJob("split", fqname, STAGE_TYPE_SPLIT, metadata, res)
+}
+
+func (self *Fork) runJoin(fqname string, metadata *Metadata, res *JobResources) {
+	self.node.runJob("join", fqname, STAGE_TYPE_JOIN, metadata, res)
+}
+
+func (self *Fork) runChunk(fqname string, metadata *Metadata, res *JobResources) {
+	self.node.runJob("main", fqname, STAGE_TYPE_CHUNK, metadata, res)
+}
+
+// getMemViolationReportLazy loads the current memory violation report.
+// This may be read from the metadata read cache.
+// If none has been written already, return nil. Errors are logged, and
+// a nil map is returned if any occur.
+func (self *Fork) getMemViolationReportLazy() LazyArgumentMap {
 	if !self.metadata.exists(MemViolation) {
-		return make(MemViolationReport)
+		return nil
 	}
-	var memViolationReport MemViolationReport
-	if err := self.metadata.ReadInto(MemViolation, &memViolationReport); err != nil {
+	lazyContents, err := self.metadata.read(MemViolation, 0)
+	if err != nil {
 		util.LogError(err, "runtime", "Error reading memory violation report for %s", self.fqname)
-		return make(MemViolationReport)
+		return nil
 	}
-	return memViolationReport
+
+	return lazyContents
+}
+
+// getMemViolation gets a potential violation for a stage type/chunk index pair.
+// stageType should be one of "split", "chunk", "join".
+//
+// Returns nil if there is no violation for that key, or if an error occurs
+// unmarshaling the violation contents.
+func (self *Fork) getMemViolation(stageType string, chunkIndex int) *MemViolationContents {
+	lazyReport := self.getMemViolationReportLazy()
+	if len(lazyReport) == 0 {
+		return nil
+	}
+	key := stageType
+	if stageType == STAGE_TYPE_CHUNK {
+		key = strconv.Itoa(chunkIndex)
+	}
+	entry, ok := lazyReport[key]
+	if !ok {
+		return nil
+	}
+	var contents MemViolationContents
+	if err := json.Unmarshal(entry, &contents); err != nil {
+		util.LogError(
+			err,
+			"runtime", "Error unmarshaling memory violation contents %s in report for %s: %s",
+			key, self.fqname, string(entry))
+		return nil
+	}
+	return &contents
+}
+
+// getMemViolationReport loads the current memory violation report.
+// This may be read from the metadata read cache.
+// If none has been written already, return an empty report. Errors are logged, and
+// an empty report is returned if any occur.
+func (self *Fork) getMemViolationReport() MemViolationReport {
+	lazyContents := self.getMemViolationReportLazy()
+	report := MemViolationReport{}
+	// Parse the report fields.
+	for k, v := range lazyContents {
+		var violation MemViolationContents
+		if err := json.Unmarshal(v, &violation); err != nil {
+			util.LogError(
+				err,
+				"runtime", "Error unmarshaling memory violation contents %s in report for %s: %s",
+				k, self.fqname, string(v))
+			continue
+		}
+		report[k] = violation
+	}
+	return report
 }
 
 // updateMemViolationReport adds the provided violation to the current report.
@@ -1488,7 +1661,10 @@ func (self *Fork) updateMemViolationReport(key string, v MemViolationContents) {
 	if err := self.metadata.WriteAtomic(MemViolation, currentReport); err != nil {
 		util.LogError(err, "runtime",
 			"Error updating memory violation report for %s", self.fqname)
+		return
 	}
+	// Bust the cache.
+	self.metadata.cache(MemViolation, self.metadata.uniquifier)
 }
 
 func (self *Fork) getVdrKillReport() (*VDRKillReport, bool) {
@@ -1621,13 +1797,15 @@ func (self *Fork) serializePerf(ctx context.Context) (*ForkPerfInfo, *VDRKillRep
 		}
 	}
 
-	numThreads := self.node.getJobReqs(nil, STAGE_TYPE_SPLIT).Threads
+	splitRes, _ := self.getJobReqs(nil, STAGE_TYPE_SPLIT, 0)
+	numThreads := splitRes.Threads
 	splitStats := self.split_metadata.serializePerf(numThreads)
 	if splitStats != nil {
 		stats = append(stats, splitStats)
 	}
 
-	numThreads = self.node.getJobReqs(self.stageDefs.JoinDef, STAGE_TYPE_JOIN).Threads
+	joinRes, _ := self.getJobReqs(self.stageDefs.JoinDef, STAGE_TYPE_JOIN, 0)
+	numThreads = joinRes.Threads
 	joinStats := self.join_metadata.serializePerf(numThreads)
 	if joinStats != nil {
 		stats = append(stats, joinStats)
