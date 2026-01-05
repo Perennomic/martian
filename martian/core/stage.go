@@ -1510,7 +1510,7 @@ func (self *Fork) getJobReqs(
 	// over into the grace limit, but since we're restarting anyway, we might
 	// as well keep the behavior uniform.
 	var observedMaxMemGB float64
-	if self.node.top.rt.Config.AutoMemBump {
+	if self.node.top.rt.Config.AutoAdjustMemory {
 		if violation := self.getMemViolation(stageType, chunkIndex); violation != nil {
 			maxRssGb := float64(violation.MaxRssBytes) / (1024. * 1024. * 1024.)
 			// This should always be the case someone is manually hacking the stage defs.

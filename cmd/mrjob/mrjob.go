@@ -295,7 +295,8 @@ func (self *runner) Complete() {
 			if exceededMemReservation, maxRss := self.exceededMemReservation(); exceededMemReservation {
 				target = core.Errors
 				if writeError := self.metadata.WriteRaw(target, fmt.Sprintf(
-					"Stage exceeded its memory quota (using %.1f, allowed %g)",
+					"%s (using %.1f, allowed %g)",
+					core.ExceededMemQuotaMessage,
 					float64(maxRss)/(1024*1024*1024),
 					self.jobInfo.MemGB)); writeError != nil {
 					util.PrintError(writeError, "monitor",
@@ -656,11 +657,13 @@ func (self *runner) monitor(lastHeartbeat *time.Time) error {
 			self.job.Process.Kill()
 
 			return fmt.Errorf(
-				"Stage exceeded its memory quota (using %.1f, allowed %gG)",
+				"%s (using %.1f, allowed %gG)",
+				core.ExceededMemQuotaMessage,
 				rssGB, self.jobInfo.MemGB)
 		} else {
 			util.LogInfo("monitor",
-				"Stage exceeded its memory quota (using %.1f, allowed %gG)",
+				"%s (using %.1f, allowed %gG)",
+				core.ExceededMemQuotaMessage,
 				rssGB, self.jobInfo.MemGB)
 		}
 	} else if self.jobInfo.VMemGB > 0 && vmemGB > self.jobInfo.VMemGB {

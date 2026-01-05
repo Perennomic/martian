@@ -846,7 +846,7 @@ func (self *Node) getFatalError() (string, bool, string, string, MetadataFileNam
 // Returns true if there is no error or if the error is one we expect to not
 // recur if the pipeline is rerun.
 func (self *Node) isErrorTransient() (bool, string) {
-	passRegexp, _ := getRetryRegexps()
+	passRegexp, _ := getRetryRegexps(self.top.rt.Config.AutoAdjustMemory)
 	for _, metadata := range self.collectMetadatas() {
 		if state, _ := metadata.getState(); state != Failed {
 			continue

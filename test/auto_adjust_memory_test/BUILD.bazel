@@ -1,9 +1,17 @@
 load("//test:integration_test.bzl", "integration_test")
 
 integration_test(
-    name = "auto_adjust_memory_test",
-    config = "auto_adjust_memory_test.json",
+    name = "auto_adjust_memory_manual_restart_test",
+    config = "auto_adjust_memory_manual_restart_test.json",
     expectation = glob(["expected/**"]),
     pipeline = "//test/monitor_test:pipeline",
-    runner = "run_test.sh",
+    runner = "run_manual_restart_test.sh",
+)
+
+integration_test(
+    name = "auto_adjust_memory_auto_restart_test",
+    config = "auto_adjust_memory_auto_restart_test.json",
+    expectation = glob(["expected/**"]),
+    pipeline = "//test/monitor_test:pipeline",
+    runner = "run_auto_restart_test.sh",
 )

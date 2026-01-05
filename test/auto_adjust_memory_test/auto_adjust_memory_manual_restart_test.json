@@ -1,0 +1,7 @@
+{
+  "command": ["run_manual_restart_test.sh"],
+  "expected_return": 0,
+  "output_dir": "pipeline_test_manual_restart",
+  "contains_only_files": ["*"],
+  "contents_match": ["*/_mem_violation", "*/_complete", "*/_outs"]
+}

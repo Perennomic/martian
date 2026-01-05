@@ -166,12 +166,13 @@ Options:
 
     -h --help           Show this message.
     --version           Show version.`
+	opts, _ := docopt.Parse(doc, nil, true, util.GetVersion(), false)
+	autoAdjustMemory := opts["--auto-adjust-memory"].(bool)
 	c := mrpConfiguration{
 		config:  core.DefaultRuntimeOptions(),
-		retries: core.DefaultRetries(),
+		retries: core.DefaultRetries(autoAdjustMemory),
 	}
 	config := &c.config
-	opts, _ := docopt.Parse(doc, nil, true, config.MartianVersion, false)
 
 	logEnviron(config.MartianVersion, os.Args, os.Environ(), os.Getpid())
 
@@ -402,7 +403,7 @@ Options:
 		}
 	}
 	config.Monitor = opts["--monitor"].(bool)
-	config.AutoMemBump = opts["--auto-adjust-memory"].(bool)
+	config.AutoAdjustMemory = autoAdjustMemory
 	c.readOnly = opts["--inspect"].(bool)
 	config.Debug = opts["--debug"].(bool)
 	config.StressTest = opts["--stest"].(bool)

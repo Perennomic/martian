@@ -73,15 +73,27 @@ func VerifyOnFinish(onfinish string) {
 	}
 }
 
+// The error message when a stage exceeds its memory reservation.
+const ExceededMemQuotaMessage string = "Stage exceeded its memory quota"
+
+var exceededMemQuotaRegexp *regexp.Regexp = regexp.MustCompile("^" + ExceededMemQuotaMessage)
+
 // Reads config file for regexps which, when matched, indicate that
 // an error is likely transient.
-func getRetryRegexps() (retryOn []*regexp.Regexp, defaultRetries int) {
+//
+// If we are automatically managing memory reservations, include the message
+// produced by the pipeline for a stage exceeding a memory reservation.
+func getRetryRegexps(autoAdjustMemory bool) (retryOn []*regexp.Regexp, defaultRetries int) {
 	retryfile := util.RelPath(path.Join("..", "jobmanagers", "retry.json"))
 
 	if _, err := os.Stat(retryfile); os.IsNotExist(err) {
-		return []*regexp.Regexp{
+		regexps := []*regexp.Regexp{
 			regexp.MustCompile("^signal: "),
-		}, 0
+		}
+		if autoAdjustMemory {
+			regexps = append(regexps, exceededMemQuotaRegexp)
+		}
+		return regexps, 0
 	}
 	type retryJson struct {
 		RetryOn        []string `json:"retry_on"`
@@ -101,11 +113,14 @@ func getRetryRegexps() (retryOn []*regexp.Regexp, defaultRetries int) {
 	for i, exp := range retryInfo.RetryOn {
 		regexps[i] = regexp.MustCompile(exp)
 	}
+	if autoAdjustMemory {
+		regexps = append(regexps, exceededMemQuotaRegexp)
+	}
 	return regexps, retryInfo.DefaultRetries
 }
 
-func DefaultRetries() int {
-	_, def := getRetryRegexps()
+func DefaultRetries(autoAdjustMemory bool) int {
+	_, def := getRetryRegexps(autoAdjustMemory)
 	return def
 }
 
@@ -155,11 +170,11 @@ type RuntimeOptions struct {
 	Monitor         bool
 	// Automatically increase memory reservations and retry stages that exceed
 	// reservations.
-	AutoMemBump  bool
-	Debug        bool
-	StressTest   bool
-	LimitLoadavg bool
-	NeverLocal   bool
+	AutoAdjustMemory bool
+	Debug            bool
+	StressTest       bool
+	LimitLoadavg     bool
+	NeverLocal       bool
 }
 
 const localMode = "local"
@@ -222,7 +237,7 @@ func (config *RuntimeOptions) ToFlags() []string {
 	if config.Monitor {
 		flags = append(flags, "--monitor")
 	}
-	if config.AutoMemBump {
+	if config.AutoAdjustMemory {
 		flags = append(flags, "--automembump")
 	}
 	if config.Debug {
