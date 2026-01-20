@@ -1513,7 +1513,8 @@ func (self *Fork) getJobReqs(
 	if self.node.top.rt.Config.AutoAdjustMemory {
 		if violation := self.getMemViolation(stageType, chunkIndex); violation != nil {
 			maxRssGb := float64(violation.MaxRssBytes) / (1024. * 1024. * 1024.)
-			// This should always be the case someone is manually hacking the stage defs.
+			// This should always be the case unless someone is
+			// manually hacking the stage defs.
 			if maxRssGb > math.Abs(res.MemGB) {
 				// On the first violation, this would (slightly) more than double
 				// the reservation (because the violation amount must necessarily
@@ -1531,6 +1532,9 @@ func (self *Fork) getJobReqs(
 
 			observedMaxMemGB = math.Abs(res.MemGB)
 		}
+
+		// Do not limit vmem when automatically managing memory.
+		res.VMemGB = 0
 	}
 
 	// Override with job manager caps specified from commandline

@@ -238,7 +238,7 @@ func (config *RuntimeOptions) ToFlags() []string {
 		flags = append(flags, "--monitor")
 	}
 	if config.AutoAdjustMemory {
-		flags = append(flags, "--automembump")
+		flags = append(flags, "--auto-adjust-memory")
 	}
 	if config.Debug {
 		flags = append(flags, "--debug")
