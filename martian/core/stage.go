@@ -1532,9 +1532,6 @@ func (self *Fork) getJobReqs(
 
 			observedMaxMemGB = math.Abs(res.MemGB)
 		}
-
-		// Do not limit vmem when automatically managing memory.
-		res.VMemGB = 0
 	}
 
 	// Override with job manager caps specified from commandline
@@ -1553,6 +1550,12 @@ func (self *Fork) getJobReqs(
 			observedMaxMemGB,
 			math.Abs(res.MemGB))
 	}
+
+	if self.node.top.rt.Config.AutoAdjustMemory {
+		// Do not limit vmem when automatically managing memory.
+		res.VMemGB = 0
+	}
+
 	return res, nil
 }
 
