@@ -30,7 +30,7 @@ jobs:
         run: |
           echo TARBALL_PREFIX=martian-${{ github.event.release.tag_name }}-$(uname -is | tr "A-Z " "a-z-").tar >> $GITHUB_ENV
       - name: Attest Build Provenance
-        uses: actions/attest-build-provenance@v3
+        uses: actions/attest-build-provenance@v4
         with:
           subject-path: "${{ env.TARBALL_PREFIX }}.*"
       - name: upload xz
