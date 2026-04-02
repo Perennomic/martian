@@ -260,11 +260,12 @@ type MemViolationContents struct {
 
 // Merge two memory violations together.
 //
-// This is necessary to make sure that we preserve the original reservation
-// in case we have re-started a job with an automatically-increased reservation.
+// MemReservationGB tracks the most recent reservation so the auto-adjust
+// formula in getJobReqs can produce Fibonacci-like growth across retries.
+// MaxRssBytes tracks the highest observed RSS across all retries.
 func (prev MemViolationContents) Merge(new MemViolationContents) MemViolationContents {
 	return MemViolationContents{
-		MemReservationGB: nonZeroMin(prev.MemReservationGB, new.MemReservationGB),
+		MemReservationGB: max(prev.MemReservationGB, new.MemReservationGB),
 		MaxRssBytes:      max(prev.MaxRssBytes, new.MaxRssBytes),
 	}
 }

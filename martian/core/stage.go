@@ -964,9 +964,9 @@ func (self *Fork) updateState(state, uniquifier string) {
 			uniquifier)
 		if fileName == MemViolation {
 			var memViolation MemViolationContents
-			if err := self.split_metadata.ReadInto(fileName, &memViolation); err != nil {
+			if err := self.join_metadata.ReadInto(fileName, &memViolation); err != nil {
 				util.LogError(err, "mem_violation",
-					"Error reading memory violation file for %s split",
+					"Error reading memory violation file for %s join",
 					self.fqname)
 			} else {
 				self.updateMemViolationReport(STAGE_TYPE_JOIN, memViolation)
