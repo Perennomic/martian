@@ -144,7 +144,7 @@ func (self *runner) Init() {
 }
 
 func getClusterEnv() map[string]string {
-	re := regexp.MustCompile("^(?:EGO|SGE|LS[BF]|PBS|SLURM|JOB)_[^O]")
+	re := regexp.MustCompile("^(?:EGO|SGE|LS[BF]|PBS|SLURM|JOB|INSTANCE)_[^O]")
 	captures := make(map[string]string)
 	for _, env := range os.Environ() {
 		sep := strings.Index(env, "=")
