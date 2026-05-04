@@ -1,11 +1,11 @@
 [
     {
         "name": "EXCEED_RESERVATION",
-        "fqname": "ID.pipeline_test.EXCEED_RESERVATION",
-        "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION",
+        "fqname": "ID.pipeline_test_auto_restart.EXCEED_RESERVATION",
+        "path": "/Users/testuser/repos/martian/test/auto_adjust_memory_test/pipeline_test_auto_restart/EXCEED_RESERVATION",
         "state": "complete",
         "metadata": {
-            "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION",
+            "path": "/Users/testuser/repos/martian/test/auto_adjust_memory_test/pipeline_test_auto_restart/EXCEED_RESERVATION",
             "names": []
         },
         "stagecodeCmd": "",
@@ -13,9 +13,10 @@
             {
                 "argPermute": null,
                 "joinDef": null,
+                "joinReq": null,
                 "state": "complete",
                 "metadata": {
-                    "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/fork0",
+                    "path": "/Users/testuser/repos/martian/test/auto_adjust_memory_test/pipeline_test_auto_restart/EXCEED_RESERVATION/fork0",
                     "names": [
                         "complete",
                         "invocation",
@@ -24,11 +25,11 @@
                     ]
                 },
                 "split_metadata": {
-                    "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/fork0/split",
+                    "path": "/Users/testuser/repos/martian/test/auto_adjust_memory_test/pipeline_test_auto_restart/EXCEED_RESERVATION/fork0/split",
                     "names": []
                 },
                 "join_metadata": {
-                    "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/fork0/join",
+                    "path": "/Users/testuser/repos/martian/test/auto_adjust_memory_test/pipeline_test_auto_restart/EXCEED_RESERVATION/fork0/join",
                     "names": []
                 },
                 "bindings": {
@@ -46,7 +47,7 @@
                     "Return": [
                         {
                             "mode": "reference",
-                            "node": "ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION",
+                            "node": "ID.pipeline_test_auto_restart.EXCEED_RESERVATION.EXCEED_RESERVATION",
                             "matchedFork": null,
                             "value": null,
                             "id": "msg",
@@ -61,8 +62,8 @@
         ],
         "edges": [
             {
-                "from": "ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION",
-                "to": "ID.pipeline_test.EXCEED_RESERVATION"
+                "from": "ID.pipeline_test_auto_restart.EXCEED_RESERVATION.EXCEED_RESERVATION",
+                "to": "ID.pipeline_test_auto_restart.EXCEED_RESERVATION"
             }
         ],
         "stagecodeLang": "",
@@ -70,25 +71,29 @@
     },
     {
         "name": "EXCEED_RESERVATION",
-        "fqname": "ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION",
-        "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/EXCEED_RESERVATION",
+        "fqname": "ID.pipeline_test_auto_restart.EXCEED_RESERVATION.EXCEED_RESERVATION",
+        "path": "/Users/testuser/repos/martian/test/auto_adjust_memory_test/pipeline_test_auto_restart/EXCEED_RESERVATION/EXCEED_RESERVATION",
         "state": "complete",
         "metadata": {
-            "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/EXCEED_RESERVATION",
+            "path": "/Users/testuser/repos/martian/test/auto_adjust_memory_test/pipeline_test_auto_restart/EXCEED_RESERVATION/EXCEED_RESERVATION",
             "names": []
         },
-        "stagecodeCmd": "/mnt/home/user.name/martian-public/test/monitor_test/exceed_reservation",
+        "stagecodeCmd": "/Users/testuser/repos/martian/test/monitor_test/exceed_reservation",
         "forks": [
             {
                 "argPermute": null,
                 "joinDef": {
+                    "__threads": 1,
+                    "__mem_gb": 0.0107421875
+                },
+                "joinReq": {
                     "__threads": 1,
                     "__mem_gb": 0.0107421875,
                     "__vmem_gb": 3.0107421875
                 },
                 "state": "complete",
                 "metadata": {
-                    "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/EXCEED_RESERVATION/fork0",
+                    "path": "/Users/testuser/repos/martian/test/auto_adjust_memory_test/pipeline_test_auto_restart/EXCEED_RESERVATION/EXCEED_RESERVATION/fork0",
                     "names": [
                         "complete",
                         "invocation",
@@ -98,7 +103,7 @@
                     ]
                 },
                 "split_metadata": {
-                    "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/EXCEED_RESERVATION/fork0/split",
+                    "path": "/Users/testuser/repos/martian/test/auto_adjust_memory_test/pipeline_test_auto_restart/EXCEED_RESERVATION/EXCEED_RESERVATION/fork0/split",
                     "names": [
                         "args",
                         "complete",
@@ -106,7 +111,7 @@
                     ]
                 },
                 "join_metadata": {
-                    "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/EXCEED_RESERVATION/fork0/join",
+                    "path": "/Users/testuser/repos/martian/test/auto_adjust_memory_test/pipeline_test_auto_restart/EXCEED_RESERVATION/EXCEED_RESERVATION/fork0/join",
                     "names": [
                         "args",
                         "chunk_defs",
@@ -129,7 +134,7 @@
                     "Return": [
                         {
                             "mode": "reference",
-                            "node": "ID.pipeline_test.EXCEED_RESERVATION.EXCEED_RESERVATION",
+                            "node": "ID.pipeline_test_auto_restart.EXCEED_RESERVATION.EXCEED_RESERVATION",
                             "matchedFork": null,
                             "value": null,
                             "id": "msg",
@@ -141,12 +146,16 @@
                 "chunks": [
                     {
                         "chunkDef": {
-                            "__mem_gb": 0.0293,
+                            "__mem_gb": 0.0283,
+                            "__threads": 1
+                        },
+                        "request": {
                             "__threads": 1,
-                            "__vmem_gb": 3.03
+                            "__mem_gb": 0.0107421875,
+                            "__vmem_gb": 3.0107421875
                         },
                         "metadata": {
-                            "path": "/mnt/home/user.name/martian-public/test/auto_adjust_memory_test/pipeline_test/EXCEED_RESERVATION/EXCEED_RESERVATION/fork0/chnk0",
+                            "path": "/Users/testuser/repos/martian/test/auto_adjust_memory_test/pipeline_test_auto_restart/EXCEED_RESERVATION/EXCEED_RESERVATION/fork0/chnk0",
                             "names": [
                                 "args",
                                 "complete",

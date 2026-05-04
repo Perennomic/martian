@@ -1,0 +1,3264 @@
+[
+    {
+        "name": "TOP_CALL",
+        "fqname": "ID.pipeline_test.TOP_CALL",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL",
+        "state": "complete",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "complete",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/fork0",
+                    "names": [
+                        "complete",
+                        "invocation",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 1,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": [
+                                2,
+                                3
+                            ],
+                            "id": "foos",
+                            "type": "int[]",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "empty",
+                            "type": "int[]",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable_always",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": [
+                                [
+                                    [
+                                        1
+                                    ],
+                                    [
+                                        2,
+                                        3
+                                    ],
+                                    [
+                                        2,
+                                        3
+                                    ],
+                                    null,
+                                    null
+                                ],
+                                [
+                                    [
+                                        0
+                                    ],
+                                    null,
+                                    null,
+                                    null,
+                                    null
+                                ],
+                                null,
+                                null
+                            ],
+                            "id": "results",
+                            "type": "int[][][]",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED",
+                "to": "ID.pipeline_test.TOP_CALL"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_ALWAYS",
+                "to": "ID.pipeline_test.TOP_CALL"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC",
+                "to": "ID.pipeline_test.TOP_CALL"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED",
+                "to": "ID.pipeline_test.TOP_CALL"
+            }
+        ],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "RUNS_DISABLED",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED",
+        "state": "complete",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "complete",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/fork0",
+                    "names": [
+                        "complete",
+                        "invocation",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 0,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": [
+                                2,
+                                3
+                            ],
+                            "id": "foos",
+                            "type": "int[]",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "empty",
+                            "type": "int[]",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable_one",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": [
+                                [
+                                    0
+                                ],
+                                null,
+                                null,
+                                null,
+                                null
+                            ],
+                            "id": "results",
+                            "type": "int[][]",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED.RUN_CREATOR.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable1",
+                            "type": "bool",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "disable2",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED.RUN_CREATOR",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED.RUN_CREATOR1",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED.RUN_CREATOR2",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED.RUN_CREATOR3",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED.RUN_CREATOR4",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED.RUN_CREATOR5",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED"
+            }
+        ],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "RUN_CREATOR",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED.RUN_CREATOR",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR",
+        "state": "complete",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "complete",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR/fork0",
+                    "names": [
+                        "complete",
+                        "invocation",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 0,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 0,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED.RUN_CREATOR.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED.RUN_CREATOR.CREATE_DISABLE",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED.RUN_CREATOR"
+            }
+        ],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "CREATE_DISABLE",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED.RUN_CREATOR.CREATE_DISABLE",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR/CREATE_DISABLE",
+        "state": "complete",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR/CREATE_DISABLE",
+            "names": []
+        },
+        "stagecodeCmd": "/Users/testuser/repos/martian/test/disable_test/disable",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
+                "joinReq": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
+                "state": "complete",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR/CREATE_DISABLE/fork0",
+                    "names": [
+                        "complete",
+                        "invocation",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR/CREATE_DISABLE/fork0/split",
+                    "names": [
+                        "args",
+                        "complete",
+                        "stage_defs"
+                    ]
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR/CREATE_DISABLE/fork0/join",
+                    "names": [
+                        "args",
+                        "chunk_defs",
+                        "complete",
+                        "outs"
+                    ]
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 0,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED.RUN_CREATOR.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [
+                    {
+                        "chunkDef": {
+                            "__mem_gb": 1,
+                            "__threads": 1,
+                            "__vmem_gb": 4
+                        },
+                        "request": {
+                            "__threads": 1,
+                            "__mem_gb": 1,
+                            "__vmem_gb": 4
+                        },
+                        "metadata": {
+                            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR/CREATE_DISABLE/fork0/chnk0",
+                            "names": [
+                                "args",
+                                "complete",
+                                "jobinfo",
+                                "log",
+                                "outs",
+                                "stderr",
+                                "stdout"
+                            ]
+                        },
+                        "state": "complete",
+                        "index": 0
+                    }
+                ],
+                "index": 0
+            }
+        ],
+        "edges": [],
+        "stagecodeLang": "Python",
+        "type": "stage"
+    },
+    {
+        "name": "RUN_CREATOR1",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED.RUN_CREATOR1",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR1",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR1",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR1/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR1/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR1/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": {
+                                "call": "RUN_CREATOR1",
+                                "mode": "array",
+                                "split": [
+                                    2,
+                                    3
+                                ]
+                            },
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": null
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "RUN_CREATOR2",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED.RUN_CREATOR2",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR2",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR2",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR2/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR2/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR2/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": {
+                                "call": "RUN_CREATOR2",
+                                "mode": "array",
+                                "split": [
+                                    2,
+                                    3
+                                ]
+                            },
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": null
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "RUN_CREATOR3",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED.RUN_CREATOR3",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR3",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR3",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR3/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR3/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR3/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": {
+                                "call": "RUN_CREATOR3",
+                                "mode": "null",
+                                "split": null
+                            },
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": null
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "RUN_CREATOR4",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED.RUN_CREATOR4",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR4",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR4",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR4/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR4/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR4/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": {
+                                "call": "RUN_CREATOR4",
+                                "mode": "null",
+                                "split": null
+                            },
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": null
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "RUN_CREATOR5",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED.RUN_CREATOR5",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR5",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR5",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR5/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR5/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED/RUN_CREATOR5/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 0,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": null
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "RUNS_DISABLED_ALWAYS",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_ALWAYS",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_ALWAYS",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_ALWAYS",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_ALWAYS/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_ALWAYS/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_ALWAYS/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 0,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": [
+                                2,
+                                3
+                            ],
+                            "id": "foos",
+                            "type": "int[]",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "empty",
+                            "type": "int[]",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable_one",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": null
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "RUNS_DISABLED_DYNAMIC",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 0,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": [
+                                2,
+                                3
+                            ],
+                            "id": "foos",
+                            "type": "int[]",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "empty",
+                            "type": "int[]",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR5.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR5.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable_one",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "results",
+                            "type": "int[][]",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "disable1",
+                            "type": "bool",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "disable2",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR1",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR2",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR3",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR4",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR5",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC"
+            }
+        ],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "RUN_CREATOR",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 0,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR5.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR.CREATE_DISABLE",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR"
+            }
+        ],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "CREATE_DISABLE",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR.CREATE_DISABLE",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR/CREATE_DISABLE",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR/CREATE_DISABLE",
+            "names": []
+        },
+        "stagecodeCmd": "/Users/testuser/repos/martian/test/disable_test/disable",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR/CREATE_DISABLE/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR/CREATE_DISABLE/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR/CREATE_DISABLE/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 0,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [],
+        "stagecodeLang": "Python",
+        "type": "stage"
+    },
+    {
+        "name": "RUN_CREATOR1",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR1",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR1",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR1",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR1/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR1/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR1/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": {
+                                "call": "RUN_CREATOR1",
+                                "mode": "array",
+                                "split": [
+                                    2,
+                                    3
+                                ]
+                            },
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR5.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": [
+                                null,
+                                null
+                            ],
+                            "id": "foo",
+                            "type": "int[]",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": [
+                                null,
+                                null
+                            ],
+                            "id": "disable",
+                            "type": "bool[]",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR1.CREATE_DISABLE",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR1"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR1"
+            }
+        ],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "CREATE_DISABLE",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR1.CREATE_DISABLE",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR1/CREATE_DISABLE",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR1/CREATE_DISABLE",
+            "names": []
+        },
+        "stagecodeCmd": "/Users/testuser/repos/martian/test/disable_test/disable",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR1/CREATE_DISABLE/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR1/CREATE_DISABLE/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR1/CREATE_DISABLE/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 2,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR1.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 0
+            },
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR1/CREATE_DISABLE/fork1",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR1/CREATE_DISABLE/fork1/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR1/CREATE_DISABLE/fork1/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 3,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR1.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 1
+            }
+        ],
+        "edges": [
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR1.CREATE_DISABLE"
+            }
+        ],
+        "stagecodeLang": "Python",
+        "type": "stage"
+    },
+    {
+        "name": "RUN_CREATOR2",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR2",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR2",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR2",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR2/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR2/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR2/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": {
+                                "call": "RUN_CREATOR2",
+                                "mode": "array",
+                                "split": [
+                                    2,
+                                    3
+                                ]
+                            },
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR5.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": [
+                                null,
+                                null
+                            ],
+                            "id": "foo",
+                            "type": "int[]",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": [
+                                null,
+                                null
+                            ],
+                            "id": "disable",
+                            "type": "bool[]",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR2.CREATE_DISABLE",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR2"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR2"
+            }
+        ],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "CREATE_DISABLE",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR2.CREATE_DISABLE",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR2/CREATE_DISABLE",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR2/CREATE_DISABLE",
+            "names": []
+        },
+        "stagecodeCmd": "/Users/testuser/repos/martian/test/disable_test/disable",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR2/CREATE_DISABLE/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR2/CREATE_DISABLE/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR2/CREATE_DISABLE/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 2,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR2.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 0
+            },
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR2/CREATE_DISABLE/fork1",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR2/CREATE_DISABLE/fork1/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR2/CREATE_DISABLE/fork1/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 3,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR2.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 1
+            }
+        ],
+        "edges": [
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR2.CREATE_DISABLE"
+            }
+        ],
+        "stagecodeLang": "Python",
+        "type": "stage"
+    },
+    {
+        "name": "RUN_CREATOR3",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR3",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR3",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR3",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR3/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR3/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR3/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": {
+                                "call": "RUN_CREATOR3",
+                                "mode": "null",
+                                "split": null
+                            },
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR5.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": null
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR3"
+            }
+        ],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "RUN_CREATOR4",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR4",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR4",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR4",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR4/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR4/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR4/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": {
+                                "call": "RUN_CREATOR4",
+                                "mode": "null",
+                                "split": null
+                            },
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR5.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": null
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR4"
+            }
+        ],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "RUN_CREATOR5",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR5",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR5",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR5",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR5/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR5/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR5/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 0,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR5.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR5.CREATE_DISABLE",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR5"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR5"
+            }
+        ],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "CREATE_DISABLE",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR5.CREATE_DISABLE",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR5/CREATE_DISABLE",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR5/CREATE_DISABLE",
+            "names": []
+        },
+        "stagecodeCmd": "/Users/testuser/repos/martian/test/disable_test/disable",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR5/CREATE_DISABLE/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR5/CREATE_DISABLE/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_DISABLED_DYNAMIC/RUN_CREATOR5/CREATE_DISABLE/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 0,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_DISABLED_DYNAMIC.RUN_CREATOR5.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [],
+        "stagecodeLang": "Python",
+        "type": "stage"
+    },
+    {
+        "name": "RUNS_ENABLED",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED",
+        "state": "complete",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "complete",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/fork0",
+                    "names": [
+                        "complete",
+                        "invocation",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 1,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": [
+                                2,
+                                3
+                            ],
+                            "id": "foos",
+                            "type": "int[]",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": null,
+                            "id": "empty",
+                            "type": "int[]",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable_one",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": [
+                                [
+                                    1
+                                ],
+                                [
+                                    2,
+                                    3
+                                ],
+                                [
+                                    2,
+                                    3
+                                ],
+                                null,
+                                null
+                            ],
+                            "id": "results",
+                            "type": "int[][]",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable1",
+                            "type": "bool",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR5.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable2",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR1",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR2",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR3",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR4",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED"
+            },
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR5",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED"
+            }
+        ],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "RUN_CREATOR",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR",
+        "state": "complete",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "complete",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR/fork0",
+                    "names": [
+                        "complete",
+                        "invocation",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 1,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 1,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR.CREATE_DISABLE",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR"
+            }
+        ],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "CREATE_DISABLE",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR.CREATE_DISABLE",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR/CREATE_DISABLE",
+        "state": "complete",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR/CREATE_DISABLE",
+            "names": []
+        },
+        "stagecodeCmd": "/Users/testuser/repos/martian/test/disable_test/disable",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
+                "joinReq": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
+                "state": "complete",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR/CREATE_DISABLE/fork0",
+                    "names": [
+                        "complete",
+                        "invocation",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR/CREATE_DISABLE/fork0/split",
+                    "names": [
+                        "args",
+                        "complete",
+                        "stage_defs"
+                    ]
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR/CREATE_DISABLE/fork0/join",
+                    "names": [
+                        "args",
+                        "chunk_defs",
+                        "complete",
+                        "outs"
+                    ]
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 1,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [
+                    {
+                        "chunkDef": {
+                            "__mem_gb": 1,
+                            "__threads": 1,
+                            "__vmem_gb": 4
+                        },
+                        "request": {
+                            "__threads": 1,
+                            "__mem_gb": 1,
+                            "__vmem_gb": 4
+                        },
+                        "metadata": {
+                            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR/CREATE_DISABLE/fork0/chnk0",
+                            "names": [
+                                "args",
+                                "complete",
+                                "jobinfo",
+                                "log",
+                                "outs",
+                                "stderr",
+                                "stdout"
+                            ]
+                        },
+                        "state": "complete",
+                        "index": 0
+                    }
+                ],
+                "index": 0
+            }
+        ],
+        "edges": [],
+        "stagecodeLang": "Python",
+        "type": "stage"
+    },
+    {
+        "name": "RUN_CREATOR1",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR1",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR1",
+        "state": "complete",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR1",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "complete",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR1/fork0",
+                    "names": [
+                        "complete",
+                        "invocation",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR1/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR1/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": {
+                                "call": "RUN_CREATOR1",
+                                "mode": "array",
+                                "split": [
+                                    2,
+                                    3
+                                ]
+                            },
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": [
+                                2,
+                                3
+                            ],
+                            "id": "foo",
+                            "type": "int[]",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": [
+                                false,
+                                false
+                            ],
+                            "id": "disable",
+                            "type": "bool[]",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR1.CREATE_DISABLE",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR1"
+            }
+        ],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "CREATE_DISABLE",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR1.CREATE_DISABLE",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR1/CREATE_DISABLE",
+        "state": "complete",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR1/CREATE_DISABLE",
+            "names": []
+        },
+        "stagecodeCmd": "/Users/testuser/repos/martian/test/disable_test/disable",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
+                "joinReq": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
+                "state": "complete",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR1/CREATE_DISABLE/fork0",
+                    "names": [
+                        "complete",
+                        "invocation",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR1/CREATE_DISABLE/fork0/split",
+                    "names": [
+                        "args",
+                        "complete",
+                        "stage_defs"
+                    ]
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR1/CREATE_DISABLE/fork0/join",
+                    "names": [
+                        "args",
+                        "chunk_defs",
+                        "complete",
+                        "outs"
+                    ]
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 2,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR1.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [
+                    {
+                        "chunkDef": {
+                            "__mem_gb": 1,
+                            "__threads": 1,
+                            "__vmem_gb": 4
+                        },
+                        "request": {
+                            "__threads": 1,
+                            "__mem_gb": 1,
+                            "__vmem_gb": 4
+                        },
+                        "metadata": {
+                            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR1/CREATE_DISABLE/fork0/chnk0",
+                            "names": [
+                                "args",
+                                "complete",
+                                "jobinfo",
+                                "log",
+                                "outs",
+                                "stderr",
+                                "stdout"
+                            ]
+                        },
+                        "state": "complete",
+                        "index": 0
+                    }
+                ],
+                "index": 0
+            },
+            {
+                "argPermute": null,
+                "joinDef": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
+                "joinReq": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
+                "state": "complete",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR1/CREATE_DISABLE/fork1",
+                    "names": [
+                        "complete",
+                        "invocation",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR1/CREATE_DISABLE/fork1/split",
+                    "names": [
+                        "args",
+                        "complete",
+                        "stage_defs"
+                    ]
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR1/CREATE_DISABLE/fork1/join",
+                    "names": [
+                        "args",
+                        "chunk_defs",
+                        "complete",
+                        "outs"
+                    ]
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 3,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR1.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [
+                    {
+                        "chunkDef": {
+                            "__mem_gb": 1,
+                            "__threads": 1,
+                            "__vmem_gb": 4
+                        },
+                        "request": {
+                            "__threads": 1,
+                            "__mem_gb": 1,
+                            "__vmem_gb": 4
+                        },
+                        "metadata": {
+                            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR1/CREATE_DISABLE/fork1/chnk0",
+                            "names": [
+                                "args",
+                                "complete",
+                                "jobinfo",
+                                "log",
+                                "outs",
+                                "stderr",
+                                "stdout"
+                            ]
+                        },
+                        "state": "complete",
+                        "index": 0
+                    }
+                ],
+                "index": 1
+            }
+        ],
+        "edges": [],
+        "stagecodeLang": "Python",
+        "type": "stage"
+    },
+    {
+        "name": "RUN_CREATOR2",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR2",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR2",
+        "state": "complete",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR2",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "complete",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR2/fork0",
+                    "names": [
+                        "complete",
+                        "invocation",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR2/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR2/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": {
+                                "call": "RUN_CREATOR2",
+                                "mode": "array",
+                                "split": [
+                                    2,
+                                    3
+                                ]
+                            },
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": [
+                                2,
+                                3
+                            ],
+                            "id": "foo",
+                            "type": "int[]",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": [
+                                false,
+                                false
+                            ],
+                            "id": "disable",
+                            "type": "bool[]",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR2.CREATE_DISABLE",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR2"
+            }
+        ],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "CREATE_DISABLE",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR2.CREATE_DISABLE",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR2/CREATE_DISABLE",
+        "state": "complete",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR2/CREATE_DISABLE",
+            "names": []
+        },
+        "stagecodeCmd": "/Users/testuser/repos/martian/test/disable_test/disable",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
+                "joinReq": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
+                "state": "complete",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR2/CREATE_DISABLE/fork0",
+                    "names": [
+                        "complete",
+                        "invocation",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR2/CREATE_DISABLE/fork0/split",
+                    "names": [
+                        "args",
+                        "complete",
+                        "stage_defs"
+                    ]
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR2/CREATE_DISABLE/fork0/join",
+                    "names": [
+                        "args",
+                        "chunk_defs",
+                        "complete",
+                        "outs"
+                    ]
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 2,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR2.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [
+                    {
+                        "chunkDef": {
+                            "__mem_gb": 1,
+                            "__threads": 1,
+                            "__vmem_gb": 4
+                        },
+                        "request": {
+                            "__threads": 1,
+                            "__mem_gb": 1,
+                            "__vmem_gb": 4
+                        },
+                        "metadata": {
+                            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR2/CREATE_DISABLE/fork0/chnk0",
+                            "names": [
+                                "args",
+                                "complete",
+                                "jobinfo",
+                                "log",
+                                "outs",
+                                "stderr",
+                                "stdout"
+                            ]
+                        },
+                        "state": "complete",
+                        "index": 0
+                    }
+                ],
+                "index": 0
+            },
+            {
+                "argPermute": null,
+                "joinDef": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
+                "joinReq": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
+                "state": "complete",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR2/CREATE_DISABLE/fork1",
+                    "names": [
+                        "complete",
+                        "invocation",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR2/CREATE_DISABLE/fork1/split",
+                    "names": [
+                        "args",
+                        "complete",
+                        "stage_defs"
+                    ]
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR2/CREATE_DISABLE/fork1/join",
+                    "names": [
+                        "args",
+                        "chunk_defs",
+                        "complete",
+                        "outs"
+                    ]
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 3,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR2.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [
+                    {
+                        "chunkDef": {
+                            "__mem_gb": 1,
+                            "__threads": 1,
+                            "__vmem_gb": 4
+                        },
+                        "request": {
+                            "__threads": 1,
+                            "__mem_gb": 1,
+                            "__vmem_gb": 4
+                        },
+                        "metadata": {
+                            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR2/CREATE_DISABLE/fork1/chnk0",
+                            "names": [
+                                "args",
+                                "complete",
+                                "jobinfo",
+                                "log",
+                                "outs",
+                                "stderr",
+                                "stdout"
+                            ]
+                        },
+                        "state": "complete",
+                        "index": 0
+                    }
+                ],
+                "index": 1
+            }
+        ],
+        "edges": [],
+        "stagecodeLang": "Python",
+        "type": "stage"
+    },
+    {
+        "name": "RUN_CREATOR3",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR3",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR3",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR3",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR3/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR3/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR3/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": {
+                                "call": "RUN_CREATOR3",
+                                "mode": "null",
+                                "split": null
+                            },
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": null
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "RUN_CREATOR4",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR4",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR4",
+        "state": "disabled",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR4",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "disabled",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR4/fork0",
+                    "names": [
+                        "disabled",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR4/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR4/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": {
+                                "call": "RUN_CREATOR4",
+                                "mode": "null",
+                                "split": null
+                            },
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": null
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "RUN_CREATOR5",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR5",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR5",
+        "state": "complete",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR5",
+            "names": []
+        },
+        "stagecodeCmd": "",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": null,
+                "joinReq": null,
+                "state": "complete",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR5/fork0",
+                    "names": [
+                        "complete",
+                        "invocation",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR5/fork0/split",
+                    "names": []
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR5/fork0/join",
+                    "names": []
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 1,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": false,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 1,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR5.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [],
+                "index": 0
+            }
+        ],
+        "edges": [
+            {
+                "from": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR5.CREATE_DISABLE",
+                "to": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR5"
+            }
+        ],
+        "stagecodeLang": "",
+        "type": "pipeline"
+    },
+    {
+        "name": "CREATE_DISABLE",
+        "fqname": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR5.CREATE_DISABLE",
+        "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR5/CREATE_DISABLE",
+        "state": "complete",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR5/CREATE_DISABLE",
+            "names": []
+        },
+        "stagecodeCmd": "/Users/testuser/repos/martian/test/disable_test/disable",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
+                "joinReq": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
+                "state": "complete",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR5/CREATE_DISABLE/fork0",
+                    "names": [
+                        "complete",
+                        "invocation",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR5/CREATE_DISABLE/fork0/split",
+                    "names": [
+                        "args",
+                        "complete",
+                        "stage_defs"
+                    ]
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR5/CREATE_DISABLE/fork0/join",
+                    "names": [
+                        "args",
+                        "chunk_defs",
+                        "complete",
+                        "outs"
+                    ]
+                },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "",
+                            "node": null,
+                            "matchedFork": null,
+                            "value": 1,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.TOP_CALL.RUNS_ENABLED.RUN_CREATOR5.CREATE_DISABLE",
+                            "matchedFork": null,
+                            "value": true,
+                            "id": "disable",
+                            "type": "bool",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [
+                    {
+                        "chunkDef": {
+                            "__mem_gb": 1,
+                            "__threads": 1,
+                            "__vmem_gb": 4
+                        },
+                        "request": {
+                            "__threads": 1,
+                            "__mem_gb": 1,
+                            "__vmem_gb": 4
+                        },
+                        "metadata": {
+                            "path": "/Users/testuser/repos/martian/test/disable_test/pipeline_test/TOP_CALL/RUNS_ENABLED/RUN_CREATOR5/CREATE_DISABLE/fork0/chnk0",
+                            "names": [
+                                "args",
+                                "complete",
+                                "jobinfo",
+                                "log",
+                                "outs",
+                                "stderr",
+                                "stdout"
+                            ]
+                        },
+                        "state": "complete",
+                        "index": 0
+                    }
+                ],
+                "index": 0
+            }
+        ],
+        "edges": [],
+        "stagecodeLang": "Python",
+        "type": "stage"
+    }
+]

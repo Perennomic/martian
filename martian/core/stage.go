@@ -76,8 +76,10 @@ var disableUniquification = (os.Getenv("MRO_UNIQUIFIED_DIRECTORIES") == disable)
 
 // Represents the state of a stage chunk (the "main" method).
 type Chunk struct {
-	fork       *Fork
-	chunkDef   *ChunkDef
+	fork     *Fork
+	chunkDef *ChunkDef
+	// The resources actually requested by the stage code.
+	request    *JobResources
 	metadata   *Metadata
 	fqname     string
 	index      int
@@ -87,6 +89,7 @@ type Chunk struct {
 // Exportable information about a Chunk object.
 type ChunkInfo struct {
 	ChunkDef *ChunkDef     `json:"chunkDef"`
+	Request  *JobResources `json:"request"`
 	Metadata *MetadataInfo `json:"metadata"`
 	State    MetadataState `json:"state"`
 	Index    int           `json:"index"`
@@ -323,6 +326,7 @@ func (self *Chunk) serializeState() *ChunkInfo {
 	return &ChunkInfo{
 		Index:    self.index,
 		ChunkDef: self.chunkDef,
+		Request:  self.request,
 		State:    self.getState(),
 		Metadata: self.metadata.serializeState(),
 	}
@@ -360,8 +364,10 @@ type Fork struct {
 	join_metadata  *Metadata
 	chunks         []*Chunk
 	stageDefs      *StageDefs
-	perfCache      *ForkPerfCache
-	lastPrint      time.Time
+	// The resources originally requested by the stage's split.
+	joinRequest *JobResources
+	perfCache   *ForkPerfCache
+	lastPrint   time.Time
 
 	// Caches the set of strict-mode VDR-able files and the
 	// arguments which are keeping them alive.
@@ -386,15 +392,18 @@ type Fork struct {
 
 // Exportable information from a Fork object.
 type ForkInfo struct {
-	ArgPermute    map[string]interface{} `json:"argPermute"`
-	JoinDef       *JobResources          `json:"joinDef"`
-	State         MetadataState          `json:"state"`
-	Metadata      *MetadataInfo          `json:"metadata"`
-	SplitMetadata *MetadataInfo          `json:"split_metadata"`
-	JoinMetadata  *MetadataInfo          `json:"join_metadata"`
-	Bindings      *ForkBindingsInfo      `json:"bindings"`
-	Chunks        []*ChunkInfo           `json:"chunks"`
-	Index         int                    `json:"index"`
+	ArgPermute map[string]interface{} `json:"argPermute"`
+	// The join resources actually used to run the join.
+	JoinDef *JobResources `json:"joinDef"`
+	// The join resources requested by stage code.
+	JoinReq       *JobResources     `json:"joinReq"`
+	State         MetadataState     `json:"state"`
+	Metadata      *MetadataInfo     `json:"metadata"`
+	SplitMetadata *MetadataInfo     `json:"split_metadata"`
+	JoinMetadata  *MetadataInfo     `json:"join_metadata"`
+	Bindings      *ForkBindingsInfo `json:"bindings"`
+	Chunks        []*ChunkInfo      `json:"chunks"`
+	Index         int               `json:"index"`
 }
 
 type ForkBindingsInfo struct {
@@ -453,10 +462,12 @@ func (self *Fork) updateId(id ForkId) {
 	// If we updated the path, we should load stage defs and create chunks.
 	if self.path != oldPath {
 		if err := self.split_metadata.ReadInto(StageDefsFile, &self.stageDefs); err == nil {
+			self.joinRequest = self.resourceRequest(self.stageDefs.JoinDef)
 			width := util.WidthForInt(len(self.stageDefs.ChunkDefs))
 			self.chunks = make([]*Chunk, 0, len(self.stageDefs.ChunkDefs))
 			for i, chunkDef := range self.stageDefs.ChunkDefs {
 				chunk := NewChunk(self, i, chunkDef, width)
+				chunk.request = self.resourceRequest(chunk.chunkDef.Resources)
 				self.chunks = append(self.chunks, chunk)
 			}
 		}
@@ -1118,6 +1129,7 @@ Chunk count: %d`,
 				width := util.WidthForInt(len(self.stageDefs.ChunkDefs))
 				for i, chunkDef := range self.stageDefs.ChunkDefs {
 					chunk := NewChunk(self, i, chunkDef, width)
+					chunk.request = self.resourceRequest(chunk.chunkDef.Resources)
 					self.chunks = append(self.chunks, chunk)
 					if err := chunk.mkdirs(); err != nil {
 						util.LogError(err, "runtime",
@@ -1160,6 +1172,7 @@ func (self *Fork) doJoin(state MetadataState, getBindings func() MarshalerMap) M
 	go self.partialVdrKill()
 	if self.stageDefs.JoinDef == nil {
 		self.stageDefs.JoinDef = &JobResources{}
+		self.joinRequest = self.resourceRequest(self.stageDefs.JoinDef)
 	}
 
 	res, err := self.setJobReqs(self.stageDefs.JoinDef, STAGE_TYPE_JOIN, 0)
@@ -1578,6 +1591,49 @@ func (self *Fork) setJobReqs(
 	return res, nil
 }
 
+// Construct the JobResources for a specific request.
+//
+// Starts with the Node-level resources (from mro "using" block), then applies
+// the provided requested resources, then finally applies defaults to zeros.
+// Note that we cannot use this method inside getJobReqs - this is only for
+// producing an accurate portrayal of "what the stage requested" without taking
+// into account anything like resource overrides, retry bumps, system
+// restrictions, etc.
+func (self *Fork) resourceRequest(request *JobResources) *JobResources {
+	var res JobResources
+
+	if self.node.resources != nil {
+		res = *self.node.resources
+	}
+
+	if request != nil {
+		if request.Threads != 0 {
+			res.Threads = request.Threads
+		}
+		if request.MemGB != 0 {
+			res.MemGB = request.MemGB
+		}
+		if request.VMemGB != 0 {
+			res.VMemGB = request.VMemGB
+		}
+		if request.Special != "" {
+			res.Special = request.Special
+		}
+	}
+
+	jobSettings := self.node.top.rt.jobConfig.JobSettings
+	if res.Threads == 0 {
+		res.Threads = float64(jobSettings.ThreadsPerJob)
+	}
+	if res.MemGB == 0 {
+		res.MemGB = float64(jobSettings.MemGBPerJob)
+	}
+	if res.VMemGB == 0 {
+		res.VMemGB = res.MemGB + float64(jobSettings.ExtraVmemGB)
+	}
+	return &res
+}
+
 func (self *Fork) runSplit(fqname string, metadata *Metadata, res *JobResources) {
 	self.node.runJob("split", fqname, STAGE_TYPE_SPLIT, metadata, res)
 }
@@ -1752,6 +1808,7 @@ func (self *Fork) serializeState(ctx context.Context) *ForkInfo {
 	return &ForkInfo{
 		Index:         self.index,
 		JoinDef:       self.stageDefs.JoinDef,
+		JoinReq:       self.joinRequest,
 		State:         self.getState(),
 		Metadata:      self.metadata.serializeState(),
 		SplitMetadata: self.split_metadata.serializeState(),

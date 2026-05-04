@@ -2,21 +2,21 @@
     {
         "name": "OUTER",
         "fqname": "ID.pipeline_test.OUTER",
-        "type": "pipeline",
-        "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER",
+        "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER",
         "state": "complete",
         "metadata": {
-            "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER",
+            "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER",
             "names": []
         },
+        "stagecodeCmd": "",
         "forks": [
             {
-                "index": 0,
                 "argPermute": null,
                 "joinDef": null,
+                "joinReq": null,
                 "state": "complete",
                 "metadata": {
-                    "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/fork0",
+                    "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/fork0",
                     "names": [
                         "complete",
                         "invocation",
@@ -25,86 +25,87 @@
                     ]
                 },
                 "split_metadata": {
-                    "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/fork0/split",
+                    "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/fork0/split",
                     "names": []
                 },
                 "join_metadata": {
-                    "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/fork0/join",
+                    "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/fork0/join",
                     "names": []
                 },
-                "chunks": [],
                 "bindings": {
                     "Argument": [
                         {
-                            "id": "foo",
-                            "type": "int",
                             "mode": "",
                             "node": null,
                             "matchedFork": null,
                             "value": 1,
+                            "id": "foo",
+                            "type": "int",
                             "waiting": false
                         }
                     ],
                     "Return": [
                         {
-                            "id": "text",
-                            "type": "txt",
                             "mode": "reference",
                             "node": "ID.pipeline_test.OUTER.INNER.C2",
                             "matchedFork": null,
-                            "value": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0/files/file1",
+                            "value": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0-uee87f92bc9/files/file1",
+                            "id": "text",
+                            "type": "txt",
                             "waiting": false
                         },
                         {
-                            "id": "inner",
-                            "type": "INNER",
                             "mode": "",
                             "node": null,
                             "matchedFork": null,
                             "value": {
                                 "bar": {
                                     "bar": {
-                                        "file2": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0/files/file2",
-                                        "file1": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0/files/file1",
-                                        "bar": 7
+                                        "bar": 7,
+                                        "file1": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0-uee87f92bc9/files/file1",
+                                        "file2": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0-uee87f92bc9/files/file2"
                                     },
-                                    "file3": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0/files/output_name.file"
+                                    "file3": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0-uee87f92bc9/files/output_name.file"
                                 },
-                                "out_file": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C3/fork0/chnk0/files/file2",
+                                "out_file": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C3/fork0/chnk0-uee87f92bca/files/file2",
                                 "results1": {
                                     "c1": {
                                         "bar": {
-                                            "file2": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0/files/file2",
-                                            "file1": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0/files/file1",
-                                            "bar": 4
+                                            "bar": 4,
+                                            "file1": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/file1",
+                                            "file2": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/file2"
                                         },
-                                        "file3": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0/files/output_name.file"
+                                        "file3": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/output_name.file"
                                     },
                                     "c2": {
                                         "bar": {
-                                            "file2": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0/files/file2",
-                                            "file1": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0/files/file1",
-                                            "bar": 7
+                                            "bar": 7,
+                                            "file1": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0-uee87f92bc9/files/file1",
+                                            "file2": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0-uee87f92bc9/files/file2"
                                         },
-                                        "file3": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0/files/output_name.file"
+                                        "file3": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0-uee87f92bc9/files/output_name.file"
                                     }
                                 },
                                 "results2": {
                                     "c1": {
                                         "bar": {
-                                            "file2": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0/files/file2",
-                                            "file1": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0/files/file1",
-                                            "bar": 4
+                                            "bar": 4,
+                                            "file1": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/file1",
+                                            "file2": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/file2"
                                         },
-                                        "file3": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0/files/output_name.file"
+                                        "file3": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/output_name.file"
                                     },
                                     "c2": null
                                 }
                             },
+                            "id": "inner",
+                            "type": "INNER",
                             "waiting": false
                         }
                     ]
-                }
+                },
+                "chunks": [],
+                "index": 0
             }
         ],
         "edges": [
@@ -114,26 +115,26 @@
             }
         ],
         "stagecodeLang": "",
-        "stagecodeCmd": ""
+        "type": "pipeline"
     },
     {
         "name": "INNER",
         "fqname": "ID.pipeline_test.OUTER.INNER",
-        "type": "pipeline",
-        "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER",
+        "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER",
         "state": "complete",
         "metadata": {
-            "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER",
+            "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER",
             "names": []
         },
+        "stagecodeCmd": "",
         "forks": [
             {
-                "index": 0,
                 "argPermute": null,
                 "joinDef": null,
+                "joinReq": null,
                 "state": "complete",
                 "metadata": {
-                    "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/fork0",
+                    "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/fork0",
                     "names": [
                         "complete",
                         "invocation",
@@ -142,99 +143,100 @@
                     ]
                 },
                 "split_metadata": {
-                    "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/fork0/split",
+                    "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/fork0/split",
                     "names": []
                 },
                 "join_metadata": {
-                    "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/fork0/join",
+                    "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/fork0/join",
                     "names": []
                 },
-                "chunks": [],
                 "bindings": {
                     "Argument": [
                         {
-                            "id": "foo",
-                            "type": "int",
                             "mode": "",
                             "node": null,
                             "matchedFork": null,
                             "value": 1,
+                            "id": "foo",
+                            "type": "int",
                             "waiting": false
                         }
                     ],
                     "Return": [
                         {
-                            "id": "bar",
-                            "type": "CREATOR",
                             "mode": "reference",
                             "node": "ID.pipeline_test.OUTER.INNER.C2",
                             "matchedFork": null,
                             "value": {
                                 "bar": {
-                                    "file2": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0/files/file2",
-                                    "file1": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0/files/file1",
-                                    "bar": 7
+                                    "bar": 7,
+                                    "file1": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0-uee87f92bc9/files/file1",
+                                    "file2": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0-uee87f92bc9/files/file2"
                                 },
-                                "file3": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0/files/output_name.file"
+                                "file3": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0-uee87f92bc9/files/output_name.file"
                             },
+                            "id": "bar",
+                            "type": "CREATOR",
                             "waiting": false
                         },
                         {
-                            "id": "out_file",
-                            "type": "txt",
                             "mode": "reference",
                             "node": "ID.pipeline_test.OUTER.INNER.C3",
                             "matchedFork": null,
-                            "value": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C3/fork0/chnk0/files/file2",
+                            "value": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C3/fork0/chnk0-uee87f92bca/files/file2",
+                            "id": "out_file",
+                            "type": "txt",
                             "waiting": false
                         },
                         {
-                            "id": "results1",
-                            "type": "map\u003cCREATOR\u003e",
                             "mode": "",
                             "node": null,
                             "matchedFork": null,
                             "value": {
                                 "c1": {
                                     "bar": {
-                                        "file2": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0/files/file2",
-                                        "file1": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0/files/file1",
-                                        "bar": 4
+                                        "bar": 4,
+                                        "file1": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/file1",
+                                        "file2": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/file2"
                                     },
-                                    "file3": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0/files/output_name.file"
+                                    "file3": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/output_name.file"
                                 },
                                 "c2": {
                                     "bar": {
-                                        "file2": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0/files/file2",
-                                        "file1": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0/files/file1",
-                                        "bar": 7
+                                        "bar": 7,
+                                        "file1": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0-uee87f92bc9/files/file1",
+                                        "file2": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0-uee87f92bc9/files/file2"
                                     },
-                                    "file3": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0/files/output_name.file"
+                                    "file3": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0-uee87f92bc9/files/output_name.file"
                                 }
                             },
+                            "id": "results1",
+                            "type": "map\u003cCREATOR\u003e",
                             "waiting": false
                         },
                         {
-                            "id": "results2",
-                            "type": "map\u003cCREATOR\u003e",
                             "mode": "reference",
                             "node": "ID.pipeline_test.OUTER.INNER.C1",
                             "matchedFork": null,
                             "value": {
                                 "c1": {
                                     "bar": {
-                                        "file2": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0/files/file2",
-                                        "file1": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0/files/file1",
-                                        "bar": 4
+                                        "bar": 4,
+                                        "file1": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/file1",
+                                        "file2": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/file2"
                                     },
-                                    "file3": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0/files/output_name.file"
+                                    "file3": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/output_name.file"
                                 },
                                 "c2": null
                             },
+                            "id": "results2",
+                            "type": "map\u003cCREATOR\u003e",
                             "waiting": false
                         }
                     ]
-                }
+                },
+                "chunks": [],
+                "index": 0
             }
         ],
         "edges": [
@@ -252,30 +254,34 @@
             }
         ],
         "stagecodeLang": "",
-        "stagecodeCmd": ""
+        "type": "pipeline"
     },
     {
         "name": "C1",
         "fqname": "ID.pipeline_test.OUTER.INNER.C1",
-        "type": "stage",
-        "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1",
+        "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1",
         "state": "complete",
         "metadata": {
-            "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1",
+            "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1",
             "names": []
         },
+        "stagecodeCmd": "/Users/testuser/repos/martian/test/struct_test/creator",
         "forks": [
             {
-                "index": 0,
                 "argPermute": null,
                 "joinDef": {
                     "__threads": 1,
                     "__mem_gb": 1,
                     "__vmem_gb": 4
                 },
+                "joinReq": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
                 "state": "complete",
                 "metadata": {
-                    "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0",
+                    "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0",
                     "names": [
                         "complete",
                         "invocation",
@@ -284,7 +290,7 @@
                     ]
                 },
                 "split_metadata": {
-                    "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/split",
+                    "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/split",
                     "names": [
                         "args",
                         "complete",
@@ -292,7 +298,7 @@
                     ]
                 },
                 "join_metadata": {
-                    "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/join",
+                    "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/join",
                     "names": [
                         "args",
                         "chunk_defs",
@@ -300,115 +306,66 @@
                         "outs"
                     ]
                 },
-                "chunks": [
-                    {
-                        "index": 0,
-                        "chunkDef": {
-                            "__mem_gb": 1,
-                            "__threads": 1,
-                            "__vmem_gb": 4
-                        },
-                        "state": "complete",
-                        "metadata": {
-                            "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0",
-                            "names": [
-                                "args",
-                                "complete",
-                                "jobinfo",
-                                "log",
-                                "outs",
-                                "stderr",
-                                "stdout"
-                            ]
-                        }
-                    }
-                ],
                 "bindings": {
                     "Argument": [
                         {
-                            "id": "foo",
-                            "type": "int",
                             "mode": "",
                             "node": null,
                             "matchedFork": null,
                             "value": 1,
+                            "id": "foo",
+                            "type": "int",
                             "waiting": false
                         },
                         {
-                            "id": "things",
-                            "type": "STUFF",
                             "mode": "",
                             "node": null,
                             "matchedFork": null,
                             "value": null,
+                            "id": "things",
+                            "type": "STUFF",
                             "waiting": false
                         }
                     ],
-                    "Return": null
-                }
-            }
-        ],
-        "edges": [],
-        "stagecodeLang": "Python",
-        "stagecodeCmd": "/github.com/martian-lang/martian/test/struct_test/creator"
-    },
-    {
-        "name": "C2",
-        "fqname": "ID.pipeline_test.OUTER.INNER.C2",
-        "type": "stage",
-        "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2",
-        "state": "complete",
-        "metadata": {
-            "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2",
-            "names": []
-        },
-        "forks": [
-            {
-                "index": 0,
-                "argPermute": null,
-                "joinDef": {
-                    "__threads": 1,
-                    "__mem_gb": 1,
-                    "__vmem_gb": 4
-                },
-                "state": "complete",
-                "metadata": {
-                    "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0",
-                    "names": [
-                        "complete",
-                        "invocation",
-                        "outs",
-                        "vdrkill"
-                    ]
-                },
-                "split_metadata": {
-                    "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/split",
-                    "names": [
-                        "args",
-                        "complete",
-                        "stage_defs"
-                    ]
-                },
-                "join_metadata": {
-                    "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/join",
-                    "names": [
-                        "args",
-                        "chunk_defs",
-                        "complete",
-                        "outs"
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.OUTER.INNER.C1",
+                            "matchedFork": null,
+                            "value": {
+                                "bar": 4,
+                                "file1": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/file1",
+                                "file2": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/file2"
+                            },
+                            "id": "bar",
+                            "type": "STUFF",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.OUTER.INNER.C1",
+                            "matchedFork": null,
+                            "value": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/output_name.file",
+                            "id": "file3",
+                            "type": "txt",
+                            "waiting": false
+                        }
                     ]
                 },
                 "chunks": [
                     {
-                        "index": 0,
                         "chunkDef": {
                             "__mem_gb": 1,
                             "__threads": 1,
                             "__vmem_gb": 4
                         },
-                        "state": "complete",
+                        "request": {
+                            "__threads": 1,
+                            "__mem_gb": 1,
+                            "__vmem_gb": 4
+                        },
                         "metadata": {
-                            "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0",
+                            "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0",
                             "names": [
                                 "args",
                                 "complete",
@@ -418,36 +375,147 @@
                                 "stderr",
                                 "stdout"
                             ]
-                        }
+                        },
+                        "state": "complete",
+                        "index": 0
                     }
                 ],
+                "index": 0
+            }
+        ],
+        "edges": [],
+        "stagecodeLang": "Python",
+        "type": "stage"
+    },
+    {
+        "name": "C2",
+        "fqname": "ID.pipeline_test.OUTER.INNER.C2",
+        "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2",
+        "state": "complete",
+        "metadata": {
+            "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2",
+            "names": []
+        },
+        "stagecodeCmd": "/Users/testuser/repos/martian/test/struct_test/creator",
+        "forks": [
+            {
+                "argPermute": null,
+                "joinDef": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
+                "joinReq": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
+                "state": "complete",
+                "metadata": {
+                    "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0",
+                    "names": [
+                        "complete",
+                        "invocation",
+                        "outs",
+                        "vdrkill"
+                    ]
+                },
+                "split_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/split",
+                    "names": [
+                        "args",
+                        "complete",
+                        "stage_defs"
+                    ]
+                },
+                "join_metadata": {
+                    "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/join",
+                    "names": [
+                        "args",
+                        "chunk_defs",
+                        "complete",
+                        "outs"
+                    ]
+                },
                 "bindings": {
                     "Argument": [
                         {
-                            "id": "foo",
-                            "type": "int",
                             "mode": "reference",
                             "node": "ID.pipeline_test.OUTER.INNER.C1",
                             "matchedFork": null,
                             "value": 4,
+                            "id": "foo",
+                            "type": "int",
                             "waiting": false
                         },
                         {
-                            "id": "things",
-                            "type": "STUFF",
                             "mode": "reference",
                             "node": "ID.pipeline_test.OUTER.INNER.C1",
                             "matchedFork": null,
                             "value": {
-                                "file2": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0/files/file2",
-                                "file1": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0/files/file1",
-                                "bar": 4
+                                "bar": 4,
+                                "file1": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/file1",
+                                "file2": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/file2"
                             },
+                            "id": "things",
+                            "type": "STUFF",
                             "waiting": false
                         }
                     ],
-                    "Return": null
-                }
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.OUTER.INNER.C2",
+                            "matchedFork": null,
+                            "value": {
+                                "bar": 7,
+                                "file1": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0-uee87f92bc9/files/file1",
+                                "file2": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0-uee87f92bc9/files/file2"
+                            },
+                            "id": "bar",
+                            "type": "STUFF",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.OUTER.INNER.C2",
+                            "matchedFork": null,
+                            "value": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0-uee87f92bc9/files/output_name.file",
+                            "id": "file3",
+                            "type": "txt",
+                            "waiting": false
+                        }
+                    ]
+                },
+                "chunks": [
+                    {
+                        "chunkDef": {
+                            "__mem_gb": 1,
+                            "__threads": 1,
+                            "__vmem_gb": 4
+                        },
+                        "request": {
+                            "__threads": 1,
+                            "__mem_gb": 1,
+                            "__vmem_gb": 4
+                        },
+                        "metadata": {
+                            "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C2/fork0/chnk0",
+                            "names": [
+                                "args",
+                                "complete",
+                                "jobinfo",
+                                "log",
+                                "outs",
+                                "stderr",
+                                "stdout"
+                            ]
+                        },
+                        "state": "complete",
+                        "index": 0
+                    }
+                ],
+                "index": 0
             }
         ],
         "edges": [
@@ -457,30 +525,34 @@
             }
         ],
         "stagecodeLang": "Python",
-        "stagecodeCmd": "/github.com/martian-lang/martian/test/struct_test/creator"
+        "type": "stage"
     },
     {
         "name": "C3",
         "fqname": "ID.pipeline_test.OUTER.INNER.C3",
-        "type": "stage",
-        "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C3",
+        "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C3",
         "state": "complete",
         "metadata": {
-            "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C3",
+            "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C3",
             "names": []
         },
+        "stagecodeCmd": "/Users/testuser/repos/martian/test/struct_test/creator",
         "forks": [
             {
-                "index": 0,
                 "argPermute": null,
                 "joinDef": {
                     "__threads": 1,
                     "__mem_gb": 1,
                     "__vmem_gb": 4
                 },
+                "joinReq": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
                 "state": "complete",
                 "metadata": {
-                    "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C3/fork0",
+                    "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C3/fork0",
                     "names": [
                         "complete",
                         "invocation",
@@ -489,7 +561,7 @@
                     ]
                 },
                 "split_metadata": {
-                    "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C3/fork0/split",
+                    "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C3/fork0/split",
                     "names": [
                         "args",
                         "complete",
@@ -497,7 +569,7 @@
                     ]
                 },
                 "join_metadata": {
-                    "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C3/fork0/join",
+                    "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C3/fork0/join",
                     "names": [
                         "args",
                         "chunk_defs",
@@ -505,17 +577,70 @@
                         "outs"
                     ]
                 },
+                "bindings": {
+                    "Argument": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.OUTER.INNER.C2",
+                            "matchedFork": null,
+                            "value": 7,
+                            "id": "foo",
+                            "type": "int",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.OUTER.INNER.C1",
+                            "matchedFork": null,
+                            "value": {
+                                "bar": 4,
+                                "file1": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/file1",
+                                "file2": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0-uee87f92bc9/files/file2"
+                            },
+                            "id": "things",
+                            "type": "STUFF",
+                            "waiting": false
+                        }
+                    ],
+                    "Return": [
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.OUTER.INNER.C3",
+                            "matchedFork": null,
+                            "value": {
+                                "bar": 10,
+                                "file1": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C3/fork0/chnk0-uee87f92bca/files/file1",
+                                "file2": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C3/fork0/chnk0-uee87f92bca/files/file2"
+                            },
+                            "id": "bar",
+                            "type": "STUFF",
+                            "waiting": false
+                        },
+                        {
+                            "mode": "reference",
+                            "node": "ID.pipeline_test.OUTER.INNER.C3",
+                            "matchedFork": null,
+                            "value": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C3/fork0/chnk0-uee87f92bca/files/output_name.file",
+                            "id": "file3",
+                            "type": "txt",
+                            "waiting": false
+                        }
+                    ]
+                },
                 "chunks": [
                     {
-                        "index": 0,
                         "chunkDef": {
                             "__mem_gb": 1,
                             "__threads": 1,
                             "__vmem_gb": 4
                         },
-                        "state": "complete",
+                        "request": {
+                            "__threads": 1,
+                            "__mem_gb": 1,
+                            "__vmem_gb": 4
+                        },
                         "metadata": {
-                            "path": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C3/fork0/chnk0",
+                            "path": "/Users/testuser/repos/martian/test/struct_test/pipeline_test/OUTER/INNER/C3/fork0/chnk0",
                             "names": [
                                 "args",
                                 "complete",
@@ -525,36 +650,12 @@
                                 "stderr",
                                 "stdout"
                             ]
-                        }
+                        },
+                        "state": "complete",
+                        "index": 0
                     }
                 ],
-                "bindings": {
-                    "Argument": [
-                        {
-                            "id": "foo",
-                            "type": "int",
-                            "mode": "reference",
-                            "node": "ID.pipeline_test.OUTER.INNER.C2",
-                            "matchedFork": null,
-                            "value": 7,
-                            "waiting": false
-                        },
-                        {
-                            "id": "things",
-                            "type": "STUFF",
-                            "mode": "reference",
-                            "node": "ID.pipeline_test.OUTER.INNER.C1",
-                            "matchedFork": null,
-                            "value": {
-                                "file2": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0/files/file2",
-                                "file1": "/github.com/martian-lang/martian/test/struct_test/pipeline_test/OUTER/INNER/C1/fork0/chnk0/files/file1",
-                                "bar": 4
-                            },
-                            "waiting": false
-                        }
-                    ],
-                    "Return": null
-                }
+                "index": 0
             }
         ],
         "edges": [
@@ -568,6 +669,6 @@
             }
         ],
         "stagecodeLang": "Python",
-        "stagecodeCmd": "/github.com/martian-lang/martian/test/struct_test/creator"
+        "type": "stage"
     }
 ]

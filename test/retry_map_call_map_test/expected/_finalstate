@@ -2,10 +2,10 @@
     {
         "name": "SHOULD_RESTART",
         "fqname": "ID.pipeline_test.SHOULD_RESTART",
-        "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART",
+        "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART",
         "state": "complete",
         "metadata": {
-            "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART",
+            "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART",
             "names": []
         },
         "stagecodeCmd": "",
@@ -13,9 +13,10 @@
             {
                 "argPermute": null,
                 "joinDef": null,
+                "joinReq": null,
                 "state": "complete",
                 "metadata": {
-                    "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/fork0",
+                    "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/fork0",
                     "names": [
                         "complete",
                         "invocation",
@@ -24,11 +25,11 @@
                     ]
                 },
                 "split_metadata": {
-                    "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/fork0/split",
+                    "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/fork0/split",
                     "names": []
                 },
                 "join_metadata": {
-                    "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/fork0/join",
+                    "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/fork0/join",
                     "names": []
                 },
                 "bindings": {
@@ -49,7 +50,7 @@
                             "node": "ID.pipeline_test.SHOULD_RESTART.END",
                             "matchedFork": null,
                             "value": {
-                                "test0": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test0/chnk0-ue2ef9c426f/files/sentinel",
+                                "test0": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test0/chnk0-u92edf92b56/files/sentinel",
                                 "test1": ""
                             },
                             "id": "sentinels",
@@ -74,20 +75,25 @@
     {
         "name": "BEGIN",
         "fqname": "ID.pipeline_test.SHOULD_RESTART.BEGIN",
-        "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN",
+        "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN",
         "state": "complete",
         "metadata": {
-            "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN",
+            "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN",
             "names": []
         },
-        "stagecodeCmd": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/stage",
+        "stagecodeCmd": "/Users/testuser/repos/martian/test/retry_map_call_map_test/stage",
         "forks": [
             {
                 "argPermute": null,
                 "joinDef": null,
+                "joinReq": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
                 "state": "complete",
                 "metadata": {
-                    "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN/fork0",
+                    "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN/fork0",
                     "names": [
                         "complete",
                         "invocation",
@@ -96,7 +102,7 @@
                     ]
                 },
                 "split_metadata": {
-                    "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN/fork0/split",
+                    "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN/fork0/split",
                     "names": [
                         "args",
                         "complete",
@@ -108,7 +114,7 @@
                     ]
                 },
                 "join_metadata": {
-                    "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN/fork0/join",
+                    "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN/fork0/join",
                     "names": [
                         "args",
                         "chunk_defs",
@@ -139,7 +145,7 @@
                             "node": "ID.pipeline_test.SHOULD_RESTART.BEGIN",
                             "matchedFork": null,
                             "value": {
-                                "test0": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN/fork0/chnk0-ue2ef9c4266/files/sentinel",
+                                "test0": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN/fork0/chnk0-u92edf92b4f/files/sentinel",
                                 "test1": ""
                             },
                             "id": "sentinels",
@@ -163,11 +169,16 @@
                 "chunks": [
                     {
                         "chunkDef": {
-                            "sentinel": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN/fork0/split-ue2ef9c4265/files/sentinel",
+                            "sentinel": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN/fork0/split-u92edf92b4e/files/sentinel",
                             "should_fail": true
                         },
+                        "request": {
+                            "__threads": 1,
+                            "__mem_gb": 1,
+                            "__vmem_gb": 4
+                        },
                         "metadata": {
-                            "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN/fork0/chnk0",
+                            "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN/fork0/chnk0",
                             "names": [
                                 "args",
                                 "complete",
@@ -186,8 +197,13 @@
                             "sentinel": "",
                             "should_fail": false
                         },
+                        "request": {
+                            "__threads": 1,
+                            "__mem_gb": 1,
+                            "__vmem_gb": 4
+                        },
                         "metadata": {
-                            "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN/fork0/chnk1",
+                            "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN/fork0/chnk1",
                             "names": [
                                 "args",
                                 "complete",
@@ -212,13 +228,13 @@
     {
         "name": "END",
         "fqname": "ID.pipeline_test.SHOULD_RESTART.END",
-        "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END",
+        "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END",
         "state": "complete",
         "metadata": {
-            "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END",
+            "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END",
             "names": []
         },
-        "stagecodeCmd": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/stage",
+        "stagecodeCmd": "/Users/testuser/repos/martian/test/retry_map_call_map_test/stage",
         "forks": [
             {
                 "argPermute": null,
@@ -227,9 +243,14 @@
                     "__mem_gb": 1,
                     "__vmem_gb": 4
                 },
+                "joinReq": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
                 "state": "complete",
                 "metadata": {
-                    "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test0",
+                    "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test0",
                     "names": [
                         "complete",
                         "invocation",
@@ -238,7 +259,7 @@
                     ]
                 },
                 "split_metadata": {
-                    "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test0/split",
+                    "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test0/split",
                     "names": [
                         "args",
                         "complete",
@@ -246,7 +267,7 @@
                     ]
                 },
                 "join_metadata": {
-                    "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test0/join",
+                    "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test0/join",
                     "names": [
                         "args",
                         "chunk_defs",
@@ -260,7 +281,7 @@
                             "mode": "reference",
                             "node": "ID.pipeline_test.SHOULD_RESTART.MIDDLE",
                             "matchedFork": null,
-                            "value": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test0/chnk0-ue2ef9c426a/files/sentinel",
+                            "value": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test0/chnk0-u92edf92b54/files/sentinel",
                             "id": "sentinel",
                             "type": "file",
                             "waiting": false
@@ -280,7 +301,7 @@
                             "mode": "reference",
                             "node": "ID.pipeline_test.SHOULD_RESTART.END",
                             "matchedFork": null,
-                            "value": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test0/chnk0-ue2ef9c426f/files/sentinel",
+                            "value": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test0/chnk0-u92edf92b56/files/sentinel",
                             "id": "sentinel",
                             "type": "map\u003cfile\u003e",
                             "waiting": false
@@ -303,8 +324,13 @@
                             "__threads": 1,
                             "__vmem_gb": 4
                         },
+                        "request": {
+                            "__threads": 1,
+                            "__mem_gb": 1,
+                            "__vmem_gb": 4
+                        },
                         "metadata": {
-                            "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test0/chnk0",
+                            "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test0/chnk0",
                             "names": [
                                 "args",
                                 "complete",
@@ -323,10 +349,19 @@
             },
             {
                 "argPermute": null,
-                "joinDef": null,
+                "joinDef": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
+                "joinReq": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
                 "state": "complete",
                 "metadata": {
-                    "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test1",
+                    "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test1",
                     "names": [
                         "complete",
                         "invocation",
@@ -335,7 +370,7 @@
                     ]
                 },
                 "split_metadata": {
-                    "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test1/split",
+                    "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test1/split",
                     "names": [
                         "args",
                         "complete",
@@ -343,7 +378,7 @@
                     ]
                 },
                 "join_metadata": {
-                    "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test1/join",
+                    "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test1/join",
                     "names": [
                         "args",
                         "chunk_defs",
@@ -396,8 +431,13 @@
                 "chunks": [
                     {
                         "chunkDef": {},
+                        "request": {
+                            "__threads": 1,
+                            "__mem_gb": 1,
+                            "__vmem_gb": 4
+                        },
                         "metadata": {
-                            "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test1/chnk0",
+                            "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/END/fork_test1/chnk0",
                             "names": [
                                 "args",
                                 "complete",
@@ -431,20 +471,25 @@
     {
         "name": "MIDDLE",
         "fqname": "ID.pipeline_test.SHOULD_RESTART.MIDDLE",
-        "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE",
+        "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE",
         "state": "complete",
         "metadata": {
-            "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE",
+            "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE",
             "names": []
         },
-        "stagecodeCmd": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/stage",
+        "stagecodeCmd": "/Users/testuser/repos/martian/test/retry_map_call_map_test/stage",
         "forks": [
             {
                 "argPermute": null,
                 "joinDef": null,
+                "joinReq": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
                 "state": "complete",
                 "metadata": {
-                    "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test0",
+                    "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test0",
                     "names": [
                         "complete",
                         "invocation",
@@ -453,7 +498,7 @@
                     ]
                 },
                 "split_metadata": {
-                    "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test0/split",
+                    "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test0/split",
                     "names": [
                         "args",
                         "complete",
@@ -461,7 +506,7 @@
                     ]
                 },
                 "join_metadata": {
-                    "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test0/join",
+                    "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test0/join",
                     "names": [
                         "args",
                         "chunk_defs",
@@ -475,7 +520,7 @@
                             "mode": "reference",
                             "node": "ID.pipeline_test.SHOULD_RESTART.BEGIN",
                             "matchedFork": null,
-                            "value": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN/fork0/chnk0-ue2ef9c4266/files/sentinel",
+                            "value": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/BEGIN/fork0/chnk0-u92edf92b4f/files/sentinel",
                             "id": "sentinel",
                             "type": "file",
                             "waiting": false
@@ -495,7 +540,7 @@
                             "mode": "reference",
                             "node": "ID.pipeline_test.SHOULD_RESTART.MIDDLE",
                             "matchedFork": null,
-                            "value": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test0/chnk0-ue2ef9c426a/files/sentinel",
+                            "value": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test0/chnk0-u92edf92b54/files/sentinel",
                             "id": "sentinel",
                             "type": "map\u003cfile\u003e",
                             "waiting": false
@@ -514,8 +559,13 @@
                 "chunks": [
                     {
                         "chunkDef": {},
+                        "request": {
+                            "__threads": 1,
+                            "__mem_gb": 1,
+                            "__vmem_gb": 4
+                        },
                         "metadata": {
-                            "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test0/chnk0",
+                            "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test0/chnk0",
                             "names": [
                                 "args",
                                 "complete",
@@ -535,9 +585,14 @@
             {
                 "argPermute": null,
                 "joinDef": null,
+                "joinReq": {
+                    "__threads": 1,
+                    "__mem_gb": 1,
+                    "__vmem_gb": 4
+                },
                 "state": "complete",
                 "metadata": {
-                    "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test1",
+                    "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test1",
                     "names": [
                         "complete",
                         "invocation",
@@ -546,7 +601,7 @@
                     ]
                 },
                 "split_metadata": {
-                    "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test1/split",
+                    "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test1/split",
                     "names": [
                         "args",
                         "complete",
@@ -554,7 +609,7 @@
                     ]
                 },
                 "join_metadata": {
-                    "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test1/join",
+                    "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test1/join",
                     "names": [
                         "args",
                         "chunk_defs",
@@ -607,8 +662,13 @@
                 "chunks": [
                     {
                         "chunkDef": {},
+                        "request": {
+                            "__threads": 1,
+                            "__mem_gb": 1,
+                            "__vmem_gb": 4
+                        },
                         "metadata": {
-                            "path": "/user/test/retry_map_call_map_test/retry_map_call_map_test.runfiles/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test1/chnk0",
+                            "path": "/Users/testuser/repos/martian/test/retry_map_call_map_test/pipeline_test/SHOULD_RESTART/MIDDLE/fork_test1/chnk0",
                             "names": [
                                 "args",
                                 "complete",

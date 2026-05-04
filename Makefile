@@ -106,6 +106,14 @@ golint:
 
 integration_prereqs: mrp mrjob $(ADAPTERS) test/martian_test.py $(JOBMANAGERS)
 
+test/auto_adjust_memory_test/pipeline_test_auto_restart: test/auto_adjust_memory_test/auto_adjust_memory_auto_restart_test.json \
+                               integration_prereqs
+	test/martian_test.py $<
+
+test/auto_adjust_memory_test/pipeline_test_manual_restart: test/auto_adjust_memory_test/auto_adjust_memory_manual_restart_test.json \
+                               integration_prereqs
+	test/martian_test.py $<
+
 test/split_test/pipeline_test: test/split_test/split_test.json \
                                integration_prereqs
 	test/martian_test.py $<
@@ -159,6 +167,10 @@ test/fork_test/ar_remote_pass/pipeline_test: test/fork_test/autoretry_remote_pas
 	test/martian_test.py $<
 
 test/map_test/pipeline_test: test/map_test/map_test.json \
+                             integration_prereqs
+	test/martian_test.py $<
+
+test/monitor_test/pipeline_test: test/monitor_test/monitor_test.json \
                              integration_prereqs
 	test/martian_test.py $<
 

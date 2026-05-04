@@ -216,7 +216,7 @@ func (self *StageDefs) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	self.ChunkDefs = into.ChunkDefs
-	if into.JoinDef != nil && len(into.JoinDef) > 0 {
+	if len(into.JoinDef) > 0 {
 		if self.JoinDef == nil {
 			self.JoinDef = &JobResources{}
 		}
