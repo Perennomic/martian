@@ -163,7 +163,10 @@ func (pse *PipestanceOverrides) ApplyResourceOverrides(node string, phase string
 	pqn := partiallyQualifiedName(node)
 	res.Threads = pse.getThreads(pqn, phase, res.Threads)
 	res.MemGB = pse.getMem(pqn, phase, res.MemGB)
-	res.VMemGB = pse.getVMem(pqn, phase, res.VMemGB)
+	if vmem := pse.getVMemOverride(pqn, phase, res.VMemGB); vmem != nil {
+		res.VMemGB = *vmem
+		res.VMemGBExplicit = true
+	}
 }
 
 // Compute the value to use for a stage's thread reservation, which might be
@@ -217,6 +220,15 @@ func (pse *PipestanceOverrides) getMem(pqn string, phase string, def float64) fl
 //
 // def  is the default value to use if the value is not overridden.
 func (pse *PipestanceOverrides) getVMem(pqn string, phase string, def float64) float64 {
+	if val := pse.getVMemOverride(pqn, phase, def); val != nil {
+		return *val
+	}
+	// We didn't find any parent of node that existed and defined the key we're looking
+	// for. Give and use the default value.
+	return def
+}
+
+func (pse *PipestanceOverrides) getVMemOverride(pqn string, phase string, def float64) *float64 {
 	for pqn != "" {
 		val := pse.overridesbystage[pqn].GetVMem(phase)
 		if val == nil {
@@ -224,12 +236,10 @@ func (pse *PipestanceOverrides) getVMem(pqn string, phase string, def float64) f
 		} else {
 			util.LogInfo("overide", "At [%s.vmem_gb:%s] replace %g with %g",
 				phase, pqn, def, *val)
-			return *val
+			return val
 		}
 	}
-	// We didn't find any parent of node that existed and defined the key we're looking
-	// for. Give and use the default value.
-	return def
+	return nil
 }
 
 // Compute the value to use for a stage's profile mode, which might be

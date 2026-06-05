@@ -1,0 +1,5 @@
+{
+  "command": ["run_loadavg_test.sh"],
+  "expected_return": 0,
+  "output_dir": "loadavg_pipeline_test"
+}

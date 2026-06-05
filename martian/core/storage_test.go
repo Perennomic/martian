@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"path/filepath"
 	"strconv"
 	"testing"
 )
@@ -31,6 +32,9 @@ func TestGetArgsToFilesMap(t *testing.T) {
 		t.Skip(err)
 	}
 	defer os.RemoveAll(forkDir)
+	if resolved, err := filepath.EvalSymlinks(forkDir); err == nil {
+		forkDir = resolved
+	}
 
 	fileArgs := map[string]map[Nodable]struct{}{
 		"thing1":      nil,

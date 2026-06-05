@@ -9,3 +9,5 @@ require (
 )
 
 go 1.24
+
+replace github.com/martian-lang/martian => github.com/Perennomic/martian v0.0.0-20260605031013-0a9c4991d335

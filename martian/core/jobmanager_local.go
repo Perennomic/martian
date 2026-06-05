@@ -178,36 +178,7 @@ func (self *LocalJobManager) setMaxMem(userMaxMemGB, userMaxVMemGB int, clusterM
 				"If the system runs low on memory, jobs may get killed.",
 			float64(cgSoftLimit)/(1024*1024*1024))
 	}
-	self.maxVmemMB = int64(CheckMaxVmem(
-		uint64(1+self.maxMemGB)*uint64(self.highMem.Vmem+1024*1024*1024)) /
-		(1024 * 1024))
-
-	if self.maxVmemMB == 0 ||
-		int64(userMaxVMemGB)*1024 < self.maxVmemMB {
-		self.maxVmemMB = int64(userMaxVMemGB) * 1024
-	}
-	// Subtract off mrp's current vmem usage.  If mrp is running in e.g. and
-	// SGE cluster job with h_vmem set, the process will be killed if vmem
-	// for the whole tree exceeds the value given, so we need to make sure to
-	// reserve some space for mrp itself.  But, make sure at least 1gb remains
-	// or else it'll just hang on local jobs.
-	//
-	// Subtracting it here is not ideal, since mrp's vmem usage may increase
-	// over time.  However as we update the process tree memory usage later on
-	// we ignore mrp's usage because for rss that can cause the pipeline to
-	// hang.
-	if selfMem := self.highMem.Vmem / (1024 * 1024); selfMem+1024 < self.maxVmemMB {
-		self.maxVmemMB -= selfMem
-	}
-	requiredVmemGB := int64(self.jobSettings.MemGBPerJob+self.jobSettings.ExtraVmemGB) +
-		(self.highMem.Vmem+1024*1024*1024-1)/(1024*1024*1024)
-	if self.maxVmemMB > 0 && self.maxVmemMB/1024 < requiredVmemGB {
-		util.PrintInfo("jobmngr",
-			"WARNING: mrp will not run correctly with less"+
-				"\n                              "+
-				"than %dGB of virtual address space available.",
-			requiredVmemGB)
-	}
+	self.setMaxVMem(userMaxVMemGB)
 }
 
 func formatCentiThreads(size int64) string {
@@ -232,22 +203,11 @@ func formatMemMB(size int64) string {
 	return string(append(buf, " GB of memory"...))
 }
 
-func formatVMemMB(size int64) string {
-	if size < 1024 {
-		return string(append(
-			strconv.AppendInt(make([]byte, 0, 64), size/100, 10),
-			" MB of address space"...))
-	}
-	buf := make([]byte, 0, 18+len(" GB of address space"))
-	buf = strconv.AppendFloat(buf, float64(size)/1024, 'g', 3, 64)
-	return string(append(buf, " GB of address space"...))
-}
-
 func (self *LocalJobManager) setupSemaphores() {
 	self.centcoreSem = NewResourceSemaphore(int64(self.maxCores)*100, formatCentiThreads)
 	self.memMBSem = NewResourceSemaphore(int64(self.maxMemGB)*1024, formatMemMB)
 	if self.maxVmemMB > 0 {
-		self.vmemMBSem = NewResourceSemaphore(self.maxVmemMB, formatVMemMB)
+		self.vmemMBSem = NewResourceSemaphore(self.maxVmemMB, formatLocalVMemMB)
 	}
 	if rlim, err := GetMaxProcs(); err != nil {
 		util.LogError(err, "jobmngr",
@@ -591,9 +551,10 @@ func (self *LocalJobManager) Enqueue(shellCmd string, argv []string,
 			vmem := int64(res.VMemGB) * 1024
 			if err := sem.Acquire(vmem); err != nil {
 				util.LogError(err, "jobmngr",
-					"%s requested %d GB of virtual memory, but the "+
+					"%s requested %d GB of %s, but the "+
 						"job manager was only configured to use %.1f.",
-					metadata.fqname, res.VMemGB, float64(self.maxVmemMB)/1024)
+					metadata.fqname, res.VMemGB, localVMemLimitName(),
+					float64(self.maxVmemMB)/1024)
 				metadata.WriteErrorString(err.Error())
 				return
 			}
@@ -609,8 +570,9 @@ func (self *LocalJobManager) Enqueue(shellCmd string, argv []string,
 			}(vmem, sem)
 			if self.debug {
 				util.LogInfo("jobmngr",
-					"Acquired %.1f virtual GB (%.1f/%.1f in use)",
+					"Acquired %.1f GB of %s (%.1f/%.1f in use)",
 					res.VMemGB,
+					localVMemLimitName(),
 					float64(sem.InUse())/1024,
 					float64(self.maxVmemMB)/1024)
 			}

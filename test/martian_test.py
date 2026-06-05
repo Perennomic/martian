@@ -18,8 +18,8 @@ from __future__ import absolute_import, division, print_function
 import json
 import argparse
 import os
+import platform
 import re
-import shutil
 import subprocess
 import sys
 
@@ -68,6 +68,21 @@ def get_output_dir(config):
             os.path.join(config["work_dir"], config["output_dir"])
         )
     return None
+
+def remove_output_dir(output_dir):
+    """Removes a previous test output directory.
+
+    macOS can recreate .DS_Store while a tree is being removed, causing
+    shutil.rmtree to fail with `ENOTEMPTY`("Directory not empty") after it has
+    already removed the rest of the tree. shutil.rmtree does not have retry
+    fallback, use system's command directly
+    """
+    if platform.system() == 'Windows':
+        cmd = ['cmd', '/c', 'rmdir', '/s', '/q', output_dir]
+    else:
+        cmd = ['rm', '-rf', output_dir]
+
+    subprocess.run(cmd, check=True)
 
 
 def expand_glob(root, pattern):
@@ -441,6 +456,7 @@ def compare_pprof(output, expect, filename):
 
 
 _TRACEBACK_REGEX = re.compile(r", line \d+, in")
+_TRACEBACK_MARKER_REGEX = re.compile(r"^\s*[~^]+\s*$")
 
 
 def clean_errors(line):
@@ -448,20 +464,28 @@ def clean_errors(line):
     return _TRACEBACK_REGEX.sub(", line LINENO, in", clean_line(line))
 
 
+def clean_error_lines(lines):
+    """Normalize traceback lines across Python versions."""
+    for line in lines:
+        line = line.decode("utf-8", errors="ignore")
+        if _TRACEBACK_MARKER_REGEX.match(line.rstrip("\r\n")):
+            continue
+        yield clean_errors(line)
+
+
 def compare_errors(output, expect, filename):
     """As compare_lines, but we also ignore traceback line-numbers."""
     with open(os.path.join(output, filename), "rb") as act:
         with open(os.path.join(expect, filename), "rb") as exp:
-            for actual, expected in zip_longest(act, exp):
-                if actual and expected:
-                    actual = actual.decode("utf-8", errors="ignore")
-                    expected = expected.decode("utf-8", errors="ignore")
-                    if clean_errors(actual) != clean_errors(expected):
-                        sys.stderr.write(
-                            "Expected:\n%s\nActual:\n%s\n"
-                            % (clean_errors(expected), clean_errors(actual))
-                        )
-                        return False
+            for actual, expected in zip_longest(
+                clean_error_lines(act), clean_error_lines(exp)
+            ):
+                if actual != expected:
+                    sys.stderr.write(
+                        "Expected:\n%s\nActual:\n%s\n"
+                        % (expected or "", actual or "")
+                    )
+                    return False
     return True
 
 
@@ -592,7 +616,7 @@ def main(argv):
     )
     output_dir = get_output_dir(config)
     if output_dir and os.path.isdir(output_dir):
-        shutil.rmtree(output_dir)
+        remove_output_dir(output_dir)
     sys.stderr.write(
         "Running %s in %s.\n"
         % (" ".join(config["command"]), config["work_dir"])

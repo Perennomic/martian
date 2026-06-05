@@ -7,14 +7,20 @@ go_library(
     ] + select({
         "@io_bazel_rules_go//go/platform:linux": [
             "mrjob_linux.go",
+            "mrjob_process_generic.go",
             "mrjob_unix.go",
+        ],
+        "@io_bazel_rules_go//go/platform:darwin": [
+            "mrjob_darwin.go",
         ],
         "@io_bazel_rules_go//go/platform:windows": [
             "mrjob_generic.go",
+            "mrjob_process_generic.go",
             "mrjob_windows.go",
         ],
         "//conditions:default": [
             "mrjob_generic.go",
+            "mrjob_process_generic.go",
             "mrjob_unix.go",
         ],
     }),
@@ -37,10 +43,21 @@ go_binary(
 
 go_test(
     name = "mrjob_test",
-    srcs = ["mrjob_linux_test.go"],
+    srcs = select({
+        "@io_bazel_rules_go//go/platform:linux": [
+            "mrjob_linux_test.go",
+        ],
+        "@io_bazel_rules_go//go/platform:darwin": [
+            "mrjob_darwin_test.go",
+        ],
+        "//conditions:default": [],
+    }),
     embed = [":mrjob_lib"],
     deps = select({
         "@io_bazel_rules_go//go/platform:linux": [
+            "//martian/util",
+        ],
+        "@io_bazel_rules_go//go/platform:darwin": [
             "//martian/util",
         ],
         "//conditions:default": [],

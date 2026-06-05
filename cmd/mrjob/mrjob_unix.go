@@ -1,6 +1,6 @@
 // Copyright (c) 2017 10X Genomics, Inc. All rights reserved.
 
-//go:build !windows
+//go:build !darwin && !windows
 
 package main
 

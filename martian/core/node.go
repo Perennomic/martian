@@ -1166,17 +1166,18 @@ func (self *Node) runJob(shellName, fqname, stageType string,
 	}
 	profileMode := self.getProfileMode(stageType)
 	jobInfo := JobInfo{
-		Name:          fqname,
-		Type:          jobMode,
-		Threads:       res.Threads,
-		MemGB:         res.MemGB,
-		VMemGB:        res.VMemGB,
-		ProfileConfig: self.top.rt.ProfileConfig(profileMode),
-		ProfileMode:   profileMode,
-		Stackvars:     stackVars,
-		Monitor:       monitor,
-		Invocation:    self.top.invocation,
-		Version:       version,
+		Name:           fqname,
+		Type:           jobMode,
+		Threads:        res.Threads,
+		MemGB:          res.MemGB,
+		VMemGB:         res.VMemGB,
+		VMemGBExplicit: res.VMemGBExplicit,
+		ProfileConfig:  self.top.rt.ProfileConfig(profileMode),
+		ProfileMode:    profileMode,
+		Stackvars:      stackVars,
+		Monitor:        monitor,
+		Invocation:     self.top.invocation,
+		Version:        version,
 	}
 	if jobInfo.ProfileConfig != nil && jobInfo.ProfileConfig.Adapter != "" {
 		jobInfo.ProfileMode = jobInfo.ProfileConfig.Adapter

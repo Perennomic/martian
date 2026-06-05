@@ -1,6 +1,6 @@
 // Copyright (c) 2021 10X Genomics, Inc. All rights reserved.
 
-//go:build !linux
+//go:build !darwin && !linux
 
 // Stubs for non-linux builds.
 

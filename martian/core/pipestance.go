@@ -52,10 +52,11 @@ func NewStagestance(parent Nodable, call *syntax.CallGraphStage, srcPaths []stri
 	}
 	if stage.Resources != nil {
 		self.node.resources = &JobResources{
-			Threads: float64(stage.Resources.Threads),
-			MemGB:   float64(stage.Resources.MemGB),
-			VMemGB:  float64(stage.Resources.VMemGB),
-			Special: stage.Resources.Special,
+			Threads:        float64(stage.Resources.Threads),
+			MemGB:          float64(stage.Resources.MemGB),
+			VMemGB:         float64(stage.Resources.VMemGB),
+			VMemGBExplicit: stage.Resources.VMemGB != 0,
+			Special:        stage.Resources.Special,
 		}
 	}
 

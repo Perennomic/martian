@@ -1,7 +1,7 @@
 // Copyright (c) 2020 10X Genomics, Inc. All rights reserved.
 
-//go:build !freebsd && !linux && !netbsd && !openbsd && !solaris
-// +build !freebsd,!linux,!netbsd,!openbsd,!solaris
+//go:build !darwin && !freebsd && !linux && !netbsd && !openbsd && !solaris
+// +build !darwin,!freebsd,!linux,!netbsd,!openbsd,!solaris
 
 package core
 

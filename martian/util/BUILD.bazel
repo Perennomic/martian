@@ -30,6 +30,15 @@ go_library(
             "sysinfo_linux.go",
             "walk_linux.go",
         ],
+        "@io_bazel_rules_go//go/platform:darwin": [
+            "cgroups_generic.go",
+            "file_generic.go",
+            "file_unix.go",
+            "git.go",
+            "libc_generic.go",
+            "signal_darwin.go",
+            "sysinfo_generic.go",
+        ],
         "@io_bazel_rules_go//go/platform:windows": [
             "cgroups_generic.go",
             "file_generic.go",

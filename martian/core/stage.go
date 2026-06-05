@@ -1512,6 +1512,7 @@ func (self *Fork) getJobReqs(
 		}
 		if jobDef.VMemGB != 0 {
 			res.VMemGB = jobDef.VMemGB
+			res.VMemGBExplicit = jobDef.VMemGBExplicit
 		}
 		if jobDef.Special != "" {
 			res.Special = jobDef.Special
@@ -1615,6 +1616,7 @@ func (self *Fork) resourceRequest(request *JobResources) *JobResources {
 		}
 		if request.VMemGB != 0 {
 			res.VMemGB = request.VMemGB
+			res.VMemGBExplicit = request.VMemGBExplicit
 		}
 		if request.Special != "" {
 			res.Special = request.Special

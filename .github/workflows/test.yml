@@ -42,6 +42,31 @@ jobs:
       - name: Integration tests
         run: make longtests
 
+  macos:
+    runs-on: macos-14
+    env:
+      USE_BAZEL_VERSION: 7.5.0
+    strategy:
+      matrix:
+        go: ["1.24"]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Darwin build and unit tests
+        run: make test-darwin
+      - name: Darwin runtime smoke tests
+        run: make longtests
+      - name: Install Bazelisk
+        run: GOBIN="$RUNNER_TEMP/martian-tools" go install github.com/bazelbuild/bazelisk@v1.29.0
+      - name: Darwin Bazel backend tests
+        run: |
+          "$RUNNER_TEMP/martian-tools/bazelisk" test --verbose_failures \
+                                                     --enable_workspace \
+                                                     //martian/core:core_test \
+                                                     //cmd/mrjob:mrjob_test
+
   bazel:
     runs-on: ubuntu-latest
     env:

@@ -16,10 +16,11 @@ import (
 
 // Defines resources used by a stage.
 type JobResources struct {
-	Special string  `json:"__special,omitempty"`
-	Threads float64 `json:"__threads,omitempty"`
-	MemGB   float64 `json:"__mem_gb,omitempty"`
-	VMemGB  float64 `json:"__vmem_gb,omitempty"`
+	Special        string  `json:"__special,omitempty"`
+	Threads        float64 `json:"__threads,omitempty"`
+	MemGB          float64 `json:"__mem_gb,omitempty"`
+	VMemGB         float64 `json:"__vmem_gb,omitempty"`
+	VMemGBExplicit bool    `json:"-"`
 }
 
 func (self *JobResources) ToLazyMap() LazyArgumentMap {
@@ -85,6 +86,7 @@ func (self *JobResources) updateFromLazyArgs(args LazyArgumentMap) error {
 		if err := json.Unmarshal(v, &self.VMemGB); err != nil {
 			return err
 		}
+		self.VMemGBExplicit = true
 		delete(args, "__vmem_gb")
 	}
 	if v, ok := args["__special"]; ok {

@@ -19,7 +19,7 @@ unexport GOPATH
 export GO111MODULE=on
 export GOBIN=$(PWD)/bin
 
-.PHONY: $(GOBINS) grammar web $(GOTESTS) coverage.out govet all-bins $(GOBIN)/sum_squares longtests integration_prereqs vscode vscode-test
+.PHONY: $(GOBINS) grammar web $(GOTESTS) coverage.out govet all-bins $(GOBIN)/sum_squares longtests integration_prereqs test-darwin vscode vscode-test
 
 #
 # Targets for development builds.
@@ -71,7 +71,7 @@ JOBMANAGERS=$(wildcard jobmanagers/*.py) \
 
 $(addprefix bin/, $(GOBINS)): all-bins
 
-PRODUCT_NAME:=martian-$(VERSION)-$(shell uname -is | tr "A-Z " "a-z-")
+PRODUCT_NAME:=martian-$(VERSION)-$(shell uname -m)-$(shell uname -s | tr "A-Z" "a-z")
 
 TARBALLS:=$(addprefix $(PRODUCT_NAME).tar, .gz .xz)
 
@@ -83,6 +83,13 @@ tarball: $(TARBALLS)
 
 test-all: martian/syntax/grammar.go | martian/test/sum_squares/types.go
 	go test -race ./martian/... ./cmd/...
+
+test-darwin:
+	go test ./martian/core ./cmd/mrjob
+	go test ./cmd/...
+	GOOS=darwin GOARCH=arm64 go build ./cmd/...
+	GOOS=darwin GOARCH=amd64 go build ./cmd/...
+	CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build ./cmd/...
 
 coverage.out: martian/syntax/grammar.go | martian/test/sum_squares/types.go
 	go test -coverprofile=coverage.out \
@@ -116,6 +123,10 @@ test/auto_adjust_memory_test/pipeline_test_manual_restart: test/auto_adjust_memo
 
 test/split_test/pipeline_test: test/split_test/split_test.json \
                                integration_prereqs
+	test/martian_test.py $<
+
+test/split_test/loadavg_pipeline_test: test/split_test/loadavg_test.json \
+                                      integration_prereqs
 	test/martian_test.py $<
 
 test/split_test_go/pipeline_test: test/split_test_go/split_test.json \
@@ -187,6 +198,7 @@ test/retry_test/pipeline_test: test/retry_test/autoretry_pass.json \
 	test/martian_test.py $<
 
 longtests: test/split_test/pipeline_test \
+           test/split_test/loadavg_pipeline_test \
            test/split_test_go/pipeline_test \
            test/split_test_go/disable_pipeline_test \
            test/exit_test/pipeline_test \
@@ -200,6 +212,7 @@ longtests: test/split_test/pipeline_test \
            test/fork_test/fail/pipeline_fail \
            test/fork_test/ar_fail/pipeline_fail \
            test/map_test/pipeline_test \
+           test/monitor_test/pipeline_test \
            test/disable_test/pipeline_test \
            test/retry_map_call_map_test/pipeline_test \
            test/retry_test/pipeline_test

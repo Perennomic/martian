@@ -122,8 +122,10 @@ func (self *runner) Init() {
 		util.PrintError(jErr, "monitor",
 			"Could not update log journal file.  Continuing, hoping for the best.")
 	}
-	core.CheckMaxVmem(
-		uint64(self.jobInfo.VMemGB*1024*1024) * 1024)
+	if core.ShouldSetVMemRLimit(self.jobInfo) {
+		core.CheckMaxVmem(
+			uint64(self.jobInfo.VMemGB*1024*1024) * 1024)
+	}
 	self.setRlimit()
 	if cgLim, cgSoftLim, _ := util.GetCgroupMemoryLimit(); cgLim > 0 {
 		if cgLim < int64(math.Ceil(self.jobInfo.MemGB*(1024*1024*1024))) {
@@ -344,7 +346,7 @@ func (self *runner) StartJob(args []string) error {
 		defer writer.Close()
 	}
 	// We really don't want the child outliving the parent.
-	cmd.SysProcAttr = util.Pdeathsig(&syscall.SysProcAttr{}, syscall.SIGKILL)
+	cmd.SysProcAttr = jobSysProcAttr(syscall.SIGKILL)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if pc := self.jobInfo.ProfileConfig; pc != nil && len(pc.Env) > 0 {
@@ -353,7 +355,7 @@ func (self *runner) StartJob(args []string) error {
 			self.metadata.MetadataFilePath(core.ProfileOut))
 	}
 	if err := func(cmd *exec.Cmd) error {
-		if self.monitoring && self.jobInfo.VMemGB > 0 {
+		if self.monitoring && core.ShouldSetVMemRLimit(self.jobInfo) {
 			// Exclude mrjob's vmem usage from the rlimit.
 			mem, _ := core.GetProcessTreeMemory(self.jobInfo.Pid, true, nil)
 			amount := int64(self.jobInfo.VMemGB)*1024*1024*1024 - mem.Vmem
@@ -439,14 +441,17 @@ func (self *runner) startProfile() error {
 	}
 }
 
+func (self *runner) killJobProcess(sig syscall.Signal) {
+	if cmd := self.job; cmd != nil {
+		killProcess(cmd.Process, sig)
+	}
+}
+
 func (self *runner) HandleSignal(sig os.Signal) {
 	util.PrintInfo("monitor", "Caught signal %v", sig)
 	cmd := self.job
 	if cmd != nil {
-		proc := cmd.Process
-		if proc != nil {
-			proc.Kill()
-		}
+		self.killJobProcess(syscall.SIGKILL)
 	}
 	if c := self.isDone; c != nil {
 		t := time.NewTimer(time.Second * 5)
@@ -594,7 +599,7 @@ func (self *runner) WaitLoop() {
 		// Wait up to 5 seconds for the job to finish, to ensure we get rusage.
 		select {
 		case <-time.After(time.Second * 5):
-			self.job.Process.Signal(syscall.SIGKILL)
+			self.killJobProcess(syscall.SIGKILL)
 		case <-self.isDone:
 		}
 	}
@@ -654,7 +659,7 @@ func (self *runner) monitor(lastHeartbeat *time.Time) error {
 						tree.Format("       "))
 				}
 			}
-			self.job.Process.Kill()
+			self.killJobProcess(syscall.SIGKILL)
 
 			return fmt.Errorf(
 				"%s (using %.1f, allowed %gG)",
@@ -666,17 +671,13 @@ func (self *runner) monitor(lastHeartbeat *time.Time) error {
 				core.ExceededMemQuotaMessage,
 				rssGB, self.jobInfo.MemGB)
 		}
-	} else if self.jobInfo.VMemGB > 0 && vmemGB > self.jobInfo.VMemGB {
+	} else if core.ShouldCheckVMem(self.jobInfo) && vmemGB > self.jobInfo.VMemGB {
 		self.logProcessTree()
 		if self.monitoring {
-			self.job.Process.Kill()
-			return fmt.Errorf(
-				"Stage exceeded its address space quota (using %.1f, allowed %gG)",
-				vmemGB, self.jobInfo.VMemGB)
+			self.killJobProcess(syscall.SIGKILL)
+			return fmt.Errorf("%s", core.VMemQuotaMessage(vmemGB, self.jobInfo.VMemGB))
 		} else {
-			util.LogInfo("monitor",
-				"Stage exceeded its address space quota (using %.1f, allowed %gG)",
-				vmemGB, self.jobInfo.VMemGB)
+			util.LogInfo("monitor", "%s", core.VMemQuotaMessage(vmemGB, self.jobInfo.VMemGB))
 		}
 	}
 	if time.Since(*lastHeartbeat) > HeartbeatInterval {
@@ -686,7 +687,7 @@ func (self *runner) monitor(lastHeartbeat *time.Time) error {
 			*lastHeartbeat = time.Now()
 		}
 		if _, err := os.Stat(self.metadata.MetadataFilePath(core.LogFile)); os.IsNotExist(err) {
-			self.job.Process.Kill()
+			self.killJobProcess(syscall.SIGKILL)
 			return fmt.Errorf("Stage log file has been deleted.  Aborting run.\n" +
 				"  This is usually the result of `mrp` thinking the stage failed\n" +
 				"  and deleting the stage directory in order to retry.")

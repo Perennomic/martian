@@ -12,26 +12,27 @@ import (
 // Shared job information structures.
 
 type JobInfo struct {
-	Name          string            `json:"name"`
-	Type          string            `json:"type,omitempty"`
-	Cwd           string            `json:"cwd,omitempty"`
-	PythonInfo    *PythonInfo       `json:"python,omitempty"`
-	RusageInfo    *RusageInfo       `json:"rusage,omitempty"`
-	MemoryUsage   *ObservedMemory   `json:"used_bytes,omitempty"`
-	IoStats       *IoStats          `json:"io,omitempty"`
-	WallClockInfo *WallClockInfo    `json:"wallclock,omitempty"`
-	ProfileConfig *ProfileConfig    `json:"profile_config,omitempty"`
-	ProfileMode   ProfileMode       `json:"profile_mode,omitempty"`
-	Stackvars     string            `json:"stackvars_flag,omitempty"`
-	Monitor       string            `json:"monitor_flag,omitempty"`
-	Invocation    *InvocationData   `json:"invocation,omitempty"`
-	Version       *VersionInfo      `json:"version,omitempty"`
-	ClusterEnv    map[string]string `json:"sge,omitempty"`
-	Host          string            `json:"host,omitempty"`
-	Pid           int               `json:"pid,omitempty"`
-	Threads       float64           `json:"threads,omitempty"`
-	MemGB         float64           `json:"memGB,omitempty"`
-	VMemGB        float64           `json:"vmemGB,omitempty"`
+	Name           string            `json:"name"`
+	Type           string            `json:"type,omitempty"`
+	Cwd            string            `json:"cwd,omitempty"`
+	PythonInfo     *PythonInfo       `json:"python,omitempty"`
+	RusageInfo     *RusageInfo       `json:"rusage,omitempty"`
+	MemoryUsage    *ObservedMemory   `json:"used_bytes,omitempty"`
+	IoStats        *IoStats          `json:"io,omitempty"`
+	WallClockInfo  *WallClockInfo    `json:"wallclock,omitempty"`
+	ProfileConfig  *ProfileConfig    `json:"profile_config,omitempty"`
+	ProfileMode    ProfileMode       `json:"profile_mode,omitempty"`
+	Stackvars      string            `json:"stackvars_flag,omitempty"`
+	Monitor        string            `json:"monitor_flag,omitempty"`
+	Invocation     *InvocationData   `json:"invocation,omitempty"`
+	Version        *VersionInfo      `json:"version,omitempty"`
+	ClusterEnv     map[string]string `json:"sge,omitempty"`
+	Host           string            `json:"host,omitempty"`
+	Pid            int               `json:"pid,omitempty"`
+	Threads        float64           `json:"threads,omitempty"`
+	MemGB          float64           `json:"memGB,omitempty"`
+	VMemGB         float64           `json:"vmemGB,omitempty"`
+	VMemGBExplicit bool              `json:"vmemGBExplicit,omitempty"`
 }
 
 type PythonInfo struct {
