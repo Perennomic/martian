@@ -718,7 +718,7 @@ func GetCallable(mroPaths []string, name string, compile bool) (syntax.Callable,
 			for _, fpath := range fpaths {
 				if strings.HasPrefix(fpath, "_") || !strings.HasSuffix(fpath, ".mro") {
 					// skip, private file
-				} else if data, err := os.ReadFile(path.Join(mroPath, fpath)); err == nil {
+				} else if data, err := os.ReadFile(filepath.Join(mroPath, fpath)); err == nil {
 					if ast, err := parse(data, fpath); err == nil {
 						for _, callable := range ast.Callables.List {
 							if callable.GetId() == name {

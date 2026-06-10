@@ -3,25 +3,39 @@ load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 go_library(
     name = "mrjob_lib",
     srcs = [
+        "control_channel.go",
         "mrjob.go",
+        "process_supervisor.go",
     ] + select({
         "@io_bazel_rules_go//go/platform:linux": [
+            "control_channel_unix.go",
             "mrjob_linux.go",
             "mrjob_process_generic.go",
             "mrjob_unix.go",
+            "process_supervisor_default.go",
+            "signal_exit_unix.go",
         ],
         "@io_bazel_rules_go//go/platform:darwin": [
+            "control_channel_unix.go",
             "mrjob_darwin.go",
+            "process_supervisor_default.go",
+            "signal_exit_unix.go",
         ],
         "@io_bazel_rules_go//go/platform:windows": [
+            "control_channel_windows.go",
             "mrjob_generic.go",
             "mrjob_process_generic.go",
             "mrjob_windows.go",
+            "process_supervisor_windows.go",
+            "signal_exit_windows.go",
         ],
         "//conditions:default": [
+            "control_channel_unix.go",
             "mrjob_generic.go",
             "mrjob_process_generic.go",
             "mrjob_unix.go",
+            "process_supervisor_default.go",
+            "signal_exit_unix.go",
         ],
     }),
     importpath = "github.com/martian-lang/martian/cmd/mrjob",
@@ -31,6 +45,7 @@ go_library(
         "//martian/util",
         "@com_github_google_shlex//:go_default_library",
         "@org_golang_x_sys//unix:go_default_library",
+        "@org_golang_x_sys//windows:go_default_library",
     ],
 )
 
@@ -45,10 +60,22 @@ go_test(
     name = "mrjob_test",
     srcs = select({
         "@io_bazel_rules_go//go/platform:linux": [
+            "control_channel_unix_test.go",
             "mrjob_linux_test.go",
+            "process_supervisor_default_test.go",
+            "signal_exit_unix_test.go",
         ],
         "@io_bazel_rules_go//go/platform:darwin": [
+            "control_channel_unix_test.go",
             "mrjob_darwin_test.go",
+            "process_supervisor_default_test.go",
+            "signal_exit_unix_test.go",
+        ],
+        "@io_bazel_rules_go//go/platform:windows": [
+            "control_channel_windows_test.go",
+            "mrjob_windows_test.go",
+            "process_supervisor_windows_test.go",
+            "signal_exit_windows_test.go",
         ],
         "//conditions:default": [],
     }),
@@ -59,6 +86,9 @@ go_test(
         ],
         "@io_bazel_rules_go//go/platform:darwin": [
             "//martian/util",
+        ],
+        "@io_bazel_rules_go//go/platform:windows": [
+            "//martian/core",
         ],
         "//conditions:default": [],
     }),

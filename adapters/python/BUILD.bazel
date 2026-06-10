@@ -1,4 +1,4 @@
-load("@rules_python//python:defs.bzl", "py_library")
+load("@rules_python//python:defs.bzl", "py_library", "py_test")
 
 filegroup(
     name = "python",
@@ -15,6 +15,12 @@ py_library(
         "//cmd/mrp:__pkg__",
     ],
     deps = [":martian"],
+)
+
+py_test(
+    name = "martian_shell_test",
+    srcs = ["martian_shell_test.py"],
+    deps = [":martian_shell"],
 )
 
 alias(

@@ -3,8 +3,8 @@
 //
 // Converts system rusage into our structures.
 //
-//go:build !darwin && !freebsd && !linux && !netbsd && !openbsd && !solaris
-// +build !darwin,!freebsd,!linux,!netbsd,!openbsd,!solaris
+//go:build !darwin && !freebsd && !linux && !netbsd && !openbsd && !solaris && !windows
+// +build !darwin,!freebsd,!linux,!netbsd,!openbsd,!solaris,!windows
 
 package core
 

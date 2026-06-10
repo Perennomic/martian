@@ -48,6 +48,15 @@ type ObservedMemory struct {
 	Text   int64 `json:"text"`
 	Stack  int64 `json:"stack"`
 	Procs  int   `json:"proc_count"`
+
+	// Windows-native counters.  On Windows, Rss is also populated from the
+	// working set and Vmem from private bytes/commit for compatibility with
+	// existing aggregation code, but these fields keep the platform meaning
+	// explicit in _jobinfo.
+	WorkingSet       int64 `json:"working_set,omitempty"`
+	PeakWorkingSet   int64 `json:"peak_working_set,omitempty"`
+	PrivateBytes     int64 `json:"private_bytes,omitempty"`
+	PeakPrivateBytes int64 `json:"peak_private_bytes,omitempty"`
 }
 
 // Increase this value to max(this,other).
@@ -70,6 +79,18 @@ func (self *ObservedMemory) IncreaseTo(other ObservedMemory) {
 	if other.Procs > self.Procs {
 		self.Procs = other.Procs
 	}
+	if other.WorkingSet > self.WorkingSet {
+		self.WorkingSet = other.WorkingSet
+	}
+	if other.PeakWorkingSet > self.PeakWorkingSet {
+		self.PeakWorkingSet = other.PeakWorkingSet
+	}
+	if other.PrivateBytes > self.PrivateBytes {
+		self.PrivateBytes = other.PrivateBytes
+	}
+	if other.PeakPrivateBytes > self.PeakPrivateBytes {
+		self.PeakPrivateBytes = other.PeakPrivateBytes
+	}
 }
 
 // Add other to this.
@@ -80,6 +101,10 @@ func (self *ObservedMemory) Add(other ObservedMemory) {
 	self.Text += other.Text
 	self.Stack += other.Stack
 	self.Procs += other.Procs
+	self.WorkingSet += other.WorkingSet
+	self.PeakWorkingSet += other.PeakWorkingSet
+	self.PrivateBytes += other.PrivateBytes
+	self.PeakPrivateBytes += other.PeakPrivateBytes
 }
 
 // Increase this value to the max RSS reported by getrusage, if it
@@ -105,7 +130,9 @@ func (self *ObservedMemory) IncreaseRusage(other *RusageInfo) {
 func (self *ObservedMemory) IsZero() bool {
 	return self.Rss == 0 && self.Vmem == 0 &&
 		self.Shared == 0 && self.Text == 0 &&
-		self.Stack == 0
+		self.Stack == 0 &&
+		self.WorkingSet == 0 && self.PeakWorkingSet == 0 &&
+		self.PrivateBytes == 0 && self.PeakPrivateBytes == 0
 }
 
 func (self *ObservedMemory) RssKb() int {

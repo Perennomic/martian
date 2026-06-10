@@ -66,9 +66,9 @@ func makeOutArgs(outParams *syntax.OutParams, filesPath string, nullAll bool) Ma
 	return args
 }
 
-// Escape hatch for this feature in case of weird nfs servers which don't
-// work for whatever reason.
-var disableUniquification = (os.Getenv("MRO_UNIQUIFIED_DIRECTORIES") == disable)
+// Escape hatch for this feature in case of filesystems which don't support
+// the symlink semantics required for uniquified metadata directories.
+var disableUniquification = shouldDisableUniquification()
 
 //=============================================================================
 // Chunk

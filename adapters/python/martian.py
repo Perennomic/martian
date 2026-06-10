@@ -14,11 +14,19 @@ from __future__ import absolute_import, division, print_function
 import json
 import math
 import os
-import resource
 import subprocess
 import sys
 from pathlib import PurePath
 
+try:
+    import resource
+except ImportError:
+    resource = None
+
+try:
+    import psutil
+except ImportError:
+    psutil = None
 
 from typing import (  # pylint: disable=import-error, unused-import
     Any,
@@ -117,10 +125,41 @@ def get_mem_kb():
     # type: () -> int
     """Get the current max rss memory for this process and completed child
     processes."""
+    if sys.platform == "win32":
+        # On platforms without the resource module, use psutil as an optional fallback
+        return _get_psutil_mem_kb()
+    if resource is None :
+        return 0
     return max(
         resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
         resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss,
     )
+
+
+def _process_memory_bytes(process):
+    # type: (...) -> int
+    """Get a platform-specific high-water or current memory value."""
+    mem_info = process.memory_info()
+    for field_name in ("peak_wset", "rss", "wset"):
+        value = getattr(mem_info, field_name, 0)
+        if value:
+            return int(value)
+    return 0
+
+
+def _get_psutil_mem_kb():
+    # type: () -> int
+    """Sample this process tree using psutil, if available."""
+    if psutil is None:
+        return 0
+    process = psutil.Process()
+    if process is None:
+        return 0
+    total_bytes = _process_memory_bytes(process)
+    children = process.children(recursive=True)
+    for child in children:
+        total_bytes += _process_memory_bytes(child)
+    return total_bytes // 1024
 
 
 def convert_gb_to_kb(mem_gb):

@@ -95,11 +95,11 @@ func MkdirAll(p string) error {
 }
 
 func ParseMroPath(mroPath string) []string {
-	return strings.Split(mroPath, ":")
+	return filepath.SplitList(mroPath)
 }
 
 func FormatMroPath(mroPaths []string) string {
-	return strings.Join(mroPaths, ":")
+	return strings.Join(mroPaths, string(os.PathListSeparator))
 }
 
 type dirSizeCounter struct {
@@ -124,11 +124,11 @@ func GetDirectorySize(paths []string) (uint, uint64) {
 }
 
 // SearchPaths searches through searchPaths for the first path such that
-// path.Join(p, fname) points to an existing file, and returns that joined
+// filepath.Join(p, fname) points to an existing file, and returns that joined
 // path, or false if no such path is present.
 func SearchPaths(fname string, searchPaths []string) (string, bool) {
 	for _, searchPath := range searchPaths {
-		fpath := path.Join(searchPath, fname)
+		fpath := filepath.Join(searchPath, fname)
 		if _, err := os.Stat(fpath); !os.IsNotExist(err) {
 			return fpath, true
 		}
@@ -137,15 +137,15 @@ func SearchPaths(fname string, searchPaths []string) (string, bool) {
 }
 
 // FindUniquePath searches through searchPaths for a path such that
-// path.Join(p, fname) points to an existing file.  If more than one
+// filepath.Join(p, fname) points to an existing file.  If more than one
 // path in searchPaths satisfies that requirement, an error is returned
 // indicating the ambiguity.  If no such path exists, an error satisfying
 // os.IsNotExist will be returned.
 func FindUniquePath(fname string, searchPaths []string) (string, error) {
 	var resolved string
 	for _, searchPath := range searchPaths {
-		fpath := path.Join(searchPath, fname)
-		if !path.IsAbs(fpath) {
+		fpath := filepath.Join(searchPath, fname)
+		if !filepath.IsAbs(fpath) {
 			if p, err := filepath.Abs(fpath); err == nil {
 				fpath = p
 			}

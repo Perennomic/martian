@@ -77,11 +77,16 @@ go_library(
 
 go_test(
     name = "util_test",
-    srcs = select({
+    srcs = [
+        "mropath_test.go",
+    ] + select({
         "@io_bazel_rules_go//go/platform:linux": [
             "cgroups_linux_test.go",
             "directory_linux_test.go",
             "walk_linux_test.go",
+        ],
+        "@io_bazel_rules_go//go/platform:windows": [
+            "mropath_windows_test.go",
         ],
         "//conditions:default": [],
     }),

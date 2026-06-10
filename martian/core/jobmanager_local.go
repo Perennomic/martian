@@ -12,7 +12,6 @@ import (
 	"runtime/trace"
 	"strconv"
 	"strings"
-	"syscall"
 	"time"
 
 	"github.com/martian-lang/martian/martian/util"
@@ -59,6 +58,7 @@ type LocalJobManager struct {
 	debug       bool
 	limitLoad   bool
 	highMem     ObservedMemory
+	sampler     ResourceSampler
 }
 
 func NewLocalJobManager(userMaxCores int,
@@ -68,6 +68,7 @@ func NewLocalJobManager(userMaxCores int,
 	self := &LocalJobManager{
 		debug:     debug,
 		limitLoad: limitLoadavg,
+		sampler:   NewResourceSampler(),
 
 		// Buffer up to 1 notification, in case a job finishes while the
 		// runloop processing is in progress.
@@ -83,6 +84,13 @@ func NewLocalJobManager(userMaxCores int,
 	self.setMaxMem(userMaxMemGB, userMaxVMemGB, clusterMode)
 	self.setupSemaphores()
 	return self, err
+}
+
+func (self *LocalJobManager) resourceSampler() ResourceSampler {
+	if self.sampler == nil {
+		self.sampler = NewResourceSampler()
+	}
+	return self.sampler
 }
 
 func (self *LocalJobManager) setMaxCores(userMaxCores int, clusterMode bool) {
@@ -106,8 +114,8 @@ func (self *LocalJobManager) setMaxCores(userMaxCores int, clusterMode bool) {
 }
 
 func (self *LocalJobManager) setMaxMem(userMaxMemGB, userMaxVMemGB int, clusterMode bool) {
-	var sysMem MemInfo
-	if err := sysMem.Get(); err != nil && sysMem.Total == 0 {
+	sysMem, err := self.resourceSampler().SystemMemory()
+	if err != nil && sysMem.Total == 0 {
 		util.PrintError(err, "jobmngr",
 			"Error attempting to read system memory values.")
 	}
@@ -221,7 +229,7 @@ func (self *LocalJobManager) setupSemaphores() {
 				"permits.")
 		}
 
-		if userProcs, err := GetUserProcessCount(); err != nil {
+		if userProcs, err := self.resourceSampler().UserProcessCount(); err != nil {
 			self.procsSem.UpdateSize(rlimCur(rlim))
 		} else {
 			self.procsSem.UpdateFreeUsed(
@@ -244,7 +252,7 @@ func (self *LocalJobManager) setupSemaphores() {
 	}
 	self.queue = []*exec.Cmd{}
 	util.RegisterSignalHandler(self)
-	if usedMem, err := GetProcessTreeMemory(os.Getpid(), true, nil); err == nil {
+	if usedMem, err := self.resourceSampler().ProcessTreeMemory(os.Getpid(), true, nil); err == nil {
 		self.highMem.IncreaseTo(usedMem)
 	}
 }
@@ -254,11 +262,11 @@ func (self *LocalJobManager) GetSettings() *JobManagerSettings {
 }
 
 func (self *LocalJobManager) refreshResources(localMode bool) error {
-	var sysMem MemInfo
-	if err := sysMem.Get(); err != nil {
+	sysMem, err := self.resourceSampler().SystemMemory()
+	if err != nil {
 		return err
 	}
-	usedMem, err := GetProcessTreeMemory(os.Getpid(), false, nil)
+	usedMem, err := self.resourceSampler().ProcessTreeMemory(os.Getpid(), false, nil)
 	if err != nil {
 		util.LogError(err, "jobmngr", "Error getting process tree memory usage.")
 	}
@@ -313,7 +321,7 @@ func (self *LocalJobManager) refreshResources(localMode bool) error {
 	if self.procsSem != nil {
 		if rlim, err := GetMaxProcs(); err != nil {
 			return err
-		} else if userProcs, err := GetUserProcessCount(); err != nil {
+		} else if userProcs, err := self.resourceSampler().UserProcessCount(); err != nil {
 			return err
 		} else {
 			self.procsSem.UpdateFreeUsed(
@@ -657,6 +665,8 @@ func (self *LocalJobManager) Enqueue(shellCmd string, argv []string,
 
 func executeLocal(cmd *exec.Cmd, stdoutPath, stderrPath string,
 	localpreflight bool, metadata *Metadata) error {
+	supervisor := newLocalProcessSupervisor()
+	defer supervisor.close()
 	if err := func(cmd *exec.Cmd, stdoutPath, stderrPath string,
 		localpreflight bool, metadata *Metadata) error {
 		// Set up _stdout and _stderr for the job.
@@ -675,7 +685,6 @@ func executeLocal(cmd *exec.Cmd, stdoutPath, stderrPath string,
 		} else {
 			util.LogError(err, "jobmngr", "Error creating job stdout file.")
 		}
-		cmd.SysProcAttr = util.Pdeathsig(&syscall.SysProcAttr{}, syscall.SIGTERM)
 		stderrFile, err := os.Create(stderrPath)
 		if err == nil {
 			if _, err := stderrFile.WriteString("[stderr]\n"); err != nil {
@@ -690,7 +699,7 @@ func executeLocal(cmd *exec.Cmd, stdoutPath, stderrPath string,
 		// Run the command and wait for completion.
 		util.EnterCriticalSection()
 		defer util.ExitCriticalSection()
-		err = cmd.Start()
+		err = supervisor.start(cmd)
 		if err == nil {
 			return metadata.remove(QueuedLocally)
 		}
@@ -699,7 +708,7 @@ func executeLocal(cmd *exec.Cmd, stdoutPath, stderrPath string,
 		localpreflight, metadata); err != nil {
 		return err
 	}
-	return cmd.Wait()
+	return supervisor.wait(cmd)
 }
 
 // Done returns a channel which gets notified when a local job exits.

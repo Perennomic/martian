@@ -185,6 +185,8 @@ class _MemoryProfile:
 
 
 _METADATA_PREFIX = b"_"
+_CONTROL_LOG_PATH_ENV = "MRO_CONTROL_LOG_PATH"
+_CONTROL_ERROR_PATH_ENV = "MRO_CONTROL_ERROR_PATH"
 
 
 class _Metadata:
@@ -205,6 +207,9 @@ class _Metadata:
 
         if test:
             self._logfile = sys.stdout
+        elif os.environ.get(_CONTROL_LOG_PATH_ENV):
+            # pylint: disable=consider-using-with
+            self._logfile = open(os.environ[_CONTROL_LOG_PATH_ENV], "a")
         else:
             self._logfile = os.fdopen(3, "a")
         self.cache = set()
@@ -260,7 +265,7 @@ class _Metadata:
         with open(fname_tmp, "wb") as dest:
             dest.write(text)
         try:
-            os.rename(fname_tmp, fname)
+            os.replace(fname_tmp, fname)
         except OSError as err:
             if err.errno == errno.ENOENT:
                 self.log("warn", "Ignoring error moving temp-file %s" % err)
@@ -320,7 +325,12 @@ class _Metadata:
     @classmethod
     def write_errors(cls, message):
         """Write to the errors file."""
-        with os.fdopen(4, "w") as error_out:
+        error_target = os.environ.get(_CONTROL_ERROR_PATH_ENV)
+        if error_target:
+            error_out = open(error_target, "w")
+        else:
+            error_out = os.fdopen(4, "w")
+        with error_out:
             error_out.write(cls._to_string_type(message))
 
     @classmethod

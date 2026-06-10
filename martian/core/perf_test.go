@@ -3,7 +3,9 @@
 package core
 
 import (
+	"encoding/json"
 	"math"
+	"strings"
 	"testing"
 )
 
@@ -63,5 +65,55 @@ func TestAutoAdjustMemoryFibonacci(t *testing.T) {
 			t.Errorf("step %d: expected %.4f, got %.4f", i+1, want, newMem)
 		}
 		allocation = newMem
+	}
+}
+
+func TestObservedMemoryWindowsFields(t *testing.T) {
+	var observed ObservedMemory
+	current := ObservedMemory{
+		Rss:              10,
+		Vmem:             20,
+		WorkingSet:       10,
+		PeakWorkingSet:   15,
+		PrivateBytes:     20,
+		PeakPrivateBytes: 25,
+	}
+	observed.IncreaseTo(current)
+	observed.Add(ObservedMemory{
+		Rss:              1,
+		Vmem:             2,
+		WorkingSet:       1,
+		PeakWorkingSet:   2,
+		PrivateBytes:     2,
+		PeakPrivateBytes: 3,
+	})
+	if observed.WorkingSet != 11 || observed.PrivateBytes != 22 {
+		t.Fatalf("expected Windows current counters to aggregate, got working_set=%d private_bytes=%d",
+			observed.WorkingSet, observed.PrivateBytes)
+	}
+	if observed.PeakWorkingSet != 17 || observed.PeakPrivateBytes != 28 {
+		t.Fatalf("expected Windows peak counters to aggregate, got peak_working_set=%d peak_private_bytes=%d",
+			observed.PeakWorkingSet, observed.PeakPrivateBytes)
+	}
+	if observed.IsZero() {
+		t.Fatal("expected observed memory with Windows counters to be non-zero")
+	}
+}
+
+func TestObservedMemoryWindowsFieldsOmitEmpty(t *testing.T) {
+	b, err := json.Marshal(ObservedMemory{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := string(b)
+	for _, field := range []string{
+		"working_set",
+		"peak_working_set",
+		"private_bytes",
+		"peak_private_bytes",
+	} {
+		if strings.Contains(got, field) {
+			t.Fatalf("expected zero Windows field %q to be omitted from %s", field, got)
+		}
 	}
 }

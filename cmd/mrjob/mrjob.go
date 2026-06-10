@@ -34,18 +34,20 @@ const MemorySampleInterval = time.Second * 5
 const MonitorMemorySampleInterval = time.Second * 1
 
 type runner struct {
-	start       time.Time
-	job         *exec.Cmd
-	log         *os.File
-	errorReader *os.File
-	ioStats     *core.IoStatsBuilder
-	metadata    *core.Metadata
-	jobInfo     *core.JobInfo
-	isDone      chan struct{}
-	perfDone    <-chan struct{}
-	runType     string
-	highMem     core.ObservedMemory
-	monitoring  bool
+	start      time.Time
+	job        *exec.Cmd
+	log        *os.File
+	control    controlChannel
+	ioStats    *core.IoStatsBuilder
+	metadata   *core.Metadata
+	jobInfo    *core.JobInfo
+	supervisor processSupervisor
+	isDone     chan struct{}
+	perfDone   <-chan struct{}
+	runType    string
+	highMem    core.ObservedMemory
+	monitoring bool
+	sampler    core.ResourceSampler
 }
 
 func main() {
@@ -67,10 +69,12 @@ func main() {
 	}
 
 	run := runner{
-		ioStats:  core.NewIoStatsBuilder(),
-		metadata: core.NewMetadataRunWithJournalPath(fqname, metadataPath, filesPath, journalPath, runType),
-		runType:  runType,
-		start:    time.Now(),
+		ioStats:    core.NewIoStatsBuilder(),
+		metadata:   core.NewMetadataRunWithJournalPath(fqname, metadataPath, filesPath, journalPath, runType),
+		supervisor: newProcessSupervisor(),
+		sampler:    core.NewResourceSampler(),
+		runType:    runType,
+		start:      time.Now(),
 	}
 	util.RegisterSignalHandler(&run)
 	if log, err := os.OpenFile(run.metadata.MetadataFilePath(core.LogFile),
@@ -186,6 +190,9 @@ func (self *runner) setRlimit() {
 }
 
 func (self *runner) done() {
+	if self.supervisor != nil {
+		defer self.supervisor.close()
+	}
 	util.LogInfo("time", "__end__")
 	// refresh jobInfo if possible, but if we can't that's ok.
 	self.metadata.ReadInto(core.JobInfoFile, self.jobInfo)
@@ -196,8 +203,8 @@ func (self *runner) done() {
 			End:      core.WallClockTime(end),
 			Duration: end.Sub(self.start).Seconds(),
 		}
-		if waitChildren() {
-			if !reportChildren() {
+		if self.supervisor != nil && self.supervisor.waitChildren() {
+			if !self.supervisor.reportChildren() {
 				// waitChildren detected that there were remaining child
 				// processes, but reportChildren wasn't able to report them for
 				// whatever reason.
@@ -205,9 +212,16 @@ func (self *runner) done() {
 					"Orphaned child processes detected, which did not terminate.")
 			}
 		}
-		self.jobInfo.RusageInfo = core.GetRusage()
+		if self.supervisor != nil {
+			self.jobInfo.RusageInfo = self.supervisor.rusage()
+		} else {
+			self.jobInfo.RusageInfo = core.GetRusage()
+		}
 		if !self.highMem.IsZero() {
 			self.jobInfo.MemoryUsage = &self.highMem
+		}
+		if self.supervisor != nil {
+			self.jobInfo.SupervisorReason = self.supervisor.terminationReason()
 		}
 		self.jobInfo.IoStats = &self.ioStats.IoStats
 		if err := self.metadata.WriteAtomic(core.JobInfoFile, self.jobInfo); err != nil {
@@ -219,6 +233,13 @@ func (self *runner) done() {
 			self.writeMemViolation(maxRss)
 		}
 	}
+}
+
+func (self *runner) resourceSampler() core.ResourceSampler {
+	if self.sampler == nil {
+		self.sampler = core.NewResourceSampler()
+	}
+	return self.sampler
 }
 
 func (self *runner) Fail(err error, message string) {
@@ -330,23 +351,19 @@ func (self *runner) sync() {
 	syncFile(path.Dir(self.metadata.MetadataFilePath(core.CompleteFile)))
 }
 
-func (self *runner) makeErrorPipe() (*os.File, error) {
-	var err error
-	var writer *os.File
-	self.errorReader, writer, err = os.Pipe()
-	return writer, err
-}
-
 func (self *runner) StartJob(args []string) error {
-	cmd := exec.Command(args[0], args[1:]...)
-	if writer, err := self.makeErrorPipe(); err != nil {
-		return err
-	} else {
-		cmd.ExtraFiles = []*os.File{self.log, writer}
-		defer writer.Close()
+	if self.supervisor == nil {
+		self.supervisor = newProcessSupervisor()
 	}
+	cmd := exec.Command(args[0], args[1:]...)
+	control, err := newControlChannel(self.log)
+	if err != nil {
+		return err
+	}
+	self.control = control
+	defer control.closeChild()
 	// We really don't want the child outliving the parent.
-	cmd.SysProcAttr = jobSysProcAttr(syscall.SIGKILL)
+	self.supervisor.configure(cmd, syscall.SIGKILL)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if pc := self.jobInfo.ProfileConfig; pc != nil && len(pc.Env) > 0 {
@@ -354,10 +371,11 @@ func (self *runner) StartJob(args []string) error {
 			self.metadata.MetadataFilePath(core.PerfData),
 			self.metadata.MetadataFilePath(core.ProfileOut))
 	}
+	control.configure(cmd)
 	if err := func(cmd *exec.Cmd) error {
 		if self.monitoring && core.ShouldSetVMemRLimit(self.jobInfo) {
 			// Exclude mrjob's vmem usage from the rlimit.
-			mem, _ := core.GetProcessTreeMemory(self.jobInfo.Pid, true, nil)
+			mem, _ := self.resourceSampler().ProcessTreeMemory(self.jobInfo.Pid, true, nil)
 			amount := int64(self.jobInfo.VMemGB)*1024*1024*1024 - mem.Vmem
 			if amount < mem.Vmem+1024*1024 {
 				amount = mem.Vmem + 1024*1024
@@ -381,9 +399,9 @@ func (self *runner) StartJob(args []string) error {
 			util.EnterCriticalSection()
 			defer util.ExitCriticalSection()
 			self.job = cmd
-			return self.job.Start()
+			return self.supervisor.start(cmd)
 		}(); err != nil {
-			self.errorReader.Close()
+			self.control.closeParent()
 			return err
 		}
 		return nil
@@ -422,10 +440,12 @@ func (self *runner) startProfile() error {
 			self.metadata.MetadataFilePath(core.ProfileOut),
 			self.job.Process.Pid)...)
 	}
-	cmd.SysProcAttr = util.Pdeathsig(&syscall.SysProcAttr{}, syscall.SIGINT)
 	cmd.Stdout = os.Stderr
 	cmd.Stderr = os.Stderr
-	if err := cmd.Start(); err != nil {
+	if self.supervisor == nil {
+		self.supervisor = newProcessSupervisor()
+	}
+	if err := self.supervisor.startAuxiliary(cmd, syscall.SIGINT); err != nil {
 		return err
 	} else {
 		perfDone := make(chan struct{})
@@ -441,9 +461,9 @@ func (self *runner) startProfile() error {
 	}
 }
 
-func (self *runner) killJobProcess(sig syscall.Signal) {
-	if cmd := self.job; cmd != nil {
-		killProcess(cmd.Process, sig)
+func (self *runner) killJobProcess(sig syscall.Signal, reason string) {
+	if self.supervisor != nil {
+		self.supervisor.kill(sig, reason)
 	}
 }
 
@@ -451,7 +471,7 @@ func (self *runner) HandleSignal(sig os.Signal) {
 	util.PrintInfo("monitor", "Caught signal %v", sig)
 	cmd := self.job
 	if cmd != nil {
-		self.killJobProcess(syscall.SIGKILL)
+		self.killJobProcess(syscall.SIGKILL, fmt.Sprintf("caught signal %v", sig))
 	}
 	if c := self.isDone; c != nil {
 		t := time.NewTimer(time.Second * 5)
@@ -500,41 +520,6 @@ func (self *stageReturnedError) Error() string {
 	return self.message
 }
 
-// Returns true if sig is a signal which we expect is not due to a
-// bug in the stage code.
-func externalSignal(sig syscall.Signal) bool {
-	for _, handled := range util.HANDLED_SIGNALS {
-		if sig == handled {
-			return true
-		}
-	}
-	// SIGKLL isn't in the handled set because it can't be handled, but
-	// should be treated equivalently to SIGTERM for these purposes.
-	if sig == syscall.SIGKILL {
-		return true
-	}
-	return false
-}
-
-// Convert an exec.ExitError to a stageReturnedError if the failure was due to
-// one of the signals that we choose to handle.  This allows restart logic to
-// work correctly.
-func sigToErr(err error) error {
-	if err == nil {
-		return err
-	}
-	if exitErr, ok := err.(*exec.ExitError); ok {
-		if state, ok := exitErr.Sys().(*syscall.WaitStatus); ok &&
-			state.Signaled() && externalSignal(state.Signal()) {
-			return &stageReturnedError{
-				message: fmt.Sprintf(
-					"stage code received signal: %v", state.Signal()),
-			}
-		}
-	}
-	return err
-}
-
 // Wait for the process to complete or, if monitoring is enabled, for it to
 // exceed its memory quota.
 func (self *runner) WaitLoop() {
@@ -543,7 +528,7 @@ func (self *runner) WaitLoop() {
 		defer func(wait chan<- error) {
 			close(wait)
 		}(wait)
-		errorBytes := readBytes(8100, self.errorReader)
+		errorBytes := self.control.readError(8100)
 		if len(errorBytes) > 0 {
 			// If the job has finished, we want to wait on it so it isn't
 			// a zombie while we do our cleanup, and also so that its rusage
@@ -551,17 +536,29 @@ func (self *runner) WaitLoop() {
 			// block our own exit.  Under most circumstances the process will
 			// have already terminated by the time we get here.
 			go func() {
-				self.job.Wait()
+				if self.supervisor != nil {
+					self.supervisor.wait()
+				}
 				close(self.isDone)
 			}()
 			wait <- &stageReturnedError{message: string(errorBytes)}
 		} else {
 			close(self.isDone)
-			wait <- sigToErr(self.job.Wait())
+			var err error
+			if self.supervisor == nil {
+				err = nil
+			} else {
+				err = sigToErr(self.supervisor.wait())
+			}
+			if errorBytes := self.control.readErrorAfterWait(8100); len(errorBytes) > 0 {
+				wait <- &stageReturnedError{message: string(errorBytes)}
+			} else {
+				wait <- err
+			}
 		}
 	}(wait)
 	err := func(wait <-chan error) error {
-		defer self.errorReader.Close()
+		defer self.control.closeParent()
 		// Make sure we record at least one memory high-water mark, even
 		// for short stages.
 		self.updateChildMemGB()
@@ -599,7 +596,8 @@ func (self *runner) WaitLoop() {
 		// Wait up to 5 seconds for the job to finish, to ensure we get rusage.
 		select {
 		case <-time.After(time.Second * 5):
-			self.killJobProcess(syscall.SIGKILL)
+			self.killJobProcess(syscall.SIGKILL,
+				"stage process did not exit within 5 seconds after monitor finished")
 		case <-self.isDone:
 		}
 	}
@@ -618,14 +616,15 @@ func (self *runner) updateChildMemGB() {
 		return
 	}
 	io := make(map[int]*core.IoAmount)
-	mem, err := core.GetProcessTreeMemory(proc.Pid, true, io)
-	if selfMem, err := core.GetRunningMemory(self.jobInfo.Pid); err == nil {
+	sampler := self.resourceSampler()
+	mem, err := sampler.ProcessTreeMemory(proc.Pid, true, io)
+	if selfMem, err := sampler.RunningMemory(self.jobInfo.Pid); err == nil {
 		// Do this rather than just calling core.GetProcessTreeMemory,
 		// above, because we don't want to include the profiling child
 		// process (if any).
 		mem.Add(selfMem)
 	}
-	mem.IncreaseRusage(core.GetRusage())
+	mem.IncreaseRusage(sampler.Rusage())
 	self.highMem.IncreaseTo(mem)
 	if err != nil {
 		util.LogError(err, "monitor",
@@ -636,7 +635,7 @@ func (self *runner) updateChildMemGB() {
 }
 
 func (self *runner) logProcessTree() {
-	tree, _ := core.GetProcessTreeMemoryList(os.Getpid())
+	tree, _ := self.resourceSampler().ProcessTreeMemoryList(os.Getpid())
 	if len(tree) > 0 {
 		util.LogInfo("monitor", "Process tree:\n%s",
 			tree.Format("       "))
@@ -653,18 +652,18 @@ func (self *runner) monitor(lastHeartbeat *time.Time) error {
 
 		if self.monitoring {
 			if proc := self.job.Process; proc != nil {
-				tree, _ := core.GetProcessTreeMemoryList(proc.Pid)
+				tree, _ := self.resourceSampler().ProcessTreeMemoryList(proc.Pid)
 				if len(tree) > 0 {
 					util.LogInfo("monitor", "Process tree:\n%s",
 						tree.Format("       "))
 				}
 			}
-			self.killJobProcess(syscall.SIGKILL)
-
-			return fmt.Errorf(
-				"%s (using %.1f, allowed %gG)",
+			reason := fmt.Sprintf("%s (using %.1f, allowed %gG)",
 				core.ExceededMemQuotaMessage,
 				rssGB, self.jobInfo.MemGB)
+			self.killJobProcess(syscall.SIGKILL, reason)
+
+			return fmt.Errorf("%s", reason)
 		} else {
 			util.LogInfo("monitor",
 				"%s (using %.1f, allowed %gG)",
@@ -674,8 +673,9 @@ func (self *runner) monitor(lastHeartbeat *time.Time) error {
 	} else if core.ShouldCheckVMem(self.jobInfo) && vmemGB > self.jobInfo.VMemGB {
 		self.logProcessTree()
 		if self.monitoring {
-			self.killJobProcess(syscall.SIGKILL)
-			return fmt.Errorf("%s", core.VMemQuotaMessage(vmemGB, self.jobInfo.VMemGB))
+			reason := core.VMemQuotaMessage(vmemGB, self.jobInfo.VMemGB)
+			self.killJobProcess(syscall.SIGKILL, reason)
+			return fmt.Errorf("%s", reason)
 		} else {
 			util.LogInfo("monitor", "%s", core.VMemQuotaMessage(vmemGB, self.jobInfo.VMemGB))
 		}
@@ -687,10 +687,11 @@ func (self *runner) monitor(lastHeartbeat *time.Time) error {
 			*lastHeartbeat = time.Now()
 		}
 		if _, err := os.Stat(self.metadata.MetadataFilePath(core.LogFile)); os.IsNotExist(err) {
-			self.killJobProcess(syscall.SIGKILL)
-			return fmt.Errorf("Stage log file has been deleted.  Aborting run.\n" +
+			reason := "Stage log file has been deleted.  Aborting run.\n" +
 				"  This is usually the result of `mrp` thinking the stage failed\n" +
-				"  and deleting the stage directory in order to retry.")
+				"  and deleting the stage directory in order to retry."
+			self.killJobProcess(syscall.SIGKILL, reason)
+			return fmt.Errorf("%s", reason)
 		}
 	}
 	return nil
@@ -700,7 +701,10 @@ func (self *runner) monitor(lastHeartbeat *time.Time) error {
 // Returns the max observed RSS in bytes in second position.
 func (self *runner) exceededMemReservation() (bool, int64) {
 	maxRss := self.highMem.Rss
-	if self.jobInfo.RusageInfo != nil {
+	if self.jobInfo == nil {
+		return false, maxRss
+	}
+	if self.jobInfo.RusageInfo != nil && self.jobInfo.RusageInfo.Children != nil {
 		maxRusage := int64(self.jobInfo.RusageInfo.Children.MaxRss) * 1024
 		if maxRusage > maxRss {
 			maxRss = maxRusage

@@ -25,6 +25,6 @@ func rlimCur(rlim interface{}) int64 {
 	return 0
 }
 
-func SetVMemRLimit(uint64) error { return nil }
+func SetVMemRLimit(uint64) (uint64, error) { return 0, nil }
 
 func MaximizeMaxFiles() error { return nil }

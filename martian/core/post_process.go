@@ -428,7 +428,7 @@ func moveOutFile(w *bytes.Buffer, param *syntax.StructMember,
 	// Only continue if path to be copied is inside the pipestance
 	if absFilePath, err := filepath.Abs(filePath); err == nil {
 		if absPipestancePath, err := filepath.Abs(pipestancePath); err == nil {
-			if !strings.Contains(absFilePath, absPipestancePath) {
+			if !pathIsInsideDir(absFilePath, absPipestancePath) {
 				if _, err := w.Write(value); err != nil {
 					return err
 				}
@@ -436,7 +436,7 @@ func moveOutFile(w *bytes.Buffer, param *syntax.StructMember,
 					return err
 				}
 				// But we still want a symlink in outs/
-				return os.Symlink(absFilePath, outPath)
+				return linkOutFile(absFilePath, outPath)
 			}
 		}
 	}
@@ -466,8 +466,8 @@ func moveOutFile(w *bytes.Buffer, param *syntax.StructMember,
 		return err
 	}
 
-	// Symlink it back to the original files/ folder
-	if err := os.Symlink(relPath, filePath); err != nil {
+	// Symlink it back to the original files/ folder.
+	if err := restoreMovedOutFile(relPath, filePath, outPath); err != nil {
 		if _, err := w.Write(value); err != nil {
 			return err
 		}
@@ -496,12 +496,12 @@ func copyOutSymlink(w *bytes.Buffer, param *syntax.StructMember,
 	// Only continue if path to be copied is inside the pipestance
 	if absFilePath, err := filepath.Abs(filePath); err == nil {
 		if absPipestancePath, err := filepath.Abs(pipestancePath); err == nil {
-			if !strings.Contains(absFilePath, absPipestancePath) {
+			if !pathIsInsideDir(absFilePath, absPipestancePath) {
 				if _, err := w.Write(value); err != nil {
 					return err
 				}
 				// But we still want a symlink
-				return os.Symlink(absFilePath, outPath)
+				return linkOutFile(absFilePath, outPath)
 			}
 		}
 	}
@@ -552,13 +552,26 @@ func copyOutSymlink(w *bytes.Buffer, param *syntax.StructMember,
 			return err
 		}
 		if filepath.IsAbs(p) {
-			return os.Symlink(p, outPath)
+			return linkOutFile(p, outPath)
 		} else if rel, err := filepath.Rel(filepath.Dir(outPath), ap); err != nil {
 			return err
 		} else {
-			return os.Symlink(rel, outPath)
+			return linkOutFile(rel, outPath)
 		}
 	}
+}
+
+func pathIsInsideDir(name, dir string) bool {
+	rel, err := filepath.Rel(dir, name)
+	if err != nil {
+		return false
+	}
+	if rel == "." {
+		return true
+	}
+	return rel != ".." &&
+		!strings.HasPrefix(rel, ".."+string(os.PathSeparator)) &&
+		!filepath.IsAbs(rel)
 }
 
 func makeNewIndent(indent []byte, keyLen int) []byte {

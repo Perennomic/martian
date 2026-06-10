@@ -13,6 +13,7 @@ import (
 	"os"
 	"path"
 	"regexp"
+	"runtime"
 	"runtime/trace"
 	"sort"
 	"strconv"
@@ -1132,6 +1133,9 @@ func (self *Node) runJob(shellName, fqname, stageType string,
 			metadata.path,
 			metadata.curFilesPath,
 			runFile,
+		}
+		if runtime.GOOS == "windows" {
+			argv = append([]string{"python"}, argv...)
 		}
 	case syntax.CompiledStage:
 		shellCmd = self.top.rt.mrjob

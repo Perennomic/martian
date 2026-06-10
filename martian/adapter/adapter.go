@@ -70,6 +70,11 @@ func IsAssertion(err error) bool {
 
 var jobinfo core.JobInfo
 
+const (
+	controlLogPathEnv   = "MRO_CONTROL_LOG_PATH"
+	controlErrorPathEnv = "MRO_CONTROL_ERROR_PATH"
+)
+
 // Get the cached version of the JobInfo object for this job.
 func GetJobInfo() *core.JobInfo {
 	return &jobinfo
@@ -106,8 +111,8 @@ func UpdateProgress(metadata *core.Metadata, message string) error {
 //
 // This should be the main entry point for all stage executables.
 func RunStage(split SplitFunc, main MainFunc, join MainFunc) {
-	util.LogTeeWriter(os.NewFile(3, "martian://log"))
-	errorFile := os.NewFile(4, "martian://errors")
+	util.LogTeeWriter(openControlLog())
+	errorFile := openControlErrors()
 	// Capture panic stacks into the _errors file and exit when this method is complete.
 	defer func() {
 		if r := recover(); r != nil {
@@ -131,6 +136,24 @@ func RunStage(split SplitFunc, main MainFunc, join MainFunc) {
 		fmt.Fprintf(errorFile, "ASSERT:Invalid run type %s", runType)
 		return
 	}
+}
+
+func openControlLog() *os.File {
+	if logPath := os.Getenv(controlLogPathEnv); logPath != "" {
+		if logFile, err := os.OpenFile(logPath, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644); err == nil {
+			return logFile
+		}
+	}
+	return os.NewFile(3, "martian://log")
+}
+
+func openControlErrors() *os.File {
+	if errorPath := os.Getenv(controlErrorPathEnv); errorPath != "" {
+		if errorFile, err := os.OpenFile(errorPath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644); err == nil {
+			return errorFile
+		}
+	}
+	return os.NewFile(4, "martian://errors")
 }
 
 func parseCommandLine() (*core.Metadata, string) {
